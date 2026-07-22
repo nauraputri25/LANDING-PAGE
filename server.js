@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// 🔗 URL WEB APP GOOGLE APPS SCRIPT KAMU
+// 🔗 URL WEB APP GOOGLE APPS SCRIPT
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBuq6R8DMTIiRYTx_MnRQoYDHr2A6wPjrdD41uoR-HXsS7q79e471CTl03bIumg6wd/exec";
 
 // --- RUTE HALAMAN UTAMA ---

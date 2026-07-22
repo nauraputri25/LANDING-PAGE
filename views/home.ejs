@@ -24,16 +24,28 @@
         justify-content: space-between;
         align-items: center;
         padding: 20px 24px;
-        border-bottom: 1px solid #1f293d;
-        background-color: #060816;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(6, 8, 22, 0.95);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
       }
-      main {
-        flex-grow: 1;
+      
+      /* HERO COVER DENGAN BACKGROUND TEKNISI FULL & OVERLAY */
+      .hero-banner {
+        position: relative;
+        width: 100%;
+        min-height: 85vh;
+        background: linear-gradient(rgba(6, 8, 22, 0.85), rgba(6, 8, 22, 0.95)), 
+                    url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px 20px;
+        padding: 60px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
+
       .hero-container {
         width: 100%;
         max-width: 1200px;
@@ -44,42 +56,47 @@
       }
       @media (min-width: 1024px) {
         .hero-container {
-          grid-template-columns: 1.1fr 0.9fr;
+          grid-template-columns: 1fr 1fr;
         }
       }
+
       h1 {
-        font-size: 36px;
+        font-size: 34px;
         font-weight: 900;
         line-height: 1.2;
         color: #ffffff;
         margin-bottom: 12px;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
       }
       @media (min-width: 640px) {
         h1 {
-          font-size: 44px;
+          font-size: 42px;
         }
       }
       @media (min-width: 1024px) {
         h1 {
-          font-size: 50px;
+          font-size: 46px;
           text-align: left;
         }
       }
+
       .sub-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         letter-spacing: 0.15em;
         color: #fbcfe8;
         margin-bottom: 20px;
         text-transform: uppercase;
       }
+
       p.description {
         font-size: 15px;
         line-height: 1.8;
-        color: #d1d5db;
+        color: #e2e8f0;
         margin-bottom: 32px;
         max-width: 550px;
       }
+
       .btn-group {
         display: flex;
         flex-wrap: wrap;
@@ -91,6 +108,7 @@
           justify-content: flex-start;
         }
       }
+
       .btn-pink {
         background-color: #ec4899;
         color: #ffffff;
@@ -99,7 +117,7 @@
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
-        box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.2);
+        box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
         transition: background-color 0.2s;
         display: inline-flex;
         align-items: center;
@@ -107,6 +125,7 @@
       .btn-pink:hover {
         background-color: #f472b6;
       }
+
       .btn-cyan {
         border: 1px solid rgba(34, 211, 238, 0.4);
         background-color: rgba(34, 211, 238, 0.1);
@@ -116,6 +135,7 @@
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
+        box-shadow: 0 10px 25px rgba(34, 211, 238, 0.2);
         transition: background-color 0.2s;
         display: inline-flex;
         align-items: center;
@@ -123,13 +143,43 @@
       .btn-cyan:hover {
         background-color: rgba(34, 211, 238, 0.2);
       }
+
+      /* SECTION BAWAH: DIAGRAM & LAPORAN PROGRESS SAAT DI-SCROLL */
+      .main-content-area {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 60px 20px;
+        box-sizing: border-box;
+      }
+
+      .progress-section {
+        width: 100%;
+      }
+      .progress-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 800;
+        color: #fbcfe8;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+      .dashboard-card {
+        background: #0b1120;
+        border: 1px solid #1f293d;
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      }
+
       footer {
         background-color: #030712;
-        padding: 20px;
+        padding: 24px;
         text-align: center;
         font-size: 12px;
         color: #9ca3af;
         border-top: 1px solid #1f293d;
+        margin-top: auto;
       }
     </style>
   </head>
@@ -149,32 +199,26 @@
       >
       <div style="display: flex; gap: 16px; font-size: 14px">
         <a href="/" style="color: #ffffff; text-decoration: none">Home</a>
-        <a href="/it-support" style="color: #9ca3af; text-decoration: none"
-          >IT Support</a
-        >
-        <a href="/ga" style="color: #9ca3af; text-decoration: none"
-          >GA (General Affair)</a
-        >
-        <a href="/about" style="color: #9ca3af; text-decoration: none"
-          >About Us</a
-        >
+        <a href="/it-support" style="color: #9ca3af; text-decoration: none">IT Support</a>
+        <a href="/ga" style="color: #9ca3af; text-decoration: none">GA (General Affair)</a>
+        <a href="/about" style="color: #9ca3af; text-decoration: none">About Us</a>
       </div>
     </header>
 
-    <main>
+    <!-- COVER UTAMA DENGAN BACKGROUND TEKNISI & ILUSTRASI 3D BER-SHADOW -->
+    <div class="hero-banner">
       <div class="hero-container">
-        <!-- Kolom Kiri: Gambar Ilustrasi 3D dari Referensi Kamu -->
-        <div
-          style="display: flex; justify-content: center; align-items: center"
-        >
+        <!-- Kolom Kiri: Gambar Ilustrasi 3D Jaringan dengan Efek Glow & Shadow Mewah -->
+        <div style="display: flex; justify-content: center; align-items: center">
           <div
             style="
               width: 100%;
-              max-width: 580px;
+              max-width: 540px;
               border-radius: 20px;
               overflow: hidden;
-              background: rgba(255, 255, 255, 0.02);
-              border: 1px solid rgba(255, 255, 255, 0.05);
+              background: rgba(11, 17, 32, 0.7);
+              border: 1px solid rgba(236, 72, 153, 0.3);
+              box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(34, 211, 238, 0.15);
             "
           >
             <img
@@ -185,20 +229,20 @@
                 height: auto;
                 display: block;
                 object-fit: cover;
-                opacity: 0.9;
+                opacity: 0.95;
               "
             />
           </div>
         </div>
 
-        <!-- Kolom Kanan: Teks & Informasi Sesuai Referensi -->
-        <div style="text-align: center" class="lg-left">
+        <!-- Kolom Kanan: Teks & Informasi -->
+        <div style="text-align: center;" class="lg-left">
           <div>
             <h1>PUSAT LAYANAN & MAINTENANCE</h1>
             <p class="sub-title">CENDEKIA MUDA</p>
             <p
               class="description"
-              style="margin-left: auto; margin-right: auto"
+              style="margin-left: auto; margin-right: auto;"
             >
               Portal Bantuan IT Sekolah Cendekia Muda. Insya Allah, kami
               berkomitmen memberikan pelayanan yang amanah dan profesional untuk
@@ -208,17 +252,55 @@
 
           <div class="btn-group">
             <a href="/it-support" class="btn-pink">
-              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i
-              >IT Support
+              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i>IT Support
             </a>
             <a href="/ga" class="btn-cyan">
-              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>GA
-              (General Affair)
+              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>GA (General Affair)
             </a>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+
+    <!-- KONTEN BAWAH: DIAGRAM & LAPORAN PROGRESS SAAT DI-SCROLL -->
+    <div class="main-content-area">
+      <div class="progress-section">
+        <h2 class="progress-title">ON PROGRESS MAINTENANCE</h2>
+        
+        <div class="dashboard-card">
+          <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 8px; text-align: center;">Ringkasan Data & Laporan Terkini</h3>
+          <p style="color: #9ca3af; font-size: 13px; text-align: center; margin-bottom: 24px;">Divisi IT & Divisi General Affair Cendekia Muda</p>
+
+          <!-- Tabel / Diagram Preview -->
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid #1f293d; color: #fbcfe8;">
+                  <th style="padding: 12px;">Timestamp</th>
+                  <th style="padding: 12px;">Unit</th>
+                  <th style="padding: 12px;">Kendala / Jenis Pengajuan</th>
+                  <th style="padding: 12px;">Status</th>
+                </tr>
+              </thead>
+              <tbody style="color: #d1d5db;">
+                <tr style="border-bottom: 1px solid #1f293d;">
+                  <td style="padding: 12px;">22 Juli 2026, 09:00</td>
+                  <td style="padding: 12px;">Lab Komputer 1</td>
+                  <td style="padding: 12px;">Perbaikan Jaringan & Switch Hub</td>
+                  <td style="padding: 12px;"><span style="background: rgba(74, 222, 128, 0.15); color: #4ade80; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">On Progress</span></td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px;">22 Juli 2026, 08:30</td>
+                  <td style="padding: 12px;">Ruang Tata Usaha</td>
+                  <td style="padding: 12px;">Maintenance Printer & Scanner GA</td>
+                  <td style="padding: 12px;"><span style="background: rgba(248, 113, 113, 0.15); color: #f87171; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer>
       <p>
