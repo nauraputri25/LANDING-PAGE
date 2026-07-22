@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form IT Support - Cendekia Muda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b1120;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #1f293d;
+        }
+        main {
+            flex-grow: 1;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container-box {
+            width: 100%;
+            max-width: 28rem;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #131c31;
+            border: 1px solid #1f293d;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        h1 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fce7f3;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        p.subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+        .alert-success {
+            background-color: rgba(22, 163, 74, 0.2);
+            border: 1px solid #22c55e;
+            color: #86efac;
+            font-size: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .alert-error {
+            background-color: rgba(220, 38, 38, 0.2);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            font-size: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            color: #d1d5db;
+            margin-bottom: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        input, select, textarea {
+            width: 100%;
+            background-color: #1b253b;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 12px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #fbcfe8;
+        }
+        button.btn-submit {
+            width: 100%;
+            background-color: #fbcfe8;
+            color: #111827;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.2s;
+            margin-top: 8px;
+        }
+        button.btn-submit:hover {
+            background-color: #f472b6;
+        }
+        footer {
+            background-color: #070b14;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            border-top: 1px solid #1f293d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span style="font-weight: bold; letter-spacing: 2px;">CENDEKIA MUDA</span>
+        <a href="/" style="color: #9ca3af; text-decoration: none; font-size: 14px;"><i class="fa-solid fa-house"></i> Home</a>
+    </header>
+
+    <main>
+        <div class="container-box">
+            <div class="card">
+                <h1>
+                    <i class="fa-solid fa-laptop-code" style="color: #fbcfe8;"></i> 
+                    <span>Form IT Support</span>
+                </h1>
+                <p class="subtitle">Laporkan kendala perangkat keras, jaringan, atau sistem digital sekolah Anda.</p>
+
+                <% if (success === 'true') { %>
+                    <div class="alert-success">
+                        Data berhasil dikirim dan otomatis tercatat di Spreadsheet!
+                    </div>
+                <% } else if (success === 'false') { %>
+                    <div class="alert-error">
+                        Gagal mengirim data. Periksa konfigurasi spreadsheet Anda.
+                    </div>
+                <% } %>
+
+                <form action="/it-support/submit" method="POST">
+                    <div class="form-group">
+                        <label>Nama Pemohon</label>
+                        <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="form-group">
+                        <label>Unit / Kelas</label>
+                        <select name="unit">
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="TK/Lainnya">TK / Lainnya</option>
+                            <option value="Guru/Staff">Guru / Staff</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi Kendala</label>
+                        <textarea name="kendala" rows="4" required placeholder="Jelaskan kendala secara detail..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Prioritas</label>
+                        <select name="prioritas">
+                            <option value="Normal">Normal</option>
+                            <option value="Urgent">Urgent (Darurat)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Kirim Permintaan IT
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p><i class="fa-solid fa-phone" style="color: #fbcfe8;"></i> (022) 710 2888 &nbsp;|&nbsp; <i class="fa-solid fa-envelope" style="color: #fbcfe8;"></i> info@cendekiamuda.sch.id</p>
+        <p>© 2024 Cendekia Muda. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pusat Layanan dan Maintenance - Cendekia Muda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #0b1120;
+        color: #ffffff;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col justify-between selection:bg-pink-300 selection:text-gray-900"
+  >
+    <!-- Header Atas -->
+    <header
+      class="border-b border-gray-800/60 px-4 py-4 sm:px-6 bg-[#0b1120]/80 backdrop-blur-md sticky top-0 z-40"
+    >
+      <div
+        class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between max-w-7xl mx-auto w-full"
+      >
+        <div class="flex items-center justify-between gap-4">
+          <a href="/" class="flex items-center space-x-3">
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-pink-500 text-lg text-white shadow-lg"
+            >
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div>
+              <p class="text-sm font-black tracking-[0.25em] text-white">
+                PUSAT LAYANAN
+              </p>
+              <p class="text-[10px] uppercase tracking-[0.3em] text-gray-400">
+                IT & GA
+              </p>
+            </div>
+          </a>
+          <div class="flex items-center space-x-3">
+            <button
+              class="text-gray-400 transition hover:text-white cursor-pointer"
+              aria-label="Search"
+            >
+              <i class="fa-solid fa-search"></i>
+            </button>
+            <button
+              id="menu-btn"
+              class="cursor-pointer text-xl text-gray-200 transition hover:text-pink-300 p-2"
+              aria-label="Open Menu"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex flex-wrap items-center gap-2">
+          <a
+            href="/it-support"
+            class="rounded-full px-4 py-2 text-sm font-medium transition <%= typeof activePage !== 'undefined' && activePage === 'itsupport' ? 'bg-pink-500/20 text-pink-200 ring-1 ring-pink-400/40' : 'bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white' %>"
+          >
+            IT Support
+          </a>
+          <a
+            href="/ga"
+            class="rounded-full px-4 py-2 text-sm font-medium transition <%= typeof activePage !== 'undefined' && activePage === 'ga' ? 'bg-cyan-500/20 text-cyan-200 ring-1 ring-cyan-400/40' : 'bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white' %>"
+          >
+            GA
+          </a>
+          <a
+            href="/about"
+            class="rounded-full px-4 py-2 text-sm font-medium transition <%= typeof activePage !== 'undefined' && activePage === 'about' ? 'bg-violet-500/20 text-violet-200 ring-1 ring-violet-400/40' : 'bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white' %>"
+          >
+            About
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Overlay Backdrop untuk Sidebar -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+
+    <!-- Side Navigation Drawer (Muncul dari Kanan) -->
+    <div
+      id="side-nav"
+      class="fixed inset-y-0 right-0 w-80 bg-[#111827] shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col justify-between p-6 border-l border-gray-800"
+    >
+      <div>
+        <div
+          class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4"
+        >
+          <span class="font-semibold text-lg text-gray-200">Navigation</span>
+          <button
+            id="close-btn"
+            class="text-gray-400 hover:text-white text-xl cursor-pointer p-1"
+            aria-label="Close Menu"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <nav class="space-y-2">
+          <a
+            href="/"
+            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
+          >
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span>Home</span>
+          </a>
+          <a
+            href="/it-support"
+            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'itsupport' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
+          >
+            <i class="fa-solid fa-laptop-code w-5 text-center"></i>
+            <span>IT Support</span>
+          </a>
+          <a
+            href="/ga"
+            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'ga' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
+          >
+            <i class="fa-solid fa-tools w-5 text-center"></i>
+            <span>General Affair (GA)</span>
+          </a>
+          <a
+            href="/about"
+            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'about' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
+          >
+            <i class="fa-solid fa-circle-info w-5 text-center"></i>
+            <span>About Us</span>
+          </a>
+        </nav>
+      </div>
+      <div
+        class="text-[11px] text-gray-500 text-center pb-2 border-t border-gray-800/60 pt-4"
+      >
+        Cendekia Muda Portal v1.0
+      </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow"><%- body %></main>
+
+    <!-- Footer Bawah -->
+    <footer
+      class="bg-[#070b14] py-8 px-6 text-center text-xs text-gray-400 border-t border-gray-800 space-y-3"
+    >
+      <div
+        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6"
+      >
+        <span>
+          <i class="fa-solid fa-phone mr-2 text-pink-300"></i>(022) 710 2888
+        </span>
+        <span>
+          <i class="fa-solid fa-envelope mr-2 text-pink-300"></i
+          >info@cendekiamuda.sch.id
+        </span>
+      </div>
+      <p>
+        <i class="fa-solid fa-location-dot mr-2 text-pink-300"></i> JL Puri Ayu
+        Pratama III No. 17 Arcamanik Bandung
+      </p>
+      <p class="pt-2 text-gray-500 border-t border-gray-900 max-w-md mx-auto">
+        © 2024 Cendekia Muda. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- Script Toggle Sidebar yang Diperkuat -->
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const closeBtn = document.getElementById("close-btn");
+      const sideNav = document.getElementById("side-nav");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function openSidebar() {
+        sideNav.classList.remove("translate-x-full");
+        sidebarOverlay.classList.remove("opacity-0", "pointer-events-none");
+        sidebarOverlay.classList.add("opacity-100");
+      }
+
+      function closeSidebar() {
+        sideNav.classList.add("translate-x-full");
+        sidebarOverlay.classList.remove("opacity-100");
+        sidebarOverlay.classList.add("opacity-0", "pointer-events-none");
+      }
+
+      menuBtn.addEventListener("click", openSidebar);
+      closeBtn.addEventListener("click", closeSidebar);
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pusat Layanan dan Maintenance - Cendekia Muda</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #060816;
+        color: #ffffff;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        border-bottom: 1px solid #1f293d;
+        background-color: #060816;
+      }
+      main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+      }
+      .hero-container {
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      @media (min-width: 1024px) {
+        .hero-container {
+          grid-template-columns: 1.1fr 0.9fr;
+        }
+      }
+      h1 {
+        font-size: 36px;
+        font-weight: 900;
+        line-height: 1.2;
+        color: #ffffff;
+        margin-bottom: 12px;
+      }
+      @media (min-width: 640px) {
+        h1 {
+          font-size: 44px;
+        }
+      }
+      @media (min-width: 1024px) {
+        h1 {
+          font-size: 50px;
+          text-align: left;
+        }
+      }
+      .sub-title {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        color: #fbcfe8;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+      p.description {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #d1d5db;
+        margin-bottom: 32px;
+        max-width: 550px;
+      }
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      @media (min-width: 1024px) {
+        .btn-group {
+          justify-content: flex-start;
+        }
+      }
+      .btn-pink {
+        background-color: #ec4899;
+        color: #ffffff;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.2);
+        transition: background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn-pink:hover {
+        background-color: #f472b6;
+      }
+      .btn-cyan {
+        border: 1px solid rgba(34, 211, 238, 0.4);
+        background-color: rgba(34, 211, 238, 0.1);
+        color: #cffafe;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn-cyan:hover {
+        background-color: rgba(34, 211, 238, 0.2);
+      }
+      footer {
+        background-color: #030712;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #9ca3af;
+        border-top: 1px solid #1f293d;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span style="font-weight: bold; letter-spacing: 2px"
+        >KCM
+        <span
+          style="
+            font-size: 11px;
+            font-weight: normal;
+            color: #9ca3af;
+            margin-left: 8px;
+          "
+          >LANDING PAGE IT</span
+        ></span
+      >
+      <div style="display: flex; gap: 16px; font-size: 14px">
+        <a href="/" style="color: #ffffff; text-decoration: none">Home</a>
+        <a href="/it-support" style="color: #9ca3af; text-decoration: none"
+          >IT Support</a
+        >
+        <a href="/ga" style="color: #9ca3af; text-decoration: none"
+          >GA (General Affair)</a
+        >
+        <a href="/about" style="color: #9ca3af; text-decoration: none"
+          >About Us</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <div class="hero-container">
+        <!-- Kolom Kiri: Gambar Ilustrasi 3D dari Referensi Kamu -->
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div
+            style="
+              width: 100%;
+              max-width: 580px;
+              border-radius: 20px;
+              overflow: hidden;
+              background: rgba(255, 255, 255, 0.02);
+              border: 1px solid rgba(255, 255, 255, 0.05);
+            "
+          >
+            <img
+              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
+              alt="Ilustrasi Landpage IT"
+              style="
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover;
+                opacity: 0.9;
+              "
+            />
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Teks & Informasi Sesuai Referensi -->
+        <div style="text-align: center" class="lg-left">
+          <div>
+            <h1>PUSAT LAYANAN & MAINTENANCE</h1>
+            <p class="sub-title">CENDEKIA MUDA</p>
+            <p
+              class="description"
+              style="margin-left: auto; margin-right: auto"
+            >
+              Portal Bantuan IT Sekolah Cendekia Muda. Insya Allah, kami
+              berkomitmen memberikan pelayanan yang amanah dan profesional untuk
+              setiap kendala teknis Anda.
+            </p>
+          </div>
+
+          <div class="btn-group">
+            <a href="/it-support" class="btn-pink">
+              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i
+              >IT Support
+            </a>
+            <a href="/ga" class="btn-cyan">
+              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>GA
+              (General Affair)
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        <i class="fa-solid fa-phone" style="color: #fbcfe8"></i> (022) 710 2888
+        &nbsp;|&nbsp;
+        <i class="fa-solid fa-envelope" style="color: #fbcfe8"></i>
+        info@cendekiamuda.sch.id
+      </p>
+      <p>© 2024 Cendekia Muda. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
