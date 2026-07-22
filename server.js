@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Konfigurasi Google Sheets API (Masukkan Spreadsheet ID Anda)
-const SPREADSHEET_ID = "MASUKKAN_SPREADSHEET_ID_ANDA_DISINI";
+const SPREADSHEET_ID = "1wI4Gq79I4onjGs2DgLvFjYkkRClrI6eAPNDv_USsaDY";
 
 async function appendToSheet(range, values) {
   try {

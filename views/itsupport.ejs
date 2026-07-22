@@ -32,18 +32,18 @@
         }
         .container-box {
             width: 100%;
-            max-width: 28rem;
+            max-width: 42rem; /* Diperlebar agar muat layout 2 kolom */
             margin: 0 auto;
         }
         .card {
             background-color: #131c31;
             border: 1px solid #1f293d;
             border-radius: 20px;
-            padding: 24px;
+            padding: 28px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
         h1 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             color: #fce7f3;
             display: flex;
@@ -53,32 +53,40 @@
             margin-bottom: 8px;
         }
         p.subtitle {
-            font-size: 12px;
+            font-size: 13px;
             color: #9ca3af;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .alert-success {
             background-color: rgba(22, 163, 74, 0.2);
             border: 1px solid #22c55e;
             color: #86efac;
-            font-size: 12px;
+            font-size: 13px;
             padding: 12px;
             border-radius: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         .alert-error {
             background-color: rgba(220, 38, 38, 0.2);
             border: 1px solid #ef4444;
             color: #fca5a5;
-            font-size: 12px;
+            font-size: 13px;
             padding: 12px;
             border-radius: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        
+        /* Grid Layout 2 Kolom */
+        .form-row {
+            display: flex;
+            gap: 16px;
         }
         .form-group {
-            margin-bottom: 16px;
+            flex: 1;
+            margin-bottom: 18px;
             text-align: left;
         }
+        
         label {
             display: block;
             color: #d1d5db;
@@ -86,6 +94,11 @@
             font-size: 12px;
             font-weight: 600;
         }
+        .required {
+            color: #ef4444;
+            margin-left: 2px;
+        }
+        
         input, select, textarea {
             width: 100%;
             background-color: #1b253b;
@@ -93,7 +106,7 @@
             border-radius: 12px;
             padding: 12px;
             color: #ffffff;
-            font-size: 12px;
+            font-size: 13px;
             box-sizing: border-box;
             outline: none;
             transition: border-color 0.2s;
@@ -101,22 +114,52 @@
         input:focus, select:focus, textarea:focus {
             border-color: #fbcfe8;
         }
+        
+        /* Area Upload Foto */
+        .upload-box {
+            border: 2px dashed #374151;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            background-color: #1b253b;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .upload-box:hover {
+            border-color: #fbcfe8;
+        }
+        .upload-box i {
+            font-size: 24px;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+        .upload-box p {
+            margin: 0;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        
         button.btn-submit {
             width: 100%;
             background-color: #fbcfe8;
             color: #111827;
             font-weight: bold;
-            padding: 12px;
+            padding: 14px;
             border-radius: 12px;
             border: none;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             transition: background-color 0.2s;
-            margin-top: 8px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
         button.btn-submit:hover {
             background-color: #f472b6;
         }
+        
         footer {
             background-color: #070b14;
             padding: 20px;
@@ -124,6 +167,14 @@
             font-size: 12px;
             color: #9ca3af;
             border-top: 1px solid #1f293d;
+        }
+
+        /* Responsif untuk Layar HP */
+        @media (max-width: 640px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
         }
     </style>
 </head>
@@ -139,47 +190,89 @@
             <div class="card">
                 <h1>
                     <i class="fa-solid fa-laptop-code" style="color: #fbcfe8;"></i> 
-                    <span>Form IT Support</span>
+                    <span>Form Pengaduan IT Support</span>
                 </h1>
                 <p class="subtitle">Laporkan kendala perangkat keras, jaringan, atau sistem digital sekolah Anda.</p>
 
-                <% if (success === 'true') { %>
+                <% if (typeof success !== 'undefined' && success === 'true') { %>
                     <div class="alert-success">
-                        Data berhasil dikirim dan otomatis tercatat di Spreadsheet!
+                        <i class="fa-solid fa-circle-check"></i> Data berhasil dikirim dan otomatis tercatat di Spreadsheet!
                     </div>
-                <% } else if (success === 'false') { %>
+                <% } else if (typeof success !== 'undefined' && success === 'false') { %>
                     <div class="alert-error">
-                        Gagal mengirim data. Periksa konfigurasi spreadsheet Anda.
+                        <i class="fa-solid fa-circle-xmark"></i> Gagal mengirim data. Periksa konfigurasi spreadsheet Anda.
                     </div>
                 <% } %>
 
                 <form action="/it-support/submit" method="POST">
-                    <div class="form-group">
-                        <label>Nama Pemohon</label>
-                        <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
+                    
+                    <!-- Baris 1: Nama Pelapor & Unit Sekolah -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Pelapor <span class="required">*</span></label>
+                            <input type="text" name="nama_request" required placeholder="Masukkan nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Sekolah <span class="required">*</span></label>
+                            <select name="unit" id="unitSelect" required onchange="updateKelasOptions()">
+                                <option value="" disabled selected>Pilih Unit</option>
+                                <option value="Daycare">Daycare</option>
+                                <option value="TK">TK</option>
+                                <option value="SD Bandung">SD Bandung</option>
+                                <option value="SD Bilingual">SD Bilingual</option>
+                                <option value="SD Makasar">SD Makasar</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                                <option value="UPPP">UPPP</option>
+                                <option value="Catering">Catering</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Unit / Kelas</label>
-                        <select name="unit">
-                            <option value="SD">SD</option>
-                            <option value="SMP">SMP</option>
-                            <option value="TK/Lainnya">TK / Lainnya</option>
-                            <option value="Guru/Staff">Guru / Staff</option>
-                        </select>
+
+                    <!-- Baris 2: Kelas / Level & Kategori Kendala -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kelas / Level <span class="required">*</span></label>
+                            <select name="kelas" id="kelasSelect" required>
+                                <option value="" disabled selected>Pilih Unit Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori Kendala <span class="required">*</span></label>
+                            <select name="permasalahan" required>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
+                                <option value="Komputer / Laptop">Komputer / Laptop</option>
+                                <option value="Printer / Scanner">Printer / Scanner</option>
+                                <option value="Webcam">Webcam</option>
+                                <option value="Microphone / Audio">Microphone / Audio</option>
+                                <option value="TV / Display">TV / Display</option>
+                                <option value="Projector">Projector</option>
+                                <option value="Sistem / Aplikasi">Sistem / Aplikasi</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <!-- Baris 3: Detail Permasalahan -->
                     <div class="form-group">
-                        <label>Deskripsi Kendala</label>
-                        <textarea name="kendala" rows="4" required placeholder="Jelaskan kendala secara detail..."></textarea>
+                        <label>Detail Permasalahan <span class="required">*</span></label>
+                        <textarea name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kerusakan atau keluhan..."></textarea>
                     </div>
+
+                    <!-- Baris 4: Unggah Foto (Tanpa Wajib) -->
                     <div class="form-group">
-                        <label>Prioritas</label>
-                        <select name="prioritas">
-                            <option value="Normal">Normal</option>
-                            <option value="Urgent">Urgent (Darurat)</option>
-                        </select>
+                        <label>Unggah Foto (Bukti Kerusakan) <span style="color: #6b7280; font-weight: normal;">(Opsional)</span></label>
+                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Klik untuk unggah atau seret file ke sini</p>
+                            <p style="font-size: 10px; color: #6b7280; margin-top: 4px;">JPG, PNG (MAX 5MB)</p>
+                            <input type="file" id="fileInput" name="foto" accept="image/*" style="display: none;">
+                        </div>
                     </div>
+
                     <button type="submit" class="btn-submit">
-                        Kirim Permintaan IT
+                        <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN
                     </button>
                 </form>
             </div>
@@ -191,5 +284,44 @@
         <p>© 2024 Cendekia Muda. All rights reserved.</p>
     </footer>
 
+    <!-- Script Logic untuk Dropdown Kelas Dinamis -->
+    <script>
+        function updateKelasOptions() {
+            const unit = document.getElementById("unitSelect").value;
+            const kelasSelect = document.getElementById("kelasSelect");
+            
+            // Reset isi dropdown kelas
+            kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas / Level</option>';
+            
+            let options = [];
+
+            if (unit.includes("SD")) {
+                options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"];
+            } else if (unit === "SMP") {
+                options = [
+                    "Kelas 7A", "Kelas 7B", "Kelas 7C",
+                    "Kelas 8A", "Kelas 8B", "Kelas 8C",
+                    "Kelas 9A", "Kelas 9B", "Kelas 9C"
+                ];
+            } else if (unit === "SMA") {
+                options = [
+                    "Kelas 10A", "Kelas 10B", "Kelas 10C",
+                    "Kelas 11A", "Kelas 11B", "Kelas 11C",
+                    "Kelas 12A", "Kelas 12B", "Kelas 12C"
+                ];
+            } else {
+                // Untuk Daycare, TK, UPPP, Catering
+                options = ["Non-Kelas / Staf", "Lainnya"];
+            }
+
+            // Masukkan pilihan opsi ke dropdown
+            options.forEach(opt => {
+                const el = document.createElement("option");
+                el.value = opt;
+                el.textContent = opt;
+                kelasSelect.appendChild(el);
+            });
+        }
+    </script>
 </body>
 </html>
