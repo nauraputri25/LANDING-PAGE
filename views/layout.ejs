@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --color-dark: #1f2544;
+        --color-muted-blue: #474f7a;
+        --color-purple: #81689d;
+        --color-pink: #ffd0ec;
+        --text-main: #ffffff;
+        --text-muted: #d1d5db;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--color-dark);
+        color: var(--text-main);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 32px;
+        background-color: rgba(31, 37, 68, 0.95);
+        border-bottom: 1px solid var(--color-muted-blue);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        font-size: 20px;
+        color: var(--text-main);
+      }
+
+      .logo-container span {
+        color: var(--color-pink);
+      }
+
+      .logo-subtitle {
+        font-size: 11px;
+        font-weight: normal;
+        color: var(--text-muted);
+        border-left: 1px solid var(--color-muted-blue);
+        padding-left: 12px;
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+
+      nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover {
+        color: var(--color-pink);
+      }
+
+      main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+      }
+
+      footer {
+        background-color: #151a30;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-muted);
+        border-top: 1px solid var(--color-muted-blue);
+        margin-top: auto;
+      }
+
+      footer p {
+        margin-bottom: 6px;
+      }
+      footer i {
+        color: var(--color-pink);
+      }
+
+      /* Global Components */
+      .hero-container {
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-container {
+          grid-template-columns: 1.1fr 0.9fr;
+        }
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: 900;
+        line-height: 1.2;
+        color: var(--text-main);
+        margin-bottom: 12px;
+      }
+
+      @media (min-width: 640px) {
+        h1 {
+          font-size: 44px;
+        }
+      }
+      @media (min-width: 1024px) {
+        h1 {
+          font-size: 50px;
+          text-align: left;
+        }
+      }
+
+      .sub-title {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        color: var(--color-pink);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+
+      p.description {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        max-width: 550px;
+      }
+
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      @media (min-width: 1024px) {
+        .btn-group {
+          justify-content: flex-start;
+        }
+      }
+
+      .btn-pink {
+        background-color: var(--color-pink);
+        color: var(--color-dark);
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 15px -3px rgba(255, 208, 236, 0.2);
+        transition: opacity 0.2s;
+        display: inline-flex;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-pink:hover {
+        opacity: 0.9;
+      }
+
+      .btn-purple {
+        border: 1px solid rgba(129, 104, 157, 0.6);
+        background-color: rgba(129, 104, 157, 0.2);
+        color: #f3e8ff;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--color-purple);
+        cursor: pointer;
+      }
+      .btn-purple:hover {
+        background-color: rgba(129, 104, 157, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <i
+          class="fa-solid fa-network-wired"
+          style="color: var(--color-pink)"
+        ></i>
+        KCM
+        <span class="logo-subtitle">LANDING PAGE IT</span>
+      </div>
+      <nav>
+        <a href="/" style="color: var(--text-main)">Home</a>
+        <a href="/it-support">IT Support</a>
+        <a href="/ga">GA (General Affair)</a>
+        <a href="/about">About Us</a>
+      </nav>
+    </header>
+
+    <main><%- body %></main>
+
+    <footer>
+      <p>
+        <i class="fa-solid fa-phone"></i> (022) 710 2888 &nbsp;|&nbsp;
+        <i class="fa-solid fa-envelope"></i> info@cendekiamuda.sch.id
+      </p>
+      <p>© 2026 Cendekia Muda. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

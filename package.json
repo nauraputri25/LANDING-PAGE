@@ -1,0 +1,14 @@
+{
+  "name": "landing-page-it",
+  "version": "1.0.0",
+  "description": "Landing page portal IT dan General Affair",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "googleapis": "^144.0.0"
+  }
+}

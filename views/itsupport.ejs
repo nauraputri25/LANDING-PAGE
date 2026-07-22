@@ -1,0 +1,129 @@
+<div class="hero-container">
+  <div style="display: flex; justify-content: center; align-items: center">
+    <div
+      style="
+        width: 100%;
+        max-width: 580px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: var(--color-muted-blue);
+        border: 1px solid var(--color-purple);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        padding: 30px;
+      "
+    >
+      <h2
+        style="color: var(--color-pink); margin-bottom: 20px; font-size: 22px"
+      >
+        <i class="fa-solid fa-headset" style="margin-right: 8px"></i>Form Tiket
+        IT Support
+      </h2>
+
+      <!-- Form Input -->
+      <form id="itSupportForm" onsubmit="submitToSheet(event)">
+        <div style="margin-bottom: 15px; text-align: left">
+          <label
+            style="
+              font-size: 13px;
+              color: var(--text-muted);
+              display: block;
+              margin-bottom: 5px;
+            "
+            >Nama Pelapor / Unit:</label
+          >
+          <input
+            type="text"
+            name="nama"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          />
+        </div>
+        <div style="margin-bottom: 15px; text-align: left">
+          <label
+            style="
+              font-size: 13px;
+              color: var(--text-muted);
+              display: block;
+              margin-bottom: 5px;
+            "
+            >Kendala / Jenis Kerusakan:</label
+          >
+          <textarea
+            name="kendala"
+            rows="3"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="btn-pink"
+          style="width: 100%; justify-content: center"
+        >
+          Kirim Tiket
+        </button>
+      </form>
+      <p
+        id="statusMessage"
+        style="margin-top: 15px; font-size: 13px; text-align: center"
+      ></p>
+    </div>
+  </div>
+
+  <div style="text-align: left">
+    <div>
+      <h1>BANTUAN TEKNIS</h1>
+      <p class="sub-title">CENDEKIA MUDA</p>
+      <p class="description" style="margin-left: 0; margin-right: auto">
+        Siap mengatasi kendala IT dengan cepat, amanah, dan profesional demi
+        kelancaran aktivitas pembelajaran digital di sekolah.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function submitToSheet(event) {
+    event.preventDefault();
+    const form = document.getElementById("itSupportForm");
+    const status = document.getElementById("statusMessage");
+    const formData = new FormData(form);
+
+    // Data tambahan untuk kategori form
+    formData.append("kategori", "IT Support");
+
+    status.style.color = "var(--color-pink)";
+    status.innerText = "Mengirim data...";
+
+    // Ganti URL di bawah ini dengan URL Web App Google Apps Script kamu
+    const WEB_APP_URL = "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_DISINI";
+
+    try {
+      await fetch(WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData,
+      });
+      status.style.color = "#4ade80";
+      status.innerText = "Berhasil! Data terkirim ke Spreadsheet.";
+      form.reset();
+    } catch (error) {
+      status.style.color = "#f87171";
+      status.innerText = "Gagal mengirim data. Coba lagi.";
+    }
+  }
+</script>
