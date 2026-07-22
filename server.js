@@ -1,13 +1,15 @@
 const express = require("express");
+const axios = require("axios"); // Library untuk kirim data
 const app = express();
 const PORT = 3000;
 
+// Set EJS & Body Parser
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-//  URL WEB APP GOOGLE APPS SCRIPT 
+// 🔗 URL WEB APP GOOGLE APPS SCRIPT KAMU
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBuq6R8DMTIiRYTx_MnRQoYDHr2A6wPjrdD41uoR-HXsS7q79e471CTl03bIumg6wd/exec";
 
 // --- RUTE HALAMAN UTAMA ---
@@ -28,26 +30,22 @@ app.get("/it-support", (req, res) => {
 });
 
 app.post("/it-support/submit", async (req, res) => {
-  // Menangkap data sesuai urutan form EJS terbaru
+  // Menangkap data dari form EJS
   const { unit, nama_request, kelas, permasalahan, detail_permasalahan } = req.body;
 
   try {
-    // Mengirim data ke Google Spreadsheet via Apps Script
-    await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        unit,
-        nama_request,
-        kelas,
-        permasalahan,
-        detail_permasalahan
-      })
+    // Kirim data ke Spreadsheet pakai axios
+    await axios.post(APPS_SCRIPT_URL, {
+      unit,
+      nama_request,
+      kelas,
+      permasalahan,
+      detail_permasalahan
     });
 
     res.redirect("/it-support?success=true");
   } catch (error) {
-    console.error("Gagal mengirim data ke Spreadsheet:", error);
+    console.error("Gagal mengirim data ke Spreadsheet:", error.message);
     res.redirect("/it-support?success=false");
   }
 });
