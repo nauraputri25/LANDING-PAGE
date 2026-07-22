@@ -1,5 +1,5 @@
 const express = require("express");
-const axios = require("axios"); // Library untuk kirim data
+const axios = require("axios"); // Library untuk kirim data ke Google Apps Script
 const app = express();
 const PORT = 3000;
 
@@ -22,19 +22,26 @@ app.get("/about", (req, res) => {
 });
 
 // --- RUTE IT SUPPORT ---
+
+// 1. Halaman Utama IT Support (Dashboard Information)
 app.get("/it-support", (req, res) => {
-  res.render("itsupport", {
+  res.render("itsupport", { activePage: "itsupport" });
+});
+
+// 2. Halaman Form Pengaduan IT Support
+app.get("/it-support/form", (req, res) => {
+  res.render("itsupport-form", {
     activePage: "itsupport",
     success: req.query.success,
   });
 });
 
+// 3. Proses Kirim Form IT Support ke Google Spreadsheet
 app.post("/it-support/submit", async (req, res) => {
-  // Menangkap data dari form EJS
   const { unit, nama_request, kelas, permasalahan, detail_permasalahan } = req.body;
 
   try {
-    // Kirim data ke Spreadsheet pakai axios
+    // Kirim data ke Spreadsheet via Axios
     await axios.post(APPS_SCRIPT_URL, {
       unit,
       nama_request,
@@ -43,10 +50,11 @@ app.post("/it-support/submit", async (req, res) => {
       detail_permasalahan
     });
 
-    res.redirect("/it-support?success=true");
+    // Redirect balik ke halaman form dengan notifikasi sukses
+    res.redirect("/it-support/form?success=true");
   } catch (error) {
     console.error("Gagal mengirim data ke Spreadsheet:", error.message);
-    res.redirect("/it-support?success=false");
+    res.redirect("/it-support/form?success=false");
   }
 });
 
