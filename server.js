@@ -60,11 +60,32 @@ app.post("/it-support/submit", async (req, res) => {
 
 // --- RUTE GENERAL AFFAIR (GA) ---
 app.get("/ga", (req, res) => {
-  res.render("ga", { activePage: "ga", success: req.query.success });
+  res.render("ga", { activePage: "ga" });
+});
+
+app.get("/ga/form", (req, res) => {
+  res.render("ga-form", {
+    activePage: "ga",
+    success: req.query.success,
+  });
 });
 
 app.post("/ga/submit", async (req, res) => {
-  res.redirect("/ga?success=true");
+  const { unit, nama_request, kategori_request, urgensi, detail_request } = req.body;
+
+  try {
+    await axios.post(APPS_SCRIPT_URL, {
+      unit,
+      nama_request,
+      kategori_request,
+      urgensi,
+      detail_request
+    });
+    res.redirect("/ga/form?success=true");
+  } catch (error) {
+    console.error("Gagal mengirim data GA ke Spreadsheet:", error.message);
+    res.redirect("/ga/form?success=false");
+  }
 });
 
 // --- JALANKAN SERVER ---

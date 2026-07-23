@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pengaduan IT - Cendekia Muda</title>
+    <title>Form Request GA - Cendekia Muda</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -34,20 +34,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 50px;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid var(--border-color);
+            background: #074173;
+            border-bottom: 1px solid rgba(93, 235, 215, 0.2);
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(12px);
-            box-shadow: 0 2px 10px rgba(7, 65, 115, 0.05);
+            box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
         }
         .logo-container { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
-        .logo-divider { width: 1px; height: 22px; background-color: var(--border-color); }
-        .logo-sub { font-size: 11px; color: var(--color-ocean-blue); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
-        nav a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600; margin-left: 15px; }
-        nav a:hover { color: var(--color-dark-blue); }
+        .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
+        .logo-sub { font-size: 11px; color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
+        nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 600; margin-left: 15px; }
+        nav a:hover { color: #ffffff; }
 
         main {
             flex-grow: 1;
@@ -145,15 +145,15 @@
             <div class="logo-sub">IT Support & General Affair</div>
         </div>
         <nav>
-            <a href="/it-support"><i class="fa-solid fa-arrow-left"></i> Kembali ke IT Support</a>
+            <a href="/ga"><i class="fa-solid fa-arrow-left"></i> Kembali ke GA</a>
         </nav>
     </header>
 
     <main>
         <div class="container-box">
             <div class="card">
-                <h1><i class="fa-solid fa-laptop-code" style="color: var(--color-ocean-blue);"></i> Form Pengaduan IT Support</h1>
-                <p class="subtitle">Isi data di bawah ini untuk mengajukan perbaikan kendala IT.</p>
+                <h1><i class="fa-solid fa-clipboard-list" style="color: var(--color-ocean-blue);"></i> Form Request Fasilitas GA</h1>
+                <p class="subtitle">Isi data di bawah ini untuk mengajukan permintaan fasilitas atau kebutuhan operasional.</p>
 
                 <% if (typeof success !== 'undefined' && success === 'true') { %>
                     <div class="alert-success">
@@ -165,16 +165,16 @@
                     </div>
                 <% } %>
 
-                <form action="/it-support/submit" method="POST">
-                    
+                <form action="/ga/submit" method="POST">
+
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Nama Pelapor <span class="required">*</span></label>
+                            <label>Nama Pemohon <span class="required">*</span></label>
                             <input type="text" name="nama_request" required placeholder="Masukkan nama lengkap">
                         </div>
                         <div class="form-group">
                             <label>Unit Sekolah <span class="required">*</span></label>
-                            <select name="unit" id="unitSelect" required onchange="updateKelasOptions()">
+                            <select name="unit" required>
                                 <option value="" disabled selected>Pilih Unit</option>
                                 <option value="Daycare">Daycare</option>
                                 <option value="TK">TK</option>
@@ -191,35 +191,35 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Kelas / Level <span class="required">*</span></label>
-                            <select name="kelas" id="kelasSelect" required>
-                                <option value="" disabled selected>Pilih Unit Terlebih Dahulu</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Kategori Kendala <span class="required">*</span></label>
-                            <select name="permasalahan" required>
+                            <label>Kategori Request <span class="required">*</span></label>
+                            <select name="kategori_request" required>
                                 <option value="" disabled selected>Pilih Kategori</option>
-                                <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
-                                <option value="Komputer / Laptop">Komputer / Laptop</option>
-                                <option value="Printer / Scanner">Printer / Scanner</option>
-                                <option value="Webcam">Webcam</option>
-                                <option value="Microphone / Audio">Microphone / Audio</option>
-                                <option value="TV / Display">TV / Display</option>
-                                <option value="Projector">Projector</option>
-                                <option value="Sistem / Aplikasi">Sistem / Aplikasi</option>
+                                <option value="Perbaikan Fasilitas">Perbaikan Fasilitas</option>
+                                <option value="Pengadaan Barang">Pengadaan Barang</option>
+                                <option value="Kebersihan & Sanitasi">Kebersihan & Sanitasi</option>
+                                <option value="Keamanan">Keamanan</option>
+                                <option value="Transportasi">Transportasi</option>
                                 <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Tingkat Urgensi <span class="required">*</span></label>
+                            <select name="urgensi" required>
+                                <option value="" disabled selected>Pilih Urgensi</option>
+                                <option value="Rendah">Rendah</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Mendesak">Mendesak</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Detail Permasalahan <span class="required">*</span></label>
-                        <textarea name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kerusakan atau keluhan..."></textarea>
+                        <label>Detail Permintaan <span class="required">*</span></label>
+                        <textarea name="detail_request" rows="4" required placeholder="Jelaskan secara detail kebutuhan fasilitas atau barang yang diminta..."></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Unggah Foto (Bukti Kerusakan) <span style="color: var(--text-muted); font-weight: normal;">(Opsional)</span></label>
+                        <label>Unggah Foto (Bukti / Referensi) <span style="color: #9ca3af; font-weight: normal;">(Opsional)</span></label>
                         <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                             <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--text-muted);"></i>
                             <p style="margin: 6px 0 0 0; font-size: 13px; color: var(--text-muted);">Klik untuk unggah file (JPG, PNG MAX 5MB)</p>
@@ -228,7 +228,7 @@
                     </div>
 
                     <button type="submit" class="btn-submit">
-                        <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN
+                        <i class="fa-solid fa-paper-plane"></i> KIRIM REQUEST FASILITAS
                     </button>
                 </form>
             </div>
@@ -236,33 +236,8 @@
     </main>
 
     <footer>
-        <p>© 2024 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
-    <script>
-        function updateKelasOptions() {
-            const unit = document.getElementById("unitSelect").value;
-            const kelasSelect = document.getElementById("kelasSelect");
-            kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas / Level</option>';
-            let options = [];
-
-            if (unit.includes("SD")) {
-                options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"];
-            } else if (unit === "SMP") {
-                options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C"];
-            } else if (unit === "SMA") {
-                options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C"];
-            } else {
-                options = ["Non-Kelas / Staf", "Lainnya"];
-            }
-
-            options.forEach(opt => {
-                const el = document.createElement("option");
-                el.value = opt;
-                el.textContent = opt;
-                kelasSelect.appendChild(el);
-            });
-        }
-    </script>
 </body>
 </html>

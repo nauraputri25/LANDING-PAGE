@@ -1,126 +1,272 @@
-<div class="hero-container">
-  <div style="display: flex; justify-content: center; align-items: center">
-    <div
-      style="
-        width: 100%;
-        max-width: 580px;
-        border-radius: 20px;
-        overflow: hidden;
-        background: var(--color-muted-blue);
-        border: 1px solid var(--color-purple);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        padding: 30px;
-      "
-    >
-      <h2
-        style="color: var(--color-pink); margin-bottom: 20px; font-size: 22px"
-      >
-        <i class="fa-solid fa-clipboard-list" style="margin-right: 8px"></i>Form
-        Request Fasilitas GA
-      </h2>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA (General Affair) - Cendekia Muda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --color-dark-blue: #074173;
+            --color-ocean-blue: #1679AB;
+            --color-cyan-mint: #5DEBD7;
+            --color-lime-green: #C5FF95;
+            --text-main: #074173;
+            --text-muted: #64748b;
+        }
 
-      <form id="gaForm" onsubmit="submitToGaSheet(event)">
-        <div style="margin-bottom: 15px; text-align: left">
-          <label
-            style="
-              font-size: 13px;
-              color: var(--text-muted);
-              display: block;
-              margin-bottom: 5px;
-            "
-            >Nama Pemohon / Unit:</label
-          >
-          <input
-            type="text"
-            name="nama"
-            required
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          />
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+            background: #074173;
+            border-bottom: 1px solid rgba(93, 235, 215, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
+        .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
+        .logo-sub { font-size: 11px; color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
+
+        nav { display: flex; align-items: center; gap: 28px; }
+        nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: relative; padding: 4px 0; }
+        nav a:hover, nav a.active { color: #ffffff; }
+        nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-cyan-mint), var(--color-lime-green));
+            border-radius: 2px;
+        }
+
+        .hero {
+            padding: 70px 20px 40px 20px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 20%, rgba(93, 235, 215, 0.25) 0%, transparent 70%);
+        }
+        .hero h1 { font-size: 42px; font-weight: 900; margin: 0 0 8px 0; letter-spacing: 3px; color: var(--color-dark-blue); }
+        .hero .subtitle { font-size: 24px; color: var(--color-ocean-blue); font-weight: 800; letter-spacing: 1.5px; margin-bottom: 14px; }
+        .hero p { color: var(--text-muted); font-size: 14px; max-width: 620px; margin: 0 auto; line-height: 1.6; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 10px 24px 70px 24px; width: 100%; }
+
+        .section-header {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--color-dark-blue);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 45px;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
+            cursor: pointer;
+        }
+        .team-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.15);
+        }
+
+        .team-body { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-cyan-mint));
+            flex-shrink: 0;
+        }
+        .avatar-wrapper img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background-color: #f1f5f9; }
+
+        .team-info h3 { margin: 0; font-size: 17px; font-weight: 800; color: var(--color-dark-blue); letter-spacing: 0.5px; }
+        .team-info .role-badge {
+            display: inline-block;
+            background: rgba(22, 121, 171, 0.1);
+            color: var(--color-ocean-blue);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin: 6px 0 8px 0;
+            letter-spacing: 0.8px;
+        }
+        .contact-list { font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
+
+        .btn-contact {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            color: var(--color-dark-blue);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .team-card:hover .btn-contact { background-color: var(--color-ocean-blue); color: #ffffff; border-color: var(--color-ocean-blue); }
+
+
+
+        /* CTA */
+        .cta-box { text-align: center; margin-top: 20px; }
+
+        .btn-submit-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--color-dark-blue);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 1px;
+            padding: 18px 42px;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.25);
+        }
+        .btn-submit-main:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.35);
+            background: var(--color-ocean-blue);
+        }
+
+        footer { background-color: #ffffff; padding: 24px; text-align: center; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: auto; }
+
+        @media (max-width: 768px) {
+            header { padding: 16px 20px; }
+            .form-card { padding: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
+            <div class="logo-divider"></div>
+            <div class="logo-sub">IT Support & General Affair</div>
         </div>
-        <div style="margin-bottom: 15px; text-align: left">
-          <label
-            style="
-              font-size: 13px;
-              color: var(--text-muted);
-              display: block;
-              margin-bottom: 5px;
-            "
-            >Fasilitas / Barang yang Direquest:</label
-          >
-          <textarea
-            name="kendala"
-            rows="3"
-            required
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          ></textarea>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/it-support">IT Support</a>
+            <a href="/ga" class="active">GA (General Affair)</a>
+            <a href="/about">About Us</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>LAYANAN FASILITAS</h1>
+        <div class="subtitle">CENDEKIA MUDA</div>
+        <p>Siap mengelola sarana, prasarana, dan operasional lingkungan sekolah dengan amanah dan profesional.</p>
+    </div>
+
+    <main class="container">
+
+        <!-- TIM GA -->
+        <div class="section-header">
+            <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM GENERAL AFFAIR / PIC
         </div>
-        <button
-          type="submit"
-          class="btn-pink"
-          style="width: 100%; justify-content: center"
-        >
-          Kirim Request
-        </button>
-      </form>
-      <p
-        id="gaStatusMessage"
-        style="margin-top: 15px; font-size: 13px; text-align: center"
-      ></p>
-    </div>
-  </div>
 
-  <div style="text-align: left">
-    <div>
-      <h1>LAYANAN FASILITAS</h1>
-      <p class="sub-title">CENDEKIA MUDA</p>
-      <p class="description" style="margin-left: 0; margin-right: auto">
-        Siap mengelola sarana, prasarana, dan operasional lingkungan sekolah
-        dengan amanah dan profesional.
-      </p>
-    </div>
-  </div>
-</div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop&q=80" alt="PIC GA 1">
+                    </div>
+                    <div class="team-info">
+                        <h3>NAMA PIC GA 1</h3>
+                        <div class="role-badge">TIM GENERAL AFFAIR</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 201</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0812-xxxx-xxxx</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
+            </div>
 
-<script>
-  async function submitToGaSheet(event) {
-    event.preventDefault();
-    const form = document.getElementById("gaForm");
-    const status = document.getElementById("gaStatusMessage");
-    const formData = new FormData(form);
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop&q=80" alt="PIC GA 2">
+                    </div>
+                    <div class="team-info">
+                        <h3>NAMA PIC GA 2</h3>
+                        <div class="role-badge">SPESIALIS SARANA & PRASARANA</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 202</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0813-xxxx-xxxx</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
+            </div>
+        </div>
 
-    formData.append("kategori", "General Affair");
+        <!-- TOMBOL ACTION KE FORM -->
+        <div class="cta-box">
+            <a href="/ga/form" class="btn-submit-main">
+                <span>AJUKAN REQUEST FASILITAS GA</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+        </div>
 
-    status.style.color = "var(--color-pink)";
-    status.innerText = "Mengirim data...";
+    </main>
 
-    const WEB_APP_URL = "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_DISINI";
+    <footer>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
+    </footer>
 
-    try {
-      await fetch(WEB_APP_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData,
-      });
-      status.style.color = "#4ade80";
-      status.innerText = "Berhasil! Data terkirim ke Spreadsheet.";
-      form.reset();
-    } catch (error) {
-      status.style.color = "#f87171";
-      status.innerText = "Gagal mengirim data. Coba lagi.";
-    }
-  }
-</script>
+
+
+</body>
+</html>
