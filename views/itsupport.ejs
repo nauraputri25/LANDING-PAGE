@@ -58,6 +58,13 @@
             gap: 12px;
         }
 
+        .logo-img {
+            height: 32px; /* Sesuaikan tinggi logo jika kurang besar/kecil */
+            width: auto;
+            display: block;
+            object-fit: contain;
+}
+
         .logo-kcm {
             font-size: 26px;
             font-weight: 900;
@@ -462,14 +469,12 @@
 </head>
 <body>
 
-    <!-- 📌 HEADER SANGAT MIRIP FOTO ACUAN -->
+    <!--  HEADER  -->
     <header>
         <div class="logo-container">
-            <div class="logo-kcm">
-                <i class="fa-solid fa-shapes" style="font-size: 20px;"></i> KCM
-            </div>
+            <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
             <div class="logo-divider"></div>
-            <div class="logo-sub">LAYANAN & MAINTANANCE</div>
+             <div class="logo-sub">IT Support & General Affair</div>
         </div>
 
         <nav>
