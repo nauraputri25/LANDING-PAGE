@@ -19,6 +19,78 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Segoe UI", sans-serif; background: var(--bg-light); color: var(--color-dark-blue); }
 
+    /* 🚀 HEADER (DARK BLUE MODE) */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 50px;
+        background-color: var(--color-dark-blue);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-img {
+        height: 32px;
+        width: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .logo-divider {
+        width: 1px;
+        height: 22px;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .logo-sub {
+        font-size: 17px;
+        color: var(--color-cyan-mint);
+        letter-spacing: 2px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+    }
+
+    nav a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        position: relative;
+        padding: 4px 0;
+    }
+
+    nav a:hover, nav a.active {
+        color: #ffffff;
+    }
+
+    nav a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--color-cyan-mint);
+        border-radius: 2px;
+    }
+
     /* ── COVER ── */
     .cover-banner {
       position: relative;
@@ -29,13 +101,6 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
-
-      /* ============================================================
-         GANTI FOTO BACKGROUND BANNER:
-         Ubah URL di bawah ini dengan link foto atau path foto kamu.
-         Contoh lokal: url('/images/foto-banner.jpg')
-         Contoh online: url('https://...')
-         ============================================================ */
       background:
         linear-gradient(160deg, rgba(10,42,74,0.95) 0%, rgba(13,79,110,0.88) 50%, rgba(26,122,138,0.82) 100%),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80') center/cover no-repeat;
@@ -53,16 +118,6 @@
     .cover-glow-ring:nth-child(3) { width:900px; height:900px; border: 1px solid rgba(197,255,149,0.08); animation-delay:1s; }
 
     .cover-inner { position: relative; z-index: 2; padding: 0 24px; }
-    .cover-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 18px; border-radius: 999px;
-      border: 1px solid rgba(93,235,215,0.45);
-      background: rgba(93,235,215,0.12);
-      color: var(--color-cyan-mint); font-size: 0.85rem;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 28px;
-      animation: fadeDown 0.7s ease both;
-    }
     .cover-title {
       font-size: clamp(3rem, 7vw, 6.5rem);
       font-weight: 800; line-height: 1.05;
@@ -210,6 +265,7 @@
     @keyframes ringPulse { 0%,100% { transform:translate(-50%,-50%) scale(1); opacity:.5; } 50% { transform:translate(-50%,-50%) scale(1.04); opacity:1; } }
 
     @media (max-width: 768px) {
+      header { padding: 16px 20px; }
       .bento-row { grid-template-columns: 1fr; }
       .bento-row.reverse { direction: ltr; }
       .bento-img { min-height: 220px; }
@@ -220,49 +276,23 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- ══════════════════════════════════════════
-       NAVBAR — sama persis dengan halaman lain
-       ══════════════════════════════════════════ -->
-  <header class="border-b px-4 py-4 sm:px-6 sticky top-0 z-40" style="background: #074173; border-color: rgba(93,235,215,0.2); backdrop-filter: blur(12px); box-shadow: 0 2px 16px rgba(7,65,115,0.3);">
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between max-w-7xl mx-auto w-full">
-      <div class="flex items-center justify-between gap-4">
-        <a href="/" class="flex items-center space-x-3" style="text-decoration:none;">
-
-          <!-- ============================================================
-               GANTI LOGO KCM:
-               Ganti src di bawah ini dengan path logo kamu.
-               Contoh: src="/images/logo-kcm.png"
-               Ukuran sudah diatur 40x40px, sesuaikan jika perlu.
-               ============================================================ -->
-          <img
-            src="/images/logo-kcm.png"
-            alt="Logo KCM"
-            height="40"
-            style="height:40px; width:auto; object-fit:contain;"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-          />
-          <div class="hidden h-10 w-10 items-center justify-center rounded-full text-lg text-white shadow-lg" id="logo-fallback" style="background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-cyan-mint));">
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-          </div>
-
-          <p class="text-sm font-semibold" style="color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; font-size: 11px;">IT Support & General Affair</p>
-        </a>
-
-      </div>
-
-      <nav style="display:flex; align-items:center; gap:28px;">
-        <a href="/"           style="color:rgba(255,255,255,0.75); text-decoration:none; font-size:13px; font-weight:600; letter-spacing:0.5px;">Home</a>
-        <a href="/it-support" style="color:rgba(255,255,255,0.75); text-decoration:none; font-size:13px; font-weight:600; letter-spacing:0.5px;">IT Support</a>
-        <a href="/ga"         style="color:rgba(255,255,255,0.75); text-decoration:none; font-size:13px; font-weight:600; letter-spacing:0.5px;">GA</a>
-        <a href="/about"      style="color:#ffffff; text-decoration:none; font-size:13px; font-weight:700; letter-spacing:0.5px; border-bottom: 3px solid var(--color-cyan-mint); padding-bottom:2px;">About</a>
-      </nav>
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+        <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
+        <div class="logo-divider"></div>
+        <div class="logo-sub">IT Support & General Affair</div>
     </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/it-support">IT Support</a>
+        <a href="/ga">GA (General Affair)</a>
+        <a href="/about" class="active">About Us</a>
+    </nav>
   </header>
 
-
-  <!-- ══════════════════════════════════════════
-       COVER BANNER
-       ══════════════════════════════════════════ -->
+  <!-- COVER BANNER -->
   <div class="cover-banner">
     <canvas id="particleCanvas"></canvas>
     <div class="cover-glow-ring"></div>
@@ -273,13 +303,10 @@
         <span class="word-about">About</span> <span class="word-us">Us</span>
       </h1>
       <p class="cover-sub">Tim IT dan General Affair yang andal, sigap, dan siap mendukung setiap kebutuhan operasional sekolah.</p>
-
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════
-       CONTENT
-       ══════════════════════════════════════════ -->
+  <!-- CONTENT -->
   <div class="page-shell">
 
     <!-- Visi & Misi -->
@@ -373,16 +400,10 @@
       <span><i class="fa-solid fa-envelope" style="margin-right:6px; color:var(--color-ocean-blue);"></i>info@cendekiamuda.sch.id</span>
     </div>
     <p style="margin:4px 0;"><i class="fa-solid fa-location-dot" style="margin-right:6px; color:var(--color-ocean-blue);"></i>JL Puri Ayu Pratama III No. 17 Arcamanik Bandung</p>
-    <p style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color);">© 2024 Cendekia Muda. All rights reserved.</p>
+    <p style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color);">© 2026 Cendekia Muda. All rights reserved.</p>
   </footer>
 
   <script>
-        // Logo fallback
-    document.querySelector('img[alt="Logo KCM"]').addEventListener('error', function() {
-      this.style.display = 'none';
-      document.getElementById('logo-fallback').style.display = 'flex';
-    });
-
     // Particles
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
