@@ -1,225 +1,523 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Request Fasilitas GA</title>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengaduan IT - Cendekia Muda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { 
+            --bg-body: #f8fafc; 
+            --card-bg: #ffffff; 
+            --border-color: #e2e8f0; 
+            --color-dark-blue: #074173; 
+            --color-ocean-blue: #1679AB; 
+            --color-cyan-mint: #5DEBD7; 
+            --color-lime-green: #C5FF95; 
+            --text-main: #074173; 
+            --text-muted: #64748b; 
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        /* HEADER DENGAN LOGO KCM */
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 16px 40px; 
+            background-color: #ffffff; 
+            border-bottom: 1px solid var(--border-color); 
+            box-shadow: 0 2px 10px rgba(7, 65, 115, 0.05); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-divider {
+            height: 28px;
+            width: 1px;
+            background-color: var(--border-color);
+        }
+
+        .logo-text-group { 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .logo-title { 
+            font-size: 14px; 
+            font-weight: 800; 
+            color: var(--color-dark-blue); 
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-sub { 
+            font-size: 10px; 
+            color: var(--color-ocean-blue); 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        nav a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 600; 
+            transition: color 0.2s; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a:hover { 
+            color: var(--color-dark-blue); 
+        }
+
+        main { 
+            flex-grow: 1; 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .container-box { 
+            width: 100%; 
+            max-width: 42rem; 
+        }
+
+        .card { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            padding: 32px; 
+            box-shadow: 0 10px 30px rgba(7, 65, 115, 0.08); 
+        }
+
+        h1 { 
+            font-size: 24px; 
+            color: var(--color-dark-blue); 
+            margin-top: 0; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+
+        h1 i { 
+            color: var(--color-ocean-blue); 
+        }
+
+        p.subtitle { 
+            font-size: 14px; 
+            color: var(--text-muted); 
+            margin-bottom: 28px; 
+            line-height: 1.6; 
+        }
+
+        .alert-success { 
+            background-color: rgba(197, 255, 149, 0.3); 
+            border: 1px solid var(--color-lime-green); 
+            color: #15803d; 
+            font-size: 14px; 
+            padding: 14px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            font-weight: 600; 
+        }
+
+        .alert-error { 
+            background-color: rgba(239, 68, 68, 0.1); 
+            border: 1px solid #ef4444; 
+            color: #dc2626; 
+            font-size: 14px; 
+            padding: 14px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            font-weight: 600; 
+        }
+
+        .form-row { 
+            display: flex; 
+            gap: 20px; 
+        }
+
+        .form-group { 
+            flex: 1; 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            display: block; 
+            color: var(--color-dark-blue); 
+            margin-bottom: 8px; 
+            font-size: 13px; 
+            font-weight: 700; 
+        }
+
+        .required { 
+            color: #ef4444; 
+        }
+
+        input, select, textarea { 
+            width: 100%; 
+            background-color: #f8fafc; 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 14px; 
+            color: var(--color-dark-blue); 
+            font-size: 14px; 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: all 0.2s ease; 
+        }
+
+        input:focus, select:focus, textarea:focus { 
+            border-color: var(--color-ocean-blue); 
+            background-color: #ffffff; 
+            box-shadow: 0 0 0 4px rgba(93, 235, 215, 0.2); 
+        }
+
+        /* UPLOAD FOTO STYLE */
+        .upload-box { 
+            border: 2px dashed var(--border-color); 
+            border-radius: 12px; 
+            padding: 24px; 
+            text-align: center; 
+            background-color: #f8fafc; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-box:hover { 
+            border-color: var(--color-ocean-blue); 
+            background-color: rgba(93, 235, 215, 0.1); 
+        }
+
+        .upload-box i { 
+            color: var(--color-ocean-blue); 
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .upload-box p { 
+            color: var(--text-muted); 
+            font-size: 13px; 
+            margin: 0; 
+        }
+
+        .image-preview { 
+            max-width: 180px; 
+            max-height: 180px; 
+            margin-top: 14px; 
+            display: none; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        button.btn-submit { 
+            width: 100%; 
+            background-color: var(--color-dark-blue); 
+            color: #ffffff; 
+            font-weight: 700; 
+            padding: 16px; 
+            border-radius: 14px; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 15px; 
+            letter-spacing: 0.5px; 
+            margin-top: 16px; 
+            transition: all 0.2s; 
+            box-shadow: 0 5px 15px rgba(7, 65, 115, 0.2); 
+        }
+
+        button.btn-submit:hover { 
+            background-color: var(--color-ocean-blue); 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(7, 65, 115, 0.3); 
+        }
+
+        button.btn-submit:disabled { 
+            background-color: var(--text-muted); 
+            cursor: not-allowed; 
+            transform: none;
+            box-shadow: none; 
+        }
+
+        footer { 
+            background-color: #ffffff; 
+            padding: 24px; 
+            text-align: center; 
+            font-size: 12px; 
+            color: var(--text-muted); 
+            border-top: 1px solid var(--border-color); 
+        }
+
+        @media (max-width: 640px) { 
+            .form-row { flex-direction: column; gap: 0; } 
+            header { padding: 14px 20px; } 
+            .logo-divider { display: none; } 
+            .card { padding: 24px; } 
+        }
+    </style>
 </head>
 <body>
-
-<div class="hero-container">
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-    <div
-      style="
-        width: 100%;
-        max-width: 580px;
-        border-radius: 20px;
-        overflow: hidden;
-        background: var(--color-muted-blue);
-        border: 1px solid var(--color-purple);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        padding: 30px;
-      "
-    >
-      <a href="/ga" style="color: var(--text-muted); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 15px;">
-        <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman GA
-      </a>
-
-      <h2 style="color: var(--color-pink); margin-bottom: 20px; font-size: 22px">
-        <i class="fa-solid fa-clipboard-list" style="margin-right: 8px"></i>Form Request Fasilitas GA
-      </h2>
-
-      <form id="gaForm">
-        <!-- 1. Unit -->
-        <div style="margin-bottom: 15px; text-align: left">
-          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Unit / Departemen:</label>
-          <select
-            id="unit"
-            required
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          >
-            <option value="">-- Pilih Unit --</option>
-            <option value="TK">TK</option>
-            <option value="SD Makasar">SD Makasar</option>
-            <option value="SMP">SMP</option>
-            <option value="Daycare">Daycare</option>
-            <option value="Umum">Umum / Operational</option>
-          </select>
+    <!-- HEADER LOGO KCM -->
+    <header>
+        <div class="logo-container">
+            <img src="/images/logo-kcm.png" alt="Logo KCM">
+            <div class="logo-divider"></div>
+            <div class="logo-text-group">
+                <span class="logo-title">PORTAL MAINTENANCE INTERNAL</span>
+                <span class="logo-sub">CENDEKIA MUDA</span>
+            </div>
         </div>
+        <nav>
+            <a href="/it-support"><i class="fa-solid fa-arrow-left"></i> Kembali ke IT Support</a>
+        </nav>
+    </header>
 
-        <!-- 2. Nama Pemohon -->
-        <div style="margin-bottom: 15px; text-align: left">
-          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Nama Pemohon:</label>
-          <input
-            type="text"
-            id="nama_request"
-            required
-            placeholder="Masukkan nama Anda"
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          />
+    <main>
+        <div class="container-box">
+            <div class="card">
+                <h1><i class="fa-solid fa-laptop-code"></i> Form Pengaduan IT Support</h1>
+                <p class="subtitle">Isi data di bawah ini untuk mengajukan perbaikan atau penanganan kendala IT.</p>
+
+                <% if (typeof success !== 'undefined' && success === 'true') { %>
+                    <div class="alert-success"><i class="fa-solid fa-circle-check"></i> Data & Bukti Foto berhasil dikirim dan tercatat!</div>
+                <% } else if (typeof success !== 'undefined' && success === 'false') { %>
+                    <div class="alert-error"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim data. Silakan coba lagi.</div>
+                <% } %>
+
+                <form id="uploadForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Pelapor <span class="required">*</span></label>
+                            <input type="text" id="nama_request" name="nama_request" required placeholder="Masukkan nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Sekolah <span class="required">*</span></label>
+                            <select id="unit" name="unit" required onchange="updateKelasOptions()">
+                                <option value="" disabled selected>Pilih Unit</option>
+                                <option value="Daycare">Daycare</option>
+                                <option value="TK">TK</option>
+                                <option value="SD Bandung">SD Bandung</option>
+                                <option value="SD Bilingual">SD Bilingual</option>
+                                <option value="SD Makasar">SD Makasar</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                                <option value="UPPP">UPPP</option>
+                                <option value="Catering">Catering</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kelas / Level <span class="required">*</span></label>
+                            <select id="kelas" name="kelas" required>
+                                <option value="" disabled selected>Pilih Unit Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori Kendala <span class="required">*</span></label>
+                            <select id="permasalahan" name="permasalahan" required>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
+                                <option value="Komputer / Laptop">Komputer / Laptop</option>
+                                <option value="Printer / Scanner">Printer / Scanner</option>
+                                <option value="Webcam">Webcam</option>
+                                <option value="Microphone / Audio">Microphone / Audio</option>
+                                <option value="TV / Display">TV / Display</option>
+                                <option value="Projector">Projector</option>
+                                <option value="Sistem / Aplikasi">Sistem / Aplikasi</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detail Permasalahan <span class="required">*</span></label>
+                        <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kerusakan atau keluhan..."></textarea>
+                    </div>
+
+                    <!-- FITUR UNGGAH FOTO -->
+                    <div class="form-group">
+<<<<<<< HEAD
+                        <label>Unggah Foto (Bukti Kerusakan) <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
+                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p id="uploadStatus">Klik untuk unggah file (JPG, PNG MAX 5MB)</p>
+                            <img id="imagePreview" class="image-preview" src="" alt="Pratinjau Foto">
+                            <input type="file" id="fileInput" name="foto" accept="image/jpeg, image/png" style="display: none;">
+=======
+                        <label>Unggah Foto (Bukti Kerusakan) <span style="color: var(--text-muted); font-weight: normal;">(Opsional)</span></label>
+                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--text-muted);"></i>
+                            <p style="margin: 6px 0 0 0; font-size: 13px; color: var(--text-muted);">Klik untuk unggah file (JPG, PNG MAX 5MB)</p>
+                            <input type="file" id="fileInput" name="foto" accept="image/*" style="display: none;">
+>>>>>>> c1338e629ace04e4c2e4504f272382e4187aa060
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN
+                    </button>
+                </form>
+            </div>
         </div>
+    </main>
 
-        <!-- 3. Lokasi / Area -->
-        <div style="margin-bottom: 15px; text-align: left">
-          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Lokasi / Area Permasalahan:</label>
-          <input
-            type="text"
-            id="lokasi"
-            required
-            placeholder="Contoh: Toilet Lt. 2, Ruang Guru, Lapangan"
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          />
-        </div>
+    <footer>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
+    </footer>
 
-        <!-- 4. Jenis Masalah GA -->
-        <div style="margin-bottom: 15px; text-align: left">
-          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Jenis Fasilitas / Keluhan:</label>
-          <select
-            id="permasalahan"
-            required
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          >
-            <option value="">-- Pilih Masalah --</option>
-            <option value="AC / Kipas Angin">AC / Kipas Angin</option>
-            <option value="Lampu / Kelistrikan">Lampu / Kelistrikan</option>
-            <option value="Plambing / Air / Toilet">Plambing / Air / Toilet</option>
-            <option value="Meja / Kursi / Meubel">Meja / Kursi / Meubel</option>
-            <option value="Kebersihan Area">Kebersihan Area</option>
-            <option value="Lainnya">Lainnya</option>
-          </select>
-        </div>
-
-        <!-- 5. Detail Permasalahan -->
-        <div style="margin-bottom: 15px; text-align: left">
-          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Detail Request / Keluhan:</label>
-          <textarea
-            id="detail_permasalahan"
-            rows="3"
-            required
-            placeholder="Jelaskan detail barang atau perbaikan yang dibutuhkan..."
-            style="
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid var(--color-purple);
-              background: var(--color-dark);
-              color: white;
-            "
-          ></textarea>
-        </div>
-
-        <!-- 6. Upload Foto -->
-        <div style="margin-bottom: 20px; text-align: left">
-          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Upload Foto Kerusakan (Opsional):</label>
-          <input type="file" id="fotoInput" accept="image/*" style="width: 100%; color: white;" />
-          <img id="imgPreview" style="max-width: 100%; height: auto; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--color-purple);" />
-        </div>
-
-        <button
-          type="submit"
-          id="btnSubmit"
-          class="btn-pink"
-          style="width: 100%; justify-content: center"
-        >
-          Kirim Request GA
-        </button>
-      </form>
-
-      <p id="gaStatusMessage" style="margin-top: 15px; font-size: 13px; text-align: center"></p>
-    </div>
-  </div>
-</div>
-
-<script>
-  let base64Foto = "";
-  let mimeTypeFoto = "";
-
-  document.getElementById('fotoInput').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      mimeTypeFoto = file.type;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        base64Foto = evt.target.result;
-        const preview = document.getElementById('imgPreview');
-        preview.src = base64Foto;
-        preview.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
+    <script>
+    // 1. Dropdown Kelas Dinamis
+    function updateKelasOptions() { 
+        const unit = document.getElementById("unit").value; 
+        const kelasSelect = document.getElementById("kelas"); 
+        kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas</option>'; 
+        let options = []; 
+        if (unit.includes("SD")) { 
+            options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"]; 
+        } else if (unit === "SMP") { 
+            options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C"]; 
+        } else if (unit === "SMA") { 
+            options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C"]; 
+        } else { 
+            options = ["Non-Kelas / Staf", "Lainnya"]; 
+        } 
+        options.forEach(opt => { 
+            const el = document.createElement("option"); 
+            el.value = opt; 
+            el.textContent = opt; 
+            kelasSelect.appendChild(el); 
+        }); 
     }
-  });
 
-  document.getElementById('gaForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const status = document.getElementById("gaStatusMessage");
-    const btn = document.getElementById("btnSubmit");
+    // 2. Pratinjau & Validasi Foto
+    const fileInput = document.getElementById('fileInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadStatus = document.getElementById('uploadStatus');
 
-    btn.disabled = true;
-    status.style.color = "var(--color-pink)";
-    status.innerText = "Mengirim data...";
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                fileInput.value = '';
+                imagePreview.style.display = 'none';
+                uploadStatus.textContent = 'Klik untuk unggah file (JPG, PNG MAX 5MB)';
+                return;
+            }
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                alert('Hanya diperbolehkan file JPG atau PNG.');
+                fileInput.value = '';
+                imagePreview.style.display = 'none';
+                uploadStatus.textContent = 'Klik untuk unggah file (JPG, PNG MAX 5MB)';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                imagePreview.src = event.target.result;
+                imagePreview.style.display = 'block';
+                uploadStatus.textContent = 'File terpilih: ' + file.name;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
 
-    const payload = {
-      unit: document.getElementById('unit').value,
-      nama_request: document.getElementById('nama_request').value,
-      lokasi: document.getElementById('lokasi').value,
-      permasalahan: document.getElementById('permasalahan').value,
-      detail_permasalahan: document.getElementById('detail_permasalahan').value,
-      fotoBase64: base64Foto,
-      fotoMimeType: mimeTypeFoto
-    };
+    // 3. Proses Pengiriman Form (AJAX Base64)
+    const form = document.getElementById('uploadForm');
+    const submitBtn = document.getElementById('submitBtn');
 
-    try {
-      const response = await fetch('/ga/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-      const result = await response.json();
-      if (result.status === 'success') {
-        window.location.href = result.redirectUrl;
-      } else {
-        status.style.color = "#f87171";
-        status.innerText = "Gagal mengirim data. Coba lagi.";
-        btn.disabled = false;
-      }
-    } catch (err) {
-      status.style.color = "#f87171";
-      status.innerText = "Terjadi kesalahan koneksi server.";
-      btn.disabled = false;
-    }
-  });
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENGIRIM LAPORAN...';
+
+        const file = fileInput.files[0];
+        const payload = {
+            unit: document.getElementById('unit').value,
+            nama_request: document.getElementById('nama_request').value,
+            kelas: document.getElementById('kelas').value,
+            permasalahan: document.getElementById('permasalahan').value,
+            detail_permasalahan: document.getElementById('detail_permasalahan').value,
+            fotoBase64: "",
+            fotoMimeType: ""
+        };
+
+        const sendData = (finalPayload) => {
+            fetch('/it-support/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(finalPayload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    alert('Terjadi kesalahan saat menyimpan data.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Gagal mengirim laporan. Cek koneksi Anda.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN';
+            });
+        };
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const rawBase64 = event.target.result;
+                payload.fotoBase64 = rawBase64.split(',')[1];
+                payload.fotoMimeType = file.type;
+                sendData(payload);
+            };
+            reader.onerror = () => {
+                alert('Gagal membaca file foto.');
+                sendData(payload);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            sendData(payload);
+        }
+    });
 </script>
-
 </body>
 </html>
