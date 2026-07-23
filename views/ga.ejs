@@ -185,6 +185,76 @@
             header { padding: 16px 20px; }
             .form-card { padding: 22px; }
         }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(32px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeLeft {
+            from { opacity: 0; transform: translateX(-24px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes rotateBorder {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+        @keyframes pulseShadow {
+            0%, 100% { box-shadow: 0 10px 25px rgba(7,65,115,0.25); }
+            50%       { box-shadow: 0 10px 35px rgba(93,235,215,0.45), 0 0 0 6px rgba(93,235,215,0.1); }
+        }
+
+        /* Hero entrance */
+        .hero h1    { animation: fadeDown 0.7s 0.1s ease both; }
+        .hero .subtitle { animation: fadeDown 0.7s 0.25s ease both; }
+        .hero p     { animation: fadeDown 0.7s 0.4s ease both; }
+
+        /* Section header slide from left */
+        .section-header { animation: fadeLeft 0.6s 0.2s ease both; }
+
+        /* Scroll reveal base — pakai animation bukan opacity/transform agar tidak bentrok dengan hover */
+        .anim-reveal {
+            animation: fadeUp 0.6s ease both;
+            animation-play-state: paused;
+        }
+        .anim-reveal.visible {
+            animation-play-state: running;
+        }
+
+        /* Avatar rotating gradient ring */
+        .avatar-wrapper {
+            position: relative;
+        }
+        .avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(var(--color-cyan-mint), var(--color-lime-green), var(--color-ocean-blue), var(--color-cyan-mint));
+            animation: rotateBorder 3s linear infinite;
+            z-index: 0;
+        }
+        .avatar-wrapper img {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CTA button shimmer + pulse */
+        .btn-submit-main {
+            background-size: 200% auto;
+            animation: pulseShadow 2.5s ease-in-out infinite;
+        }
+        .btn-submit-main:hover {
+            animation: none;
+        }
     </style>
 </head>
 <body>
@@ -266,7 +336,21 @@
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
+    <script>
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.team-card, .cta-box');
+        revealEls.forEach(el => el.classList.add('anim-reveal'));
 
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 120);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
 
+        revealEls.forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
