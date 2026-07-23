@@ -1,16 +1,18 @@
 const express = require("express");
-const axios = require("axios"); // Library untuk kirim data ke Google Apps Script
+const axios = require("axios"); 
 const app = express();
 const PORT = 3000;
 
-// Set EJS & Body Parser
+// Set EJS
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(express.static("public"));
 
+// LIMIT dinaikkan untuk menampung gambar Base64
+app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(express.json({ limit: '50mb' }));
+
 // 🔗 URL WEB APP GOOGLE APPS SCRIPT
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBuq6R8DMTIiRYTx_MnRQoYDHr2A6wPjrdD41uoR-HXsS7q79e471CTl03bIumg6wd/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLjemhWAcGUOUOsla77fbP_AZMgBUDAGB3UUsXJXKNn-gj291A5uSAz7qF1nwoxncG/exec";
 
 // --- RUTE HALAMAN UTAMA ---
 app.get("/", (req, res) => {
@@ -23,7 +25,7 @@ app.get("/about", (req, res) => {
 
 // --- RUTE IT SUPPORT ---
 
-// 1. Halaman Utama IT Support (Dashboard Information)
+// 1. Halaman Utama IT Support
 app.get("/it-support", (req, res) => {
   res.render("itsupport", { activePage: "itsupport" });
 });
@@ -36,25 +38,47 @@ app.get("/it-support/form", (req, res) => {
   });
 });
 
-// 3. Proses Kirim Form IT Support ke Google Spreadsheet
+// 3. Proses Kirim Form IT Support ke Google Spreadsheet & Drive
 app.post("/it-support/submit", async (req, res) => {
-  const { unit, nama_request, kelas, permasalahan, detail_permasalahan } = req.body;
+  const { 
+    unit, 
+    nama_request, 
+    kelas, 
+    permasalahan, 
+    detail_permasalahan,
+    fotoBase64,
+    fotoMimeType 
+  } = req.body;
 
   try {
-    // Kirim data ke Spreadsheet via Axios
-    await axios.post(APPS_SCRIPT_URL, {
+    console.log(`[INFO] Mengirim laporan dari ${nama_request}...`);
+
+    const responseGAS = await axios.post(APPS_SCRIPT_URL, {
       unit,
       nama_request,
       kelas,
       permasalahan,
-      detail_permasalahan
+      detail_permasalahan,
+      fotoBase64,
+      fotoMimeType
+    }, {
+      headers: { "Content-Type": "application/json" }
     });
 
-    // Redirect balik ke halaman form dengan notifikasi sukses
-    res.redirect("/it-support/form?success=true");
+    console.log("[RESPON ASLI DARI GAS]:", responseGAS.data);
+
+    // HANYA anggap sukses jika GAS secara eksplisit menjawab result: "success"
+    if (responseGAS.data && responseGAS.data.result === "success") {
+      console.log(`[SUKSES] Laporan dari ${nama_request} berhasil dikirim!`);
+      return res.json({ status: "success", redirectUrl: "/it-support/form?success=true" });
+    } else {
+      console.error("[GAGAL DARI GAS]:", responseGAS.data);
+      return res.json({ status: "error", redirectUrl: "/it-support/form?success=false" });
+    }
+
   } catch (error) {
-    console.error("Gagal mengirim data ke Spreadsheet:", error.message);
-    res.redirect("/it-support/form?success=false");
+    console.error("[ERROR SERVER]:", error.message);
+    return res.json({ status: "error", redirectUrl: "/it-support/form?success=false" });
   }
 });
 
