@@ -9,84 +9,154 @@
 </head>
 <body>
 
-<div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
-  <div style="
-    width: 100%;
-    max-width: 580px;
-    border-radius: 20px;
-    background: var(--color-muted-blue);
-    border: 1px solid var(--color-purple);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    padding: 30px;
-  ">
-    
-    <a href="/ga" style="color: var(--text-muted); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 15px;">
-      <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman GA
-    </a>
+<div class="hero-container">
+  <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <div
+      style="
+        width: 100%;
+        max-width: 580px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: var(--color-muted-blue);
+        border: 1px solid var(--color-purple);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        padding: 30px;
+      "
+    >
+      <a href="/ga" style="color: var(--text-muted); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 15px;">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman GA
+      </a>
 
-    <h2 style="color: var(--color-pink); margin-bottom: 20px; font-size: 22px;">
-      <i class="fa-solid fa-clipboard-list" style="margin-right: 8px;"></i>Form Request Fasilitas GA
-    </h2>
+      <h2 style="color: var(--color-pink); margin-bottom: 20px; font-size: 22px">
+        <i class="fa-solid fa-clipboard-list" style="margin-right: 8px"></i>Form Request Fasilitas GA
+      </h2>
 
-    <form id="gaForm">
-      <!-- 1. Unit -->
-      <div style="margin-bottom: 15px; text-align: left;">
-        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Unit / Departemen:</label>
-        <select id="unit" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
-          <option value="">-- Pilih Unit --</option>
-          <option value="TK">TK</option>
-          <option value="SD Makasar">SD Makasar</option>
-          <option value="SMP">SMP</option>
-          <option value="Daycare">Daycare</option>
-          <option value="Umum">Umum / Operational</option>
-        </select>
-      </div>
+      <form id="gaForm">
+        <!-- 1. Unit -->
+        <div style="margin-bottom: 15px; text-align: left">
+          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Unit / Departemen:</label>
+          <select
+            id="unit"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          >
+            <option value="">-- Pilih Unit --</option>
+            <option value="TK">TK</option>
+            <option value="SD Makasar">SD Makasar</option>
+            <option value="SMP">SMP</option>
+            <option value="Daycare">Daycare</option>
+            <option value="Umum">Umum / Operational</option>
+          </select>
+        </div>
 
-      <!-- 2. Nama Pemohon -->
-      <div style="margin-bottom: 15px; text-align: left;">
-        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Nama Pemohon:</label>
-        <input type="text" id="nama_request" required placeholder="Masukkan nama Anda" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
-      </div>
+        <!-- 2. Nama Pemohon -->
+        <div style="margin-bottom: 15px; text-align: left">
+          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Nama Pemohon:</label>
+          <input
+            type="text"
+            id="nama_request"
+            required
+            placeholder="Masukkan nama Anda"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          />
+        </div>
 
-      <!-- 3. Lokasi / Area -->
-      <div style="margin-bottom: 15px; text-align: left;">
-        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Lokasi / Area Permasalahan:</label>
-        <input type="text" id="lokasi" required placeholder="Contoh: Toilet Lt. 2, Ruang Guru, Lapangan" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
-      </div>
+        <!-- 3. Lokasi / Area -->
+        <div style="margin-bottom: 15px; text-align: left">
+          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Lokasi / Area Permasalahan:</label>
+          <input
+            type="text"
+            id="lokasi"
+            required
+            placeholder="Contoh: Toilet Lt. 2, Ruang Guru, Lapangan"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          />
+        </div>
 
-      <!-- 4. Jenis Masalah GA -->
-      <div style="margin-bottom: 15px; text-align: left;">
-        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Jenis Fasilitas / Keluhan:</label>
-        <select id="permasalahan" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
-          <option value="">-- Pilih Masalah --</option>
-          <option value="AC / Kipas Angin">AC / Kipas Angin</option>
-          <option value="Lampu / Kelistrikan">Lampu / Kelistrikan</option>
-          <option value="Plambing / Air / Toilet">Plambing / Air / Toilet</option>
-          <option value="Meja / Kursi / Meubel">Meja / Kursi / Meubel</option>
-          <option value="Kebersihan Area">Kebersihan Area</option>
-          <option value="Lainnya">Lainnya</option>
-        </select>
-      </div>
+        <!-- 4. Jenis Masalah GA -->
+        <div style="margin-bottom: 15px; text-align: left">
+          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Jenis Fasilitas / Keluhan:</label>
+          <select
+            id="permasalahan"
+            required
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          >
+            <option value="">-- Pilih Masalah --</option>
+            <option value="AC / Kipas Angin">AC / Kipas Angin</option>
+            <option value="Lampu / Kelistrikan">Lampu / Kelistrikan</option>
+            <option value="Plambing / Air / Toilet">Plambing / Air / Toilet</option>
+            <option value="Meja / Kursi / Meubel">Meja / Kursi / Meubel</option>
+            <option value="Kebersihan Area">Kebersihan Area</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
 
-      <!-- 5. Detail Permasalahan -->
-      <div style="margin-bottom: 15px; text-align: left;">
-        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Detail Request / Keluhan:</label>
-        <textarea id="detail_permasalahan" rows="3" required placeholder="Jelaskan detail barang atau perbaikan yang dibutuhkan..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;"></textarea>
-      </div>
+        <!-- 5. Detail Permasalahan -->
+        <div style="margin-bottom: 15px; text-align: left">
+          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Detail Request / Keluhan:</label>
+          <textarea
+            id="detail_permasalahan"
+            rows="3"
+            required
+            placeholder="Jelaskan detail barang atau perbaikan yang dibutuhkan..."
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid var(--color-purple);
+              background: var(--color-dark);
+              color: white;
+            "
+          ></textarea>
+        </div>
 
-      <!-- 6. Upload Foto -->
-      <div style="margin-bottom: 20px; text-align: left;">
-        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Upload Foto Kerusakan (Opsional):</label>
-        <input type="file" id="fotoInput" accept="image/*" style="width: 100%; color: white;">
-        <img id="imgPreview" style="max-width: 100%; height: auto; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--color-purple);">
-      </div>
+        <!-- 6. Upload Foto -->
+        <div style="margin-bottom: 20px; text-align: left">
+          <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Upload Foto Kerusakan (Opsional):</label>
+          <input type="file" id="fotoInput" accept="image/*" style="width: 100%; color: white;" />
+          <img id="imgPreview" style="max-width: 100%; height: auto; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--color-purple);" />
+        </div>
 
-      <button type="submit" id="btnSubmit" class="btn-pink" style="width: 100%; justify-content: center; padding: 12px; font-weight: bold;">
-        Kirim Request GA
-      </button>
-    </form>
+        <button
+          type="submit"
+          id="btnSubmit"
+          class="btn-pink"
+          style="width: 100%; justify-content: center"
+        >
+          Kirim Request GA
+        </button>
+      </form>
 
-    <p id="gaStatusMessage" style="margin-top: 15px; font-size: 13px; text-align: center;"></p>
+      <p id="gaStatusMessage" style="margin-top: 15px; font-size: 13px; text-align: center"></p>
+    </div>
   </div>
 </div>
 
