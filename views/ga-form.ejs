@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pengaduan IT - Cendekia Muda</title>
+    <title>Form Pengaduan GA - Cendekia Muda</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { 
@@ -29,72 +29,80 @@
             min-height: 100vh; 
         }
 
-        /* HEADER DENGAN LOGO KCM */
+        /* HEADER & NAVBAR SESUAI GAMBAR */
         header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 16px 40px; 
-            background-color: #ffffff; 
-            border-bottom: 1px solid var(--border-color); 
-            box-shadow: 0 2px 10px rgba(7, 65, 115, 0.05); 
+            padding: 18px 48px; 
+            background-color: #003B6B; /* Biru Tua sesuai Screenshot */
+            color: #ffffff;
             position: sticky; 
             top: 0; 
             z-index: 100; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
-        .logo-container img {
-            height: 42px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .logo-divider {
-            height: 28px;
-            width: 1px;
-            background-color: var(--border-color);
-        }
-
-        .logo-text-group { 
-            display: flex; 
-            flex-direction: column; 
-        }
-
-        .logo-title { 
-            font-size: 14px; 
-            font-weight: 800; 
-            color: var(--color-dark-blue); 
-            line-height: 1.2;
-            letter-spacing: 0.5px;
-        }
-
-        .logo-sub { 
-            font-size: 10px; 
-            color: var(--color-ocean-blue); 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
-
-        nav a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-size: 14px; 
-            font-weight: 600; 
-            transition: color 0.2s; 
+        /* Menggunakan Text/SVG Logo persis seperti KCM di gambar */
+        .logo-brand {
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--color-lime-green);
+        }
+
+        .logo-brand i {
+            color: #5DEBD7;
+            font-size: 26px;
+        }
+
+        .logo-divider {
+            height: 24px;
+            width: 2px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-title { 
+            font-size: 15px; 
+            font-weight: 800; 
+            color: var(--color-cyan-mint); 
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        nav a { 
+            color: rgba(255, 255, 255, 0.85); 
+            text-decoration: none; 
+            font-size: 15px; 
+            font-weight: 700; 
+            padding-bottom: 6px;
+            transition: all 0.2s ease; 
+            position: relative;
         }
 
         nav a:hover { 
-            color: var(--color-dark-blue); 
+            color: #ffffff; 
+        }
+
+        /* Status Aktif / Underline Biru Mint di Menu GA */
+        nav a.active {
+            color: #ffffff;
+            border-bottom: 3px solid var(--color-cyan-mint);
         }
 
         main { 
@@ -107,35 +115,32 @@
 
         .container-box { 
             width: 100%; 
-            max-width: 42rem; 
+            max-width: 52rem; 
         }
 
         .card { 
             background-color: var(--card-bg); 
             border: 1px solid var(--border-color); 
             border-radius: 20px; 
-            padding: 32px; 
+            padding: 40px; 
             box-shadow: 0 10px 30px rgba(7, 65, 115, 0.08); 
         }
 
         h1 { 
-            font-size: 24px; 
+            font-size: 28px; 
             color: var(--color-dark-blue); 
             margin-top: 0; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-        }
-
-        h1 i { 
-            color: var(--color-ocean-blue); 
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 800;
         }
 
         p.subtitle { 
             font-size: 14px; 
             color: var(--text-muted); 
-            margin-bottom: 28px; 
+            margin-bottom: 32px; 
             line-height: 1.6; 
+            text-align: center;
         }
 
         .alert-success { 
@@ -174,7 +179,7 @@
             display: block; 
             color: var(--color-dark-blue); 
             margin-bottom: 8px; 
-            font-size: 13px; 
+            font-size: 15px; 
             font-weight: 700; 
         }
 
@@ -190,6 +195,7 @@
             padding: 14px; 
             color: var(--color-dark-blue); 
             font-size: 14px; 
+            font-family: inherit;
             box-sizing: border-box; 
             outline: none; 
             transition: all 0.2s ease; 
@@ -205,7 +211,8 @@
         .upload-box { 
             border: 2px dashed var(--border-color); 
             border-radius: 12px; 
-            padding: 24px; 
+            padding: 30px 24px;
+            min-height: 120px; 
             text-align: center; 
             background-color: #f8fafc; 
             cursor: pointer; 
@@ -245,7 +252,7 @@
 
         button.btn-submit { 
             width: 100%; 
-            background-color: var(--color-dark-blue); 
+            background-color: #003B6B; 
             color: #ffffff; 
             font-weight: 700; 
             padding: 16px; 
@@ -281,38 +288,43 @@
             border-top: 1px solid var(--border-color); 
         }
 
-        @media (max-width: 640px) { 
+        @media (max-width: 768px) { 
+            header { padding: 16px 20px; flex-direction: column; gap: 16px; }
+            nav { gap: 16px; }
             .form-row { flex-direction: column; gap: 0; } 
-            header { padding: 14px 20px; } 
             .logo-divider { display: none; } 
             .card { padding: 24px; } 
         }
     </style>
 </head>
 <body>
-    <!-- HEADER LOGO KCM -->
+
+    <!-- NAVBAR SESUAI FOTO SCREENSHOT -->
     <header>
         <div class="logo-container">
-            <img src="/images/logo-kcm.png" alt="Logo KCM">
-            <div class="logo-divider"></div>
-            <div class="logo-text-group">
-                <span class="logo-title">PORTAL MAINTENANCE INTERNAL</span>
-                <span class="logo-sub">CENDEKIA MUDA</span>
+            <!-- Bisa diganti tag <img> logo KCM jika ada file-nya -->
+            <div class="logo-brand">
+                <i class="fa-solid fa-cubes-stacked"></i> KCM
             </div>
+            <div class="logo-divider"></div>
+            <span class="logo-title">IT SUPPORT & GENERAL AFFAIR</span>
         </div>
         <nav>
-            <a href="/it-support"><i class="fa-solid fa-arrow-left"></i> Kembali ke IT Support</a>
+            <a href="/">Home</a>
+            <a href="/it-support">IT Support</a>
+            <a href="/ga" class="active">GA (General Affair)</a>
+            <a href="/about">About Us</a>
         </nav>
     </header>
 
     <main>
         <div class="container-box">
             <div class="card">
-                <h1><i class="fa-solid fa-laptop-code"></i> Form Pengaduan IT Support</h1>
-                <p class="subtitle">Isi data di bawah ini untuk mengajukan perbaikan atau penanganan kendala IT.</p>
+                <h1>Form Pengaduan GA (General Affair)</h1>
+                <p class="subtitle">Isi data di bawah ini untuk mengajukan perbaikan sarana, prasarana, atau fasilitas sekolah.</p>
 
                 <% if (typeof success !== 'undefined' && success === 'true') { %>
-                    <div class="alert-success"><i class="fa-solid fa-circle-check"></i> Data & Bukti Foto berhasil dikirim dan tercatat!</div>
+                    <div class="alert-success"><i class="fa-solid fa-circle-check"></i> Laporan pengaduan GA & foto berhasil dikirim!</div>
                 <% } else if (typeof success !== 'undefined' && success === 'false') { %>
                     <div class="alert-error"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim data. Silakan coba lagi.</div>
                 <% } %>
@@ -324,7 +336,7 @@
                             <input type="text" id="nama_request" name="nama_request" required placeholder="Masukkan nama lengkap">
                         </div>
                         <div class="form-group">
-                            <label>Unit Sekolah <span class="required">*</span></label>
+                            <label>Unit Sekolah / Kerja <span class="required">*</span></label>
                             <select id="unit" name="unit" required onchange="updateKelasOptions()">
                                 <option value="" disabled selected>Pilih Unit</option>
                                 <option value="Daycare">Daycare</option>
@@ -342,54 +354,45 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Kelas / Level <span class="required">*</span></label>
+                            <label>Kelas / Ruangan <span class="required">*</span></label>
                             <select id="kelas" name="kelas" required>
                                 <option value="" disabled selected>Pilih Unit Terlebih Dahulu</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Kategori Kendala <span class="required">*</span></label>
+                            <label>Kategori Kerusakan GA <span class="required">*</span></label>
                             <select id="permasalahan" name="permasalahan" required>
-                                <option value="" disabled selected>Pilih Kategori</option>
-                                <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
-                                <option value="Komputer / Laptop">Komputer / Laptop</option>
-                                <option value="Printer / Scanner">Printer / Scanner</option>
-                                <option value="Webcam">Webcam</option>
-                                <option value="Microphone / Audio">Microphone / Audio</option>
-                                <option value="TV / Display">TV / Display</option>
-                                <option value="Projector">Projector</option>
-                                <option value="Sistem / Aplikasi">Sistem / Aplikasi</option>
+                                <option value="" disabled selected>Pilih Kategori Kebutuhan/Kerusakan</option>
+                                <option value="AC / Pendingin Ruangan">AC / Pendingin Ruangan</option>
+                                <option value="Kelistrikan & Lampu">Kelistrikan & Lampu</option>
+                                <option value="Plumbing & Toilet">Plumbing & Toilet (Kran/Wastafel/WC)</option>
+                                <option value="Meja, Kursi & Mebel">Meja, Kursi & Mebel</option>
+                                <option value="Pintu, Jendela & Kunci">Pintu, Jendela & Kunci</option>
+                                <option value="Kebersihan & Sanitasi">Kebersihan & Sanitasi</option>
+                                <option value="Bangunan & Cat">Bangunan / Dinding / Cat</option>
                                 <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Detail Permasalahan <span class="required">*</span></label>
-                        <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kerusakan atau keluhan..."></textarea>
+                        <label>Detail Permasalahan / Kerusakan GA <span class="required">*</span></label>
+                        <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail lokasi dan bentuk kerusakan fasilitas..."></textarea>
                     </div>
 
-                    <!-- FITUR UNGGAH FOTO -->
+                    <!-- FITUR UNGGAH FOTO BUKTI -->
                     <div class="form-group">
-<<<<<<< HEAD
-                        <label>Unggah Foto (Bukti Kerusakan) <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
+                        <label>Unggah Foto Kerusakan <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
                         <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <p id="uploadStatus">Klik untuk unggah file (JPG, PNG MAX 5MB)</p>
+                            <p id="uploadStatus">Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)</p>
                             <img id="imagePreview" class="image-preview" src="" alt="Pratinjau Foto">
                             <input type="file" id="fileInput" name="foto" accept="image/jpeg, image/png" style="display: none;">
-=======
-                        <label>Unggah Foto (Bukti Kerusakan) <span style="color: var(--text-muted); font-weight: normal;">(Opsional)</span></label>
-                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--text-muted);"></i>
-                            <p style="margin: 6px 0 0 0; font-size: 13px; color: var(--text-muted);">Klik untuk unggah file (JPG, PNG MAX 5MB)</p>
-                            <input type="file" id="fileInput" name="foto" accept="image/*" style="display: none;">
->>>>>>> c1338e629ace04e4c2e4504f272382e4187aa060
                         </div>
                     </div>
 
                     <button type="submit" id="submitBtn" class="btn-submit">
-                        <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN
+                        <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN GA
                     </button>
                 </form>
             </div>
@@ -401,20 +404,20 @@
     </footer>
 
     <script>
-    // 1. Dropdown Kelas Dinamis
+    // 1. Dropdown Kelas / Ruangan Dinamis
     function updateKelasOptions() { 
         const unit = document.getElementById("unit").value; 
         const kelasSelect = document.getElementById("kelas"); 
-        kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas</option>'; 
+        kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas / Ruangan</option>'; 
         let options = []; 
         if (unit.includes("SD")) { 
-            options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"]; 
+            options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Ruang Guru", "Lainnya"]; 
         } else if (unit === "SMP") { 
-            options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C"]; 
+            options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C", "Ruang Guru", "Lainnya"]; 
         } else if (unit === "SMA") { 
-            options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C"]; 
+            options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C", "Ruang Guru", "Lainnya"]; 
         } else { 
-            options = ["Non-Kelas / Staf", "Lainnya"]; 
+            options = ["Area Kantor / Staf", "Kantin", "Toilet", "Lobi / Koridor", "Lainnya"]; 
         } 
         options.forEach(opt => { 
             const el = document.createElement("option"); 
@@ -424,7 +427,7 @@
         }); 
     }
 
-    // 2. Pratinjau & Validasi Foto
+    // 2. Pratinjau & Validasi Ukuran File Foto
     const fileInput = document.getElementById('fileInput');
     const imagePreview = document.getElementById('imagePreview');
     const uploadStatus = document.getElementById('uploadStatus');
@@ -436,14 +439,14 @@
                 alert('Ukuran file terlalu besar! Maksimal 5MB.');
                 fileInput.value = '';
                 imagePreview.style.display = 'none';
-                uploadStatus.textContent = 'Klik untuk unggah file (JPG, PNG MAX 5MB)';
+                uploadStatus.textContent = 'Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)';
                 return;
             }
             if (!['image/jpeg', 'image/png'].includes(file.type)) {
                 alert('Hanya diperbolehkan file JPG atau PNG.');
                 fileInput.value = '';
                 imagePreview.style.display = 'none';
-                uploadStatus.textContent = 'Klik untuk unggah file (JPG, PNG MAX 5MB)';
+                uploadStatus.textContent = 'Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)';
                 return;
             }
             const reader = new FileReader();
@@ -456,7 +459,7 @@
         }
     });
 
-    // 3. Proses Pengiriman Form (AJAX Base64)
+    // 3. Pengiriman Form via AJAX (Base64 Ke Endpoint GA)
     const form = document.getElementById('uploadForm');
     const submitBtn = document.getElementById('submitBtn');
 
@@ -478,7 +481,7 @@
         };
 
         const sendData = (finalPayload) => {
-            fetch('/it-support/submit', {
+            fetch('/ga/submit', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(finalPayload)
@@ -490,14 +493,14 @@
                 } else {
                     alert('Terjadi kesalahan saat menyimpan data.');
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN';
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN GA';
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('Gagal mengirim laporan. Cek koneksi Anda.');
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN PENGADUAN';
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN GA';
             });
         };
 
