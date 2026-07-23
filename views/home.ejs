@@ -9,9 +9,22 @@
       rel="stylesheet"
     />
     <style>
+      :root {
+        --bg-main: #ffffff;
+        --bg-card: #f8fafc;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        
+        /* Palet Warna Biru & Toska */
+        --color-deep-blue: #074173;
+        --color-med-blue: #1679AB;
+        --color-cyan: #0891b2;
+        --color-accent-toska: #5DEBD7;
+      }
+
       body {
-        background-color: #060816;
-        color: #ffffff;
+        background-color: var(--bg-main);
+        color: var(--text-main);
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         padding: 0;
@@ -19,31 +32,54 @@
         flex-direction: column;
         min-height: 100vh;
       }
+
+      /* Header Navbar Sesuai Struktur Folder */
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 24px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        background-color: rgba(6, 8, 22, 0.95);
+        padding: 16px 32px;
+        border-bottom: 1px solid #e2e8f0;
+        background-color: rgba(255, 255, 255, 0.95);
         position: sticky;
         top: 0;
         z-index: 1000;
         backdrop-filter: blur(10px);
       }
+
+      header img {
+        max-height: 38px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover, .nav-links a.active {
+        color: var(--color-deep-blue);
+      }
       
-      /* HERO COVER DENGAN BACKGROUND TEKNISI FULL & OVERLAY */
+      /* Hero Banner */
       .hero-banner {
         position: relative;
         width: 100%;
-        min-height: 85vh;
-        background: linear-gradient(rgba(6, 8, 22, 0.85), rgba(6, 8, 22, 0.95)), 
-                    url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         padding: 60px 20px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .hero-container {
@@ -61,255 +97,288 @@
       }
 
       h1 {
-        font-size: 34px;
+        font-size: 36px;
         font-weight: 900;
         line-height: 1.2;
-        color: #ffffff;
-        margin-bottom: 12px;
-        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      }
-      @media (min-width: 640px) {
-        h1 {
-          font-size: 42px;
-        }
+        color: var(--color-deep-blue);
+        margin-bottom: 10px;
       }
       @media (min-width: 1024px) {
-        h1 {
-          font-size: 46px;
-          text-align: left;
-        }
+        h1 { font-size: 44px; text-align: left; }
       }
 
       .sub-title {
-        font-size: 18px;
-        font-weight: 800;
-        letter-spacing: 0.15em;
-        color: #fbcfe8;
-        margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--color-med-blue);
+        margin-bottom: 16px;
         text-transform: uppercase;
       }
 
       p.description {
         font-size: 15px;
-        line-height: 1.8;
-        color: #e2e8f0;
-        margin-bottom: 32px;
-        max-width: 550px;
+        line-height: 1.7;
+        color: var(--text-muted);
+        margin-bottom: 28px;
       }
 
       .btn-group {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
-        justify-content: center;
-      }
-      @media (min-width: 1024px) {
-        .btn-group {
-          justify-content: flex-start;
-        }
+        gap: 16px;
       }
 
-      .btn-pink {
-        background-color: #ec4899;
+      .btn-primary {
+        background-color: var(--color-deep-blue);
         color: #ffffff;
         padding: 12px 24px;
         border-radius: 9999px;
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
-        box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
-        transition: background-color 0.2s;
+        box-shadow: 0 4px 15px rgba(7, 65, 115, 0.2);
+        transition: all 0.2s;
         display: inline-flex;
         align-items: center;
       }
-      .btn-pink:hover {
-        background-color: #f472b6;
+      .btn-primary:hover {
+        background-color: var(--color-med-blue);
+        transform: translateY(-2px);
       }
 
-      .btn-cyan {
-        border: 1px solid rgba(34, 211, 238, 0.4);
-        background-color: rgba(34, 211, 238, 0.1);
-        color: #cffafe;
+      .btn-outline {
+        border: 2px solid var(--color-med-blue);
+        background-color: transparent;
+        color: var(--color-deep-blue);
         padding: 12px 24px;
         border-radius: 9999px;
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
-        box-shadow: 0 10px 25px rgba(34, 211, 238, 0.2);
-        transition: background-color 0.2s;
+        transition: all 0.2s;
         display: inline-flex;
         align-items: center;
       }
-      .btn-cyan:hover {
-        background-color: rgba(34, 211, 238, 0.2);
+      .btn-outline:hover {
+        background-color: rgba(22, 121, 171, 0.05);
+        transform: translateY(-2px);
       }
 
-      /* SECTION BAWAH: DIAGRAM & LAPORAN PROGRESS SAAT DI-SCROLL */
+      /* Konten Utama & Dashboard Section */
       .main-content-area {
         max-width: 1200px;
         margin: 0 auto;
         width: 100%;
-        padding: 60px 20px;
+        padding: 40px 20px;
         box-sizing: border-box;
       }
 
-      .progress-section {
-        width: 100%;
-      }
-      .progress-title {
-        text-align: center;
-        font-size: 28px;
+      .section-title {
+        font-size: 24px;
         font-weight: 800;
-        color: #fbcfe8;
-        margin-bottom: 30px;
-        letter-spacing: 1px;
+        color: var(--color-deep-blue);
+        margin-bottom: 24px;
+        letter-spacing: 0.5px;
       }
+
       .dashboard-card {
-        background: #0b1120;
-        border: 1px solid #1f293d;
+        background: var(--bg-card);
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
-        padding: 24px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
       }
 
       footer {
-        background-color: #030712;
+        background-color: #f8fafc;
         padding: 24px;
         text-align: center;
         font-size: 12px;
-        color: #9ca3af;
-        border-top: 1px solid #1f293d;
+        color: var(--text-muted);
+        border-top: 1px solid #e2e8f0;
         margin-top: auto;
       }
     </style>
   </head>
   <body>
+
+    <!-- Header Navbar Sesuai Folder -->
     <header>
-      <span style="font-weight: bold; letter-spacing: 2px"
-        >KCM
-        <span
-          style="
-            font-size: 11px;
-            font-weight: normal;
-            color: #9ca3af;
-            margin-left: 8px;
-          "
-          >LANDING PAGE IT</span
-        ></span
-      >
-      <div style="display: flex; gap: 16px; font-size: 14px">
-        <a href="/" style="color: #ffffff; text-decoration: none">Home</a>
-        <a href="/it-support" style="color: #9ca3af; text-decoration: none">IT Support</a>
-        <a href="/ga" style="color: #9ca3af; text-decoration: none">GA (General Affair)</a>
-        <a href="/about" style="color: #9ca3af; text-decoration: none">About Us</a>
+      <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+       <img src="/images/logo-kcm.png" alt="Logo KCM" />
+      </a>
+      <div class="nav-links">
+        <a href="/" class="active">Home</a>
+        <a href="/it-support">IT Support</a>
+        <a href="/ga">GA (General Affair)</a>
+        <a href="/about">About Us</a>
       </div>
     </header>
 
-    <!-- COVER UTAMA DENGAN BACKGROUND TEKNISI & ILUSTRASI 3D BER-SHADOW -->
+    <!-- Hero Banner dengan Tombol Menuju Halaman Form -->
     <div class="hero-banner">
       <div class="hero-container">
-        <!-- Kolom Kiri: Gambar Ilustrasi 3D Jaringan dengan Efek Glow & Shadow Mewah -->
-        <div style="display: flex; justify-content: center; align-items: center">
-          <div
-            style="
-              width: 100%;
-              max-width: 540px;
-              border-radius: 20px;
-              overflow: hidden;
-              background: rgba(11, 17, 32, 0.7);
-              border: 1px solid rgba(236, 72, 153, 0.3);
-              box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(34, 211, 238, 0.15);
-            "
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
-              alt="Ilustrasi Landpage IT"
-              style="
-                width: 100%;
-                height: auto;
-                display: block;
-                object-fit: cover;
-                opacity: 0.95;
-              "
-            />
-          </div>
-        </div>
-
-        <!-- Kolom Kanan: Teks & Informasi -->
-        <div style="text-align: center;" class="lg-left">
-          <div>
-            <h1>PUSAT LAYANAN & MAINTENANCE</h1>
-            <p class="sub-title">CENDEKIA MUDA</p>
-            <p
-              class="description"
-              style="margin-left: auto; margin-right: auto;"
-            >
-              Portal Bantuan IT Sekolah Cendekia Muda. Insya Allah, kami
-              berkomitmen memberikan pelayanan yang amanah dan profesional untuk
-              setiap kendala teknis Anda.
-            </p>
-          </div>
-
+        <div>
+          <h1>PUSAT LAYANAN & MAINTENANCE</h1>
+          <p class="sub-title">CENDEKIA MUDA</p>
+          <p class="description">
+            Portal Bantuan IT & General Affair Sekolah Cendekia Muda. Solusi cepat, amanah, dan terintegrasi untuk menangani kendala operasional harian Anda.
+          </p>
           <div class="btn-group">
-            <a href="/it-support" class="btn-pink">
-              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i>IT Support
+            <a href="/it-support/form" class="btn-primary">
+              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i>Form IT Support
             </a>
-            <a href="/ga" class="btn-cyan">
-              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>GA (General Affair)
+            <a href="/ga/form" class="btn-outline">
+              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>Form General Affair
             </a>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <div style="width: 100%; max-width: 480px; border-radius: 16px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="Hero Illustration" style="width: 100%; display: block;" />
           </div>
         </div>
       </div>
     </div>
 
-    <!-- KONTEN BAWAH: DIAGRAM & LAPORAN PROGRESS SAAT DI-SCROLL -->
-    <div class="main-content-area">
-      <div class="progress-section">
-        <h2 class="progress-title">ON PROGRESS MAINTENANCE</h2>
-        
-        <div class="dashboard-card">
-          <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 8px; text-align: center;">Ringkasan Data & Laporan Terkini</h3>
-          <p style="color: #9ca3af; font-size: 13px; text-align: center; margin-bottom: 24px;">Divisi IT & Divisi General Affair Cendekia Muda</p>
+    <!-- Konten Utama: Statistik & Grafik Real-Time -->
+    <div class="main-content-area" id="statistik">
+      <h2 class="section-title"><i class="fa-solid fa-chart-line" style="margin-right: 10px;"></i>MONITORING & DIAGRAM REAL-TIME</h2>
+      
+      <div class="dashboard-card">
+        <h3 style="color: var(--color-deep-blue); font-size: 18px; margin-bottom: 6px; text-align: center;">Statistik Pengajuan Berdasarkan Unit</h3>
+        <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Tersinkronisasi otomatis dari Google Spreadsheet</p>
 
-          <!-- Tabel / Diagram Preview -->
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
-              <thead>
-                <tr style="border-bottom: 2px solid #1f293d; color: #fbcfe8;">
-                  <th style="padding: 12px;">Timestamp</th>
-                  <th style="padding: 12px;">Unit</th>
-                  <th style="padding: 12px;">Kendala / Jenis Pengajuan</th>
-                  <th style="padding: 12px;">Status</th>
-                </tr>
-              </thead>
-              <tbody style="color: #d1d5db;">
-                <tr style="border-bottom: 1px solid #1f293d;">
-                  <td style="padding: 12px;">22 Juli 2026, 09:00</td>
-                  <td style="padding: 12px;">Lab Komputer 1</td>
-                  <td style="padding: 12px;">Perbaikan Jaringan & Switch Hub</td>
-                  <td style="padding: 12px;"><span style="background: rgba(74, 222, 128, 0.15); color: #4ade80; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">On Progress</span></td>
-                </tr>
-                <tr>
-                  <td style="padding: 12px;">22 Juli 2026, 08:30</td>
-                  <td style="padding: 12px;">Ruang Tata Usaha</td>
-                  <td style="padding: 12px;">Maintenance Printer & Scanner GA</td>
-                  <td style="padding: 12px;"><span style="background: rgba(248, 113, 113, 0.15); color: #f87171; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">Pending</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <!-- Grafik Chart.js -->
+        <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+          <canvas id="unitChart" style="max-height: 280px;"></canvas>
+        </div>
+
+        <!-- Tabel Data Riwayat -->
+        <h3 style="color: var(--color-deep-blue); font-size: 16px; margin-bottom: 12px;">Daftar Riwayat Terbaru</h3>
+        <div style="overflow-x: auto; max-height: 380px; overflow-y: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--color-med-blue); color: var(--color-deep-blue); background: #f1f5f9; position: sticky; top: 0;">
+                <th style="padding: 12px;">Timestamp</th>
+                <th style="padding: 12px;">Unit</th>
+                <th style="padding: 12px;">Kendala / Pesanan</th>
+                <th style="padding: 12px;">Pemohon</th>
+                <th style="padding: 12px;">Status</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" style="color: var(--text-main);">
+              <tr>
+                <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">Memuat data dari Spreadsheet...</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
+    <!-- Footer -->
     <footer>
       <p>
-        <i class="fa-solid fa-phone" style="color: #fbcfe8"></i> (022) 710 2888
+        <i class="fa-solid fa-phone" style="color: var(--color-med-blue)"></i> (022) 710 2888
         &nbsp;|&nbsp;
-        <i class="fa-solid fa-envelope" style="color: #fbcfe8"></i>
+        <i class="fa-solid fa-envelope" style="color: var(--color-med-blue)"></i>
         info@cendekiamuda.sch.id
       </p>
-      <p>© 2024 Cendekia Muda. All rights reserved.</p>
+      <p>© 2026 Cendekia Muda. All rights reserved.</p>
     </footer>
+
+    <!-- Chart.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const csvUrl = 'GANTIKAN_DENGAN_LINK_CSV_SPREADSHEET_KAMU';
+
+      async function loadSpreadsheetData() {
+        try {
+          const response = await fetch(csvUrl);
+          const data = await response.text();
+          
+          const rows = data.split('\n').map(row => row.split(','));
+          const headers = rows[0];
+          const items = rows.slice(1).filter(row => row.length === headers.length);
+
+          const tableBody = document.getElementById('tableBody');
+          tableBody.innerHTML = '';
+
+          let unitCounts = {};
+
+          items.forEach(row => {
+            let timestamp = row[0]?.replace(/"/g, '').trim();
+            let unit = row[1]?.replace(/"/g, '').trim();
+            let kendala = row[2]?.replace(/"/g, '').trim();
+            let pemohon = row[3]?.replace(/"/g, '').trim();
+            let status = row[4]?.replace(/"/g, '').trim();
+
+            if (!unit) return;
+
+            unitCounts[unit] = (unitCounts[unit] || 0) + 1;
+
+            let statusBadge = status;
+            if(status === 'Selesai') {
+              statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
+            } else if(status === 'On Progress') {
+              statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
+            } else {
+              statusBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${status || 'Menunggu'}</span>`;
+            }
+
+            let tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+            tr.innerHTML = `
+              <td style="padding: 12px;">${timestamp}</td>
+              <td style="padding: 12px; font-weight: 600; color: var(--color-deep-blue);">${unit}</td>
+              <td style="padding: 12px;">${kendala}</td>
+              <td style="padding: 12px;">${pemohon}</td>
+              <td style="padding: 12px;">${statusBadge}</td>
+            `;
+            tableBody.appendChild(tr);
+          });
+
+          renderChart(Object.keys(unitCounts), Object.values(unitCounts));
+
+        } catch (error) {
+          console.error('Gagal memuat data spreadsheet:', error);
+          document.getElementById('tableBody').innerHTML = `<tr><td colspan="5" style="padding: 20px; text-align: center; color: #991b1b;">Gagal memuat data. Pastikan link CSV Spreadsheet sudah benar & dipublikasikan.</td></tr>`;
+        }
+      }
+
+      function renderChart(labels, data) {
+        const ctx = document.getElementById('unitChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Jumlah Pengajuan per Unit',
+              data: data,
+              backgroundColor: ['#074173', '#1679AB', '#0891b2', '#15803d'],
+              borderColor: ['#074173', '#1679AB', '#0891b2', '#15803d'],
+              borderWidth: 1,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'Grafik Volume Kendala Berdasarkan Unit', color: '#074173', font: { size: 14, weight: 'bold' } }
+            },
+            scales: {
+              x: { ticks: { color: '#0f172a' }, grid: { color: '#f1f5f9' } },
+              y: { ticks: { color: '#0f172a', beginAtZero: true, stepSize: 1 }, grid: { color: '#e2e8f0' } }
+            }
+          }
+        });
+      }
+
+      loadSpreadsheetData();
+    </script>
   </body>
 </html>
