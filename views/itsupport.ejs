@@ -10,15 +10,15 @@
     
     <style>
         :root {
-            --bg-dark: #090d16;
-            --card-bg: #111827;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --pink-accent: #f472b6;
-            --pink-glow: rgba(244, 114, 182, 0.4);
-            --purple-accent: #a855f7;
-            --cyan-accent: #22d3ee;
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --color-dark-blue: #074173;
+            --color-ocean-blue: #1679AB;
+            --color-cyan-mint: #5DEBD7;
+            --color-lime-green: #C5FF95;
+            --text-main: #074173;
+            --text-muted: #64748b;
         }
 
         * {
@@ -27,7 +27,7 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-light);
             color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -38,18 +38,19 @@
             overflow-x: hidden;
         }
 
-        /* 🚀 HEADER PERSIS FOTO ACUAN */
+        /* 🚀 HEADER */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 18px 50px;
-            background: rgba(9, 13, 22, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(12px);
+            box-shadow: 0 2px 10px rgba(7, 65, 115, 0.05);
         }
 
         .logo-container {
@@ -59,35 +60,23 @@
         }
 
         .logo-img {
-            height: 32px; /* Sesuaikan tinggi logo jika kurang besar/kecil */
+            height: 32px;
             width: auto;
             display: block;
             object-fit: contain;
-}
-
-        .logo-kcm {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #38bdf8 0%, #4ade80 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .logo-divider {
             width: 1px;
             height: 22px;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--border-color);
         }
 
         .logo-sub {
             font-size: 11px;
-            color: #d1d5db;
+            color: var(--color-ocean-blue);
             letter-spacing: 2px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
@@ -108,7 +97,7 @@
         }
 
         nav a:hover, nav a.active {
-            color: #ffffff;
+            color: var(--color-dark-blue);
         }
 
         nav a.active::after {
@@ -117,8 +106,8 @@
             bottom: -2px;
             left: 0;
             width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--cyan-accent), var(--pink-accent));
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-ocean-blue), var(--color-cyan-mint));
             border-radius: 2px;
         }
 
@@ -128,13 +117,13 @@
             font-size: 14px;
             margin-left: 10px;
         }
-        .search-icon:hover { color: #ffffff; }
+        .search-icon:hover { color: var(--color-dark-blue); }
 
         /* 🌌 HERO BANNER */
         .hero {
             padding: 70px 20px 40px 20px;
             text-align: center;
-            background: radial-gradient(circle at 50% 20%, rgba(168, 85, 247, 0.18) 0%, transparent 60%);
+            background: radial-gradient(circle at 50% 20%, rgba(93, 235, 215, 0.25) 0%, transparent 70%);
         }
 
         .hero h1 {
@@ -142,14 +131,12 @@
             font-weight: 900;
             margin: 0 0 8px 0;
             letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+            color: var(--color-dark-blue);
         }
 
         .hero .subtitle {
             font-size: 24px;
-            background: linear-gradient(90deg, var(--pink-accent), var(--purple-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--color-ocean-blue);
             font-weight: 800;
             letter-spacing: 1.5px;
             margin-bottom: 14px;
@@ -174,7 +161,7 @@
         .section-header {
             font-size: 15px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--color-dark-blue);
             margin-bottom: 22px;
             display: flex;
             align-items: center;
@@ -192,7 +179,7 @@
         }
 
         .team-card {
-            background: linear-gradient(145deg, #131c2e 0%, #0d1322 100%);
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 22px;
@@ -201,31 +188,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
             cursor: pointer;
         }
 
-        /* Hover Effect Timbul & Glow */
         .team-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--pink-accent);
-            box-shadow: 0 15px 35px rgba(244, 114, 182, 0.25);
-        }
-
-        .team-card::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, var(--pink-glow) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .team-card:hover::after {
-            opacity: 1;
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.15);
         }
 
         .team-body {
@@ -241,7 +211,7 @@
             height: 80px;
             border-radius: 50%;
             padding: 3px;
-            background: linear-gradient(135deg, var(--cyan-accent), var(--pink-accent));
+            background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-cyan-mint));
             flex-shrink: 0;
         }
 
@@ -250,24 +220,24 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            background-color: #1f293d;
+            background-color: #f1f5f9;
         }
 
         .team-info h3 {
             margin: 0;
             font-size: 17px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--color-dark-blue);
             letter-spacing: 0.5px;
         }
 
         .team-info .role-badge {
             display: inline-block;
-            background: rgba(244, 114, 182, 0.15);
-            color: var(--pink-accent);
+            background: rgba(22, 121, 171, 0.1);
+            color: var(--color-ocean-blue);
             font-size: 10px;
             font-weight: 700;
-            padding: 3px 8px;
+            padding: 4px 8px;
             border-radius: 6px;
             margin: 6px 0 8px 0;
             letter-spacing: 0.8px;
@@ -282,9 +252,9 @@
         }
 
         .btn-contact {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: #f1f5f9;
             border: 1px solid var(--border-color);
-            color: #ffffff;
+            color: var(--color-dark-blue);
             font-size: 12px;
             font-weight: 700;
             padding: 10px;
@@ -294,10 +264,9 @@
         }
 
         .team-card:hover .btn-contact {
-            background-color: var(--pink-accent);
-            color: #000000;
-            border-color: var(--pink-accent);
-            box-shadow: 0 4px 15px var(--pink-glow);
+            background-color: var(--color-ocean-blue);
+            color: #ffffff;
+            border-color: var(--color-ocean-blue);
         }
 
         /* 📊 DASHBOARD GRID & INTERACTIVE CHART */
@@ -313,11 +282,11 @@
             border: 1px solid var(--border-color);
             border-radius: 22px;
             padding: 26px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
         }
 
         .card-box:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: var(--color-ocean-blue);
             transform: translateY(-4px);
         }
 
@@ -341,7 +310,7 @@
         .chart-center-text .number {
             font-size: 26px;
             font-weight: 900;
-            color: #ffffff;
+            color: var(--color-dark-blue);
             line-height: 1;
         }
 
@@ -360,16 +329,17 @@
         }
 
         .ticket-item {
-            background: #162032;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
             padding: 14px 18px;
             border-radius: 14px;
         }
 
         .ticket-item:hover {
-            background: #1c2942;
+            background: #ffffff;
             transform: translateX(6px);
-            border-color: var(--purple-accent);
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 4px 12px rgba(7, 65, 115, 0.08);
         }
 
         .ticket-top {
@@ -382,12 +352,12 @@
         .ticket-title {
             font-size: 13px;
             font-weight: 700;
-            color: #ffffff;
+            color: var(--color-dark-blue);
         }
 
         .badge-priority {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
             font-size: 9px;
             font-weight: 800;
             padding: 3px 8px;
@@ -396,8 +366,8 @@
         }
 
         .badge-normal {
-            background: rgba(59, 130, 246, 0.2);
-            color: #93c5fd;
+            background: rgba(22, 121, 171, 0.15);
+            color: var(--color-ocean-blue);
             font-size: 9px;
             font-weight: 800;
             padding: 3px 8px;
@@ -412,7 +382,7 @@
 
         .progress-bar-bg {
             height: 7px;
-            background-color: #27354d;
+            background-color: #e2e8f0;
             border-radius: 10px;
             overflow: hidden;
             margin-top: 8px;
@@ -420,7 +390,7 @@
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--purple-accent), var(--pink-accent));
+            background: linear-gradient(90deg, var(--color-ocean-blue), var(--color-cyan-mint));
             border-radius: 10px;
         }
 
@@ -434,25 +404,25 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%);
-            color: #0f172a;
-            font-weight: 900;
+            background: var(--color-dark-blue);
+            color: #ffffff;
+            font-weight: 800;
             font-size: 15px;
             letter-spacing: 1px;
             padding: 18px 42px;
             border-radius: 16px;
             text-decoration: none;
-            box-shadow: 0 10px 30px rgba(244, 114, 182, 0.35);
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.25);
         }
 
         .btn-submit-main:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(244, 114, 182, 0.5);
-            background: linear-gradient(135deg, #ffffff 0%, #f472b6 100%);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.35);
+            background: var(--color-ocean-blue);
         }
 
         footer {
-            background-color: #05080f;
+            background-color: #ffffff;
             padding: 24px;
             text-align: center;
             font-size: 12px;
@@ -469,12 +439,12 @@
 </head>
 <body>
 
-    <!--  HEADER  -->
+    <!-- HEADER -->
     <header>
         <div class="logo-container">
             <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
             <div class="logo-divider"></div>
-             <div class="logo-sub">IT Support & General Affair</div>
+            <div class="logo-sub">IT Support & General Affair</div>
         </div>
 
         <nav>
@@ -486,7 +456,7 @@
         </nav>
     </header>
 
-    <!-- 🌌 HERO SECTION -->
+    <!-- HERO SECTION -->
     <div class="hero">
         <h1>BANTUAN TEKNIS</h1>
         <div class="subtitle">CENDEKIA MUDA</div>
@@ -495,9 +465,9 @@
 
     <main class="container">
 
-        <!-- 👥 SECTION TIM IT SUPPORT -->
+        <!-- SECTION TIM IT SUPPORT -->
         <div class="section-header">
-            <i class="fa-solid fa-users-gear" style="color: var(--pink-accent);"></i> TIM IT SUPPORT / PIC
+            <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM IT SUPPORT / PIC
         </div>
 
         <div class="team-grid">
@@ -538,13 +508,13 @@
             </div>
         </div>
 
-        <!-- 📊 SECTION DASHBOARD & TICKETS -->
+        <!-- SECTION DASHBOARD & TICKETS -->
         <div class="dashboard-grid">
             
             <!-- Donut Chart Card -->
             <div class="card-box">
                 <div class="section-header" style="font-size: 13px; margin-bottom: 16px;">
-                    <i class="fa-solid fa-chart-pie" style="color: var(--cyan-accent);"></i> KATEGORI KERUSAKAN IT
+                    <i class="fa-solid fa-chart-pie" style="color: var(--color-ocean-blue);"></i> KATEGORI KERUSAKAN IT
                 </div>
                 <div class="chart-wrapper">
                     <canvas id="damageChart"></canvas>
@@ -559,9 +529,9 @@
             <div class="card-box">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
                     <div class="section-header" style="font-size: 13px; margin: 0;">
-                        <i class="fa-solid fa-list-check" style="color: var(--purple-accent);"></i> TIKET IT AKTIF
+                        <i class="fa-solid fa-list-check" style="color: var(--color-ocean-blue);"></i> TIKET IT AKTIF
                     </div>
-                    <span style="font-size: 11px; color: var(--pink-accent); font-weight: 700;">4 Tiket Berjalan</span>
+                    <span style="font-size: 11px; color: var(--color-ocean-blue); font-weight: 700;">4 Tiket Berjalan</span>
                 </div>
 
                 <div class="ticket-list">
@@ -596,7 +566,7 @@
 
         </div>
 
-        <!-- 🔥 TOMBOL ACTION KE FORM -->
+        <!-- TOMBOL ACTION KE FORM -->
         <div class="cta-box">
             <a href="/it-support/form" class="btn-submit-main">
                 <span>AJUKAN PERBAIKAN IT</span>
@@ -607,10 +577,10 @@
     </main>
 
     <footer>
-        <p>© 2024 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
-    <!-- 📈 SCRIPT CHART.JS INTERAKTIF -->
+    <!-- SCRIPT CHART.JS INTERAKTIF -->
     <script>
         const ctx = document.getElementById('damageChart').getContext('2d');
         
@@ -621,12 +591,12 @@
                 datasets: [{
                     data: [45, 35, 20],
                     backgroundColor: [
-                        '#f472b6', // Pink
-                        '#a855f7', // Purple
-                        '#38bdf8'  // Cyan
+                        '#074173', // Dark Blue
+                        '#1679AB', // Ocean Blue
+                        '#5DEBD7'  // Cyan Mint
                     ],
                     borderWidth: 0,
-                    hoverOffset: 12 // Efek pop-up pas dikursorin
+                    hoverOffset: 12
                 }]
             },
             options: {
@@ -635,13 +605,13 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false // Sembunyikan legenda agar rapi di chart
+                        display: false
                     },
                     tooltip: {
-                        backgroundColor: '#0f172a',
+                        backgroundColor: '#074173',
                         titleColor: '#ffffff',
-                        bodyColor: '#f472b6',
-                        borderColor: 'rgba(255,255,255,0.1)',
+                        bodyColor: '#5DEBD7',
+                        borderColor: '#e2e8f0',
                         borderWidth: 1,
                         padding: 12,
                         displayColors: true,
@@ -649,7 +619,7 @@
                             label: function(context) {
                                 return ` ${context.label}: ${context.raw}%`;
                             }
-                        }g
+                        }
                     }
                 }
             }
