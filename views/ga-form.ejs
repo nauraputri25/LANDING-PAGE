@@ -1,243 +1,155 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Request GA - Cendekia Muda</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-light: #f8fafc;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --color-dark-blue: #074173;
-            --color-ocean-blue: #1679AB;
-            --color-cyan-mint: #5DEBD7;
-            --text-main: #074173;
-            --text-muted: #64748b;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 50px;
-            background: #074173;
-            border-bottom: 1px solid rgba(93, 235, 215, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
-        }
-        .logo-container { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
-        .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
-        .logo-sub { font-size: 11px; color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
-        nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 600; margin-left: 15px; }
-        nav a:hover { color: #ffffff; }
-
-        main {
-            flex-grow: 1;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container-box { width: 100%; max-width: 44rem; }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.08);
-        }
-        h1 { font-size: 26px; color: var(--color-dark-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        p.subtitle { font-size: 15px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
-        
-        .alert-success { background-color: rgba(22, 163, 74, 0.1); border: 1px solid #22c55e; color: #15803d; font-size: 14px; padding: 14px; border-radius: 12px; margin-bottom: 24px; }
-        .alert-error { background-color: rgba(220, 38, 38, 0.1); border: 1px solid #ef4444; color: #dc2626; font-size: 14px; padding: 14px; border-radius: 12px; margin-bottom: 24px; }
-        
-        .form-row { display: flex; gap: 20px; }
-        .form-group { flex: 1; margin-bottom: 20px; }
-        label { display: block; color: var(--color-dark-blue); margin-bottom: 8px; font-size: 14px; font-weight: 600; }
-        .required { color: #ef4444; }
-        
-        input, select, textarea {
-            width: 100%;
-            background-color: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px 16px;
-            color: var(--text-main);
-            font-size: 14px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--color-ocean-blue);
-            box-shadow: 0 0 0 3px rgba(22, 121, 171, 0.15);
-        }
-        
-        .upload-box {
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            background-color: #f8fafc;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .upload-box:hover {
-            background-color: #f1f5f9;
-            border-color: var(--color-ocean-blue);
-        }
-        
-        button.btn-submit {
-            width: 100%;
-            background: var(--color-dark-blue);
-            color: #ffffff;
-            font-weight: 800;
-            padding: 16px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            margin-top: 16px;
-            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.25);
-        }
-        button.btn-submit:hover {
-            background: var(--color-ocean-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.35);
-        }
-        
-        footer { background-color: #ffffff; padding: 22px; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); }
-        
-        @media (max-width: 640px) { 
-            .form-row { flex-direction: column; gap: 0; } 
-            header { padding: 16px 20px; }
-            .card { padding: 22px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Request Fasilitas GA</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <div class="logo-container">
-            <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
-            <div class="logo-divider"></div>
-            <div class="logo-sub">IT Support & General Affair</div>
-        </div>
-        <nav>
-            <a href="/ga"><i class="fa-solid fa-arrow-left"></i> Kembali ke GA</a>
-        </nav>
-    </header>
+<div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+  <div style="
+    width: 100%;
+    max-width: 580px;
+    border-radius: 20px;
+    background: var(--color-muted-blue);
+    border: 1px solid var(--color-purple);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+  ">
+    
+    <a href="/ga" style="color: var(--text-muted); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 15px;">
+      <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman GA
+    </a>
 
-    <main>
-        <div class="container-box">
-            <div class="card">
-                <h1><i class="fa-solid fa-clipboard-list" style="color: var(--color-ocean-blue);"></i> Form Request Fasilitas GA</h1>
-                <p class="subtitle">Isi data di bawah ini untuk mengajukan permintaan fasilitas atau kebutuhan operasional.</p>
+    <h2 style="color: var(--color-pink); margin-bottom: 20px; font-size: 22px;">
+      <i class="fa-solid fa-clipboard-list" style="margin-right: 8px;"></i>Form Request Fasilitas GA
+    </h2>
 
-                <% if (typeof success !== 'undefined' && success === 'true') { %>
-                    <div class="alert-success">
-                        <i class="fa-solid fa-circle-check"></i> Data berhasil dikirim dan otomatis tercatat di Spreadsheet!
-                    </div>
-                <% } else if (typeof success !== 'undefined' && success === 'false') { %>
-                    <div class="alert-error">
-                        <i class="fa-solid fa-circle-xmark"></i> Gagal mengirim data. Periksa koneksi atau konfigurasi spreadsheet.
-                    </div>
-                <% } %>
+    <form id="gaForm">
+      <!-- 1. Unit -->
+      <div style="margin-bottom: 15px; text-align: left;">
+        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Unit / Departemen:</label>
+        <select id="unit" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
+          <option value="">-- Pilih Unit --</option>
+          <option value="TK">TK</option>
+          <option value="SD Makasar">SD Makasar</option>
+          <option value="SMP">SMP</option>
+          <option value="Daycare">Daycare</option>
+          <option value="Umum">Umum / Operational</option>
+        </select>
+      </div>
 
-                <form action="/ga/submit" method="POST">
+      <!-- 2. Nama Pemohon -->
+      <div style="margin-bottom: 15px; text-align: left;">
+        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Nama Pemohon:</label>
+        <input type="text" id="nama_request" required placeholder="Masukkan nama Anda" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
+      </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Nama Pemohon <span class="required">*</span></label>
-                            <input type="text" name="nama_request" required placeholder="Masukkan nama lengkap">
-                        </div>
-                        <div class="form-group">
-                            <label>Unit Sekolah <span class="required">*</span></label>
-                            <select name="unit" required>
-                                <option value="" disabled selected>Pilih Unit</option>
-                                <option value="Daycare">Daycare</option>
-                                <option value="TK">TK</option>
-                                <option value="SD Bandung">SD Bandung</option>
-                                <option value="SD Bilingual">SD Bilingual</option>
-                                <option value="SD Makasar">SD Makasar</option>
-                                <option value="SMP">SMP</option>
-                                <option value="SMA">SMA</option>
-                                <option value="UPPP">UPPP</option>
-                                <option value="Catering">Catering</option>
-                            </select>
-                        </div>
-                    </div>
+      <!-- 3. Lokasi / Area -->
+      <div style="margin-bottom: 15px; text-align: left;">
+        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Lokasi / Area Permasalahan:</label>
+        <input type="text" id="lokasi" required placeholder="Contoh: Toilet Lt. 2, Ruang Guru, Lapangan" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
+      </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Kategori Request <span class="required">*</span></label>
-                            <select name="kategori_request" required>
-                                <option value="" disabled selected>Pilih Kategori</option>
-                                <option value="Perbaikan Fasilitas">Perbaikan Fasilitas</option>
-                                <option value="Pengadaan Barang">Pengadaan Barang</option>
-                                <option value="Kebersihan & Sanitasi">Kebersihan & Sanitasi</option>
-                                <option value="Keamanan">Keamanan</option>
-                                <option value="Transportasi">Transportasi</option>
-                                <option value="Lainnya">Lainnya</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tingkat Urgensi <span class="required">*</span></label>
-                            <select name="urgensi" required>
-                                <option value="" disabled selected>Pilih Urgensi</option>
-                                <option value="Rendah">Rendah</option>
-                                <option value="Normal">Normal</option>
-                                <option value="Mendesak">Mendesak</option>
-                            </select>
-                        </div>
-                    </div>
+      <!-- 4. Jenis Masalah GA -->
+      <div style="margin-bottom: 15px; text-align: left;">
+        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Jenis Fasilitas / Keluhan:</label>
+        <select id="permasalahan" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;">
+          <option value="">-- Pilih Masalah --</option>
+          <option value="AC / Kipas Angin">AC / Kipas Angin</option>
+          <option value="Lampu / Kelistrikan">Lampu / Kelistrikan</option>
+          <option value="Plambing / Air / Toilet">Plambing / Air / Toilet</option>
+          <option value="Meja / Kursi / Meubel">Meja / Kursi / Meubel</option>
+          <option value="Kebersihan Area">Kebersihan Area</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
 
-                    <div class="form-group">
-                        <label>Detail Permintaan <span class="required">*</span></label>
-                        <textarea name="detail_request" rows="4" required placeholder="Jelaskan secara detail kebutuhan fasilitas atau barang yang diminta..."></textarea>
-                    </div>
+      <!-- 5. Detail Permasalahan -->
+      <div style="margin-bottom: 15px; text-align: left;">
+        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Detail Request / Keluhan:</label>
+        <textarea id="detail_permasalahan" rows="3" required placeholder="Jelaskan detail barang atau perbaikan yang dibutuhkan..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--color-purple); background: var(--color-dark); color: white;"></textarea>
+      </div>
 
-                    <div class="form-group">
-                        <label>Unggah Foto (Bukti / Referensi) <span style="color: #9ca3af; font-weight: normal;">(Opsional)</span></label>
-                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--text-muted);"></i>
-                            <p style="margin: 6px 0 0 0; font-size: 13px; color: var(--text-muted);">Klik untuk unggah file (JPG, PNG MAX 5MB)</p>
-                            <input type="file" id="fileInput" name="foto" accept="image/*" style="display: none;">
-                        </div>
-                    </div>
+      <!-- 6. Upload Foto -->
+      <div style="margin-bottom: 20px; text-align: left;">
+        <label style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 5px;">Upload Foto Kerusakan (Opsional):</label>
+        <input type="file" id="fotoInput" accept="image/*" style="width: 100%; color: white;">
+        <img id="imgPreview" style="max-width: 100%; height: auto; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid var(--color-purple);">
+      </div>
 
-                    <button type="submit" class="btn-submit">
-                        <i class="fa-solid fa-paper-plane"></i> KIRIM REQUEST FASILITAS
-                    </button>
-                </form>
-            </div>
-        </div>
-    </main>
+      <button type="submit" id="btnSubmit" class="btn-pink" style="width: 100%; justify-content: center; padding: 12px; font-weight: bold;">
+        Kirim Request GA
+      </button>
+    </form>
 
-    <footer>
-        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
-    </footer>
+    <p id="gaStatusMessage" style="margin-top: 15px; font-size: 13px; text-align: center;"></p>
+  </div>
+</div>
+
+<script>
+  let base64Foto = "";
+  let mimeTypeFoto = "";
+
+  document.getElementById('fotoInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      mimeTypeFoto = file.type;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        base64Foto = evt.target.result;
+        const preview = document.getElementById('imgPreview');
+        preview.src = base64Foto;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.getElementById('gaForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const status = document.getElementById("gaStatusMessage");
+    const btn = document.getElementById("btnSubmit");
+
+    btn.disabled = true;
+    status.style.color = "var(--color-pink)";
+    status.innerText = "Mengirim data...";
+
+    const payload = {
+      unit: document.getElementById('unit').value,
+      nama_request: document.getElementById('nama_request').value,
+      lokasi: document.getElementById('lokasi').value,
+      permasalahan: document.getElementById('permasalahan').value,
+      detail_permasalahan: document.getElementById('detail_permasalahan').value,
+      fotoBase64: base64Foto,
+      fotoMimeType: mimeTypeFoto
+    };
+
+    try {
+      const response = await fetch('/ga/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+      if (result.status === 'success') {
+        window.location.href = result.redirectUrl;
+      } else {
+        status.style.color = "#f87171";
+        status.innerText = "Gagal mengirim data. Coba lagi.";
+        btn.disabled = false;
+      }
+    } catch (err) {
+      status.style.color = "#f87171";
+      status.innerText = "Terjadi kesalahan koneksi server.";
+      btn.disabled = false;
+    }
+  });
+</script>
 
 </body>
 </html>
