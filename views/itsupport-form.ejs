@@ -29,79 +29,38 @@
             min-height: 100vh; 
         }
 
-        /* HEADER & NAVBAR SESUAI GAMBAR */
-        header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 18px 48px; 
-            background-color: #003B6B; /* Biru Tua sesuai Screenshot */
-            color: #ffffff;
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .logo-container {
+        /* HEADER & NAVBAR */
+        header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            padding: 18px 50px;
+            background: #074173;
+            border-bottom: 1px solid rgba(93, 235, 215, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
         }
 
-        .logo-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            color: var(--color-lime-green);
-        }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
+        .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
+        .logo-sub { font-size: 17px; color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
 
-        .logo-brand i {
-            color: #5DEBD7;
-            font-size: 26px;
-        }
-
-        .logo-divider {
-            height: 24px;
-            width: 2px;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .logo-title { 
-            font-size: 15px; 
-            font-weight: 800; 
-            color: var(--color-cyan-mint); 
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        nav a { 
-            color: rgba(255, 255, 255, 0.85); 
-            text-decoration: none; 
-            font-size: 15px; 
-            font-weight: 700; 
-            padding-bottom: 6px;
-            transition: all 0.2s ease; 
-            position: relative;
-        }
-
-        nav a:hover { 
-            color: #ffffff; 
-        }
-
-        /* Status Aktif / Underline Biru Mint dipindah ke IT Support */
-        nav a.active {
-            color: #ffffff;
-            border-bottom: 3px solid var(--color-cyan-mint);
+        nav { display: flex; align-items: center; gap: 28px; }
+        nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; position: relative; padding: 4px 0; }
+        nav a:hover, nav a.active { color: #ffffff; }
+        nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-cyan-mint), var(--color-lime-green));
+            border-radius: 2px;
         }
 
         main { 
@@ -300,11 +259,9 @@
     <!-- NAVBAR IT SUPPORT (CLASS ACTIVE ADA DI IT SUPPORT) -->
     <header>
         <div class="logo-container">
-            <div class="logo-brand">
-                <i class="fa-solid fa-cubes-stacked"></i> KCM
-            </div>
+            <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
             <div class="logo-divider"></div>
-            <span class="logo-title">IT SUPPORT & GENERAL AFFAIR</span>
+            <div class="logo-sub">IT Support & General Affair</div>
         </div>
         <nav>
             <a href="/">Home</a>
