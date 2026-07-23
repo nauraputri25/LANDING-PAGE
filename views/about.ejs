@@ -1,40 +1,413 @@
-<div
-  style="
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    background: var(--color-muted-blue);
-    padding: 50px 30px;
-    border-radius: 20px;
-    border: 1px solid var(--color-purple);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  "
->
-  <h1
-    style="
-      font-size: 38px;
-      margin-bottom: 20px;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Cendekia Muda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --panel: rgba(10,16,35,0.86);
+      --border: rgba(255,255,255,0.12);
+      --muted: #cbd5e1;
+      --pink: #f472b6;
+      --cyan: #22d3ee;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", sans-serif; background: #0b1120; color: #fff; }
+
+    /* ── COVER ── */
+    .cover-banner {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      color: var(--text-main);
-    "
-  >
-    TENTANG KAMI
-  </h1>
-  <p class="sub-title" style="margin-bottom: 30px">
-    CENDEKIA MUDA IT & GA CENTER
-  </p>
-  <p
-    class="description"
-    style="
-      line-height: 2;
-      color: var(--text-muted);
-      margin: 0 auto;
-      max-width: 650px;
-    "
-  >
-    Pusat Layanan dan Maintenance Terpadu Sekolah Cendekia Muda dibentuk untuk
-    memastikan seluruh infrastruktur teknologi, jaringan, serta sarana prasarana
-    sekolah berfungsi dengan optimal. Kami menjunjung tinggi integritas,
-    ketepatan waktu, dan pelayanan sepenuh hati.
-  </p>
-</div>
+      overflow: hidden;
+
+      /* ============================================================
+         GANTI FOTO BACKGROUND BANNER:
+         Ubah URL di bawah ini dengan link foto atau path foto kamu.
+         Contoh lokal: url('/images/foto-banner.jpg')
+         Contoh online: url('https://...')
+         ============================================================ */
+      background:
+        linear-gradient(135deg, rgba(5,8,20,0.88) 0%, rgba(5,8,20,0.72) 50%, rgba(5,8,20,0.92) 100%),
+        url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80') center/cover no-repeat;
+    }
+    .cover-banner canvas { position: absolute; inset: 0; pointer-events: none; }
+    .cover-glow-ring {
+      position: absolute;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    .cover-glow-ring:nth-child(2) { width:600px; height:600px; border: 1px solid rgba(34,211,238,0.08); }
+    .cover-glow-ring:nth-child(3) { width:900px; height:900px; border: 1px solid rgba(244,114,182,0.05); animation-delay:1s; }
+
+    .cover-inner { position: relative; z-index: 2; padding: 0 24px; }
+    .cover-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 999px;
+      border: 1px solid rgba(34,211,238,0.35);
+      background: rgba(34,211,238,0.08);
+      color: #67e8f9; font-size: 0.85rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeDown 0.7s ease both;
+    }
+    .cover-title {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 800; line-height: 1.05;
+      margin: 0 0 24px; letter-spacing: -0.02em;
+      animation: fadeDown 0.8s 0.15s ease both;
+    }
+    .word-about {
+      background: linear-gradient(135deg, #fff 30%, #94a3b8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .word-us {
+      background: linear-gradient(135deg, var(--cyan), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      position: relative;
+    }
+    .word-us::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 0; width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      border-radius: 2px;
+      animation: lineGrow 1s 1s ease both; transform-origin: left;
+    }
+    .cover-sub {
+      color: #94a3b8; font-size: clamp(1rem, 1.5vw, 1.2rem);
+      max-width: 560px; margin: 0 auto 40px; line-height: 1.7;
+      animation: fadeDown 0.8s 0.3s ease both;
+    }
+
+    /* ── CONTENT SECTION ── */
+    .page-shell { width: min(1100px, calc(100% - 24px)); margin: 0 auto; padding: 80px 0 40px; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 5px 12px; border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .label-pink  { background: rgba(244,114,182,0.12); color: #f472b6; }
+    .label-cyan  { background: rgba(34,211,238,0.12);  color: #22d3ee; }
+    .label-violet{ background: rgba(167,139,250,0.12); color: #a78bfa; }
+    .label-green { background: rgba(52,211,153,0.12);  color: #34d399; }
+
+    /* bento row: foto + teks */
+    .bento-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+      margin-bottom: 32px;
+    }
+    .bento-row.reverse { direction: rtl; }
+    .bento-row.reverse > * { direction: ltr; }
+
+    .bento-img {
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+    }
+    .bento-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .bento-row:hover .bento-img img { transform: scale(1.04); }
+    .bento-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(5,8,20,0.3), transparent);
+    }
+
+    .bento-body {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bento-body h2 {
+      font-size: 1.5rem; font-weight: 700;
+      color: #f1f5f9; margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .bento-body p, .bento-body li {
+      color: #94a3b8; line-height: 1.8; font-size: 0.95rem;
+    }
+    .bento-body ul { padding-left: 18px; margin: 10px 0 0; }
+    .bento-body ul li { margin-bottom: 6px; }
+
+    /* visi bg */
+    .bento-visi   { background: linear-gradient(135deg, rgba(244,114,182,0.08), rgba(10,16,35,0.95)); }
+    .bento-nilai  { background: linear-gradient(135deg, rgba(34,211,238,0.08),  rgba(10,16,35,0.95)); }
+    .bento-scope  { background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(10,16,35,0.95)); }
+    .bento-sla    { background: linear-gradient(135deg, rgba(52,211,153,0.08),  rgba(10,16,35,0.95)); }
+
+    .quote-text {
+      font-style: italic; color: #cbd5e1;
+      border-left: 3px solid #f472b6;
+      padding-left: 14px; margin-bottom: 16px;
+      font-size: 0.95rem; line-height: 1.75;
+    }
+
+    /* nilai grid */
+    .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .value-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px; border-radius: 12px;
+      background: rgba(34,211,238,0.05);
+      border: 1px solid rgba(34,211,238,0.1);
+    }
+    .value-dot { width: 8px; height: 8px; border-radius: 50%; background: #22d3ee; margin-top: 6px; flex-shrink: 0; }
+    .value-item strong { color: #e2e8f0; font-size: 0.88rem; display: block; margin-bottom: 2px; }
+    .value-item span { color: #64748b; font-size: 0.82rem; }
+
+    /* scope */
+    .scope-grid { display: grid; gap: 12px; margin-top: 8px; }
+    .scope-box {
+      padding: 14px 16px; border-radius: 12px;
+      background: rgba(167,139,250,0.07);
+      border: 1px solid rgba(167,139,250,0.15);
+    }
+    .scope-box h3 { margin: 0 0 4px; font-size: 0.9rem; color: #c4b5fd; }
+
+    /* sla table */
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.88rem; }
+    th { color: #6ee7b7; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { color: #94a3b8; }
+    tr:last-child td { border-bottom: none; }
+    .badge-kritis { display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(239,68,68,0.15); color:#fca5a5; font-size:0.78rem; }
+    .badge-rutin  { display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(251,191,36,0.15); color:#fde68a; font-size:0.78rem; }
+    .badge-non    { display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(52,211,153,0.15); color:#6ee7b7; font-size:0.78rem; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes lineGrow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+    @keyframes ringPulse { 0%,100% { transform:translate(-50%,-50%) scale(1); opacity:.5; } 50% { transform:translate(-50%,-50%) scale(1.04); opacity:1; } }
+
+    @media (max-width: 768px) {
+      .bento-row { grid-template-columns: 1fr; }
+      .bento-row.reverse { direction: ltr; }
+      .bento-img { min-height: 220px; }
+      .bento-body { padding: 28px 22px; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-pink-300 selection:text-gray-900">
+
+  <!-- ══════════════════════════════════════════
+       NAVBAR — sama persis dengan halaman lain
+       ══════════════════════════════════════════ -->
+  <header class="border-b border-gray-800/60 px-4 py-4 sm:px-6 bg-[#0b1120]/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between max-w-7xl mx-auto w-full">
+      <div class="flex items-center justify-between gap-4">
+        <a href="/" class="flex items-center space-x-3">
+
+          <!-- ============================================================
+               GANTI LOGO KCM:
+               Ganti src di bawah ini dengan path logo kamu.
+               Contoh: src="/images/logo-kcm.png"
+               Ukuran sudah diatur 40x40px, sesuaikan jika perlu.
+               ============================================================ -->
+          <img
+            src="/images/logo-kcm.png"
+            alt="Logo KCM"
+            height="40"
+            style="height:40px; width:auto; object-fit:contain;"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="hidden h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-pink-500 text-lg text-white shadow-lg" id="logo-fallback">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+
+          <p class="text-sm font-semibold text-white">IT Support & General Affair</p>
+        </a>
+
+      </div>
+
+      <nav class="hidden md:flex flex-wrap items-center gap-2">
+        <a href="/"           class="rounded-full px-4 py-2 text-sm font-medium transition bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white">Home</a>
+        <a href="/it-support" class="rounded-full px-4 py-2 text-sm font-medium transition bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white">IT Support</a>
+        <a href="/ga"         class="rounded-full px-4 py-2 text-sm font-medium transition bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white">GA</a>
+        <a href="/about"      class="rounded-full px-4 py-2 text-sm font-medium transition bg-violet-500/20 text-violet-200 ring-1 ring-violet-400/40">About</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════
+       COVER BANNER
+       ══════════════════════════════════════════ -->
+  <div class="cover-banner">
+    <canvas id="particleCanvas"></canvas>
+    <div class="cover-glow-ring"></div>
+    <div class="cover-glow-ring"></div>
+
+    <div class="cover-inner">
+      <h1 class="cover-title">
+        <span class="word-about">About</span> <span class="word-us">Us</span>
+      </h1>
+      <p class="cover-sub">Tim IT dan General Affair yang andal, sigap, dan siap mendukung setiap kebutuhan operasional sekolah.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       CONTENT
+       ══════════════════════════════════════════ -->
+  <div class="page-shell">
+
+    <!-- Visi & Misi -->
+    <div class="bento-row reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Visi Misi" />
+      </div>
+      <div class="bento-body bento-visi">
+        <div class="section-label label-pink"><i class="fa-solid fa-bullseye"></i> Visi & Misi</div>
+        <h2>Andal, Sigap,<br>Siap Melayani</h2>
+        <p class="quote-text">"Menjadi pusat layanan operasional dan teknologi terpadu yang andal, sigap, dan siap mendukung kelancaran kegiatan belajar-mengajar di Sekolah Cendekia Muda."</p>
+        <ul>
+          <li>Dukungan cepat, amanah, dan profesional.</li>
+          <li>Menjaga kelancaran teknologi & fasilitas sekolah.</li>
+          <li>Lingkungan kerja yang tertib, efisien, dan nyaman.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Nilai Utama -->
+    <div class="bento-row reverse reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Nilai Utama" />
+      </div>
+      <div class="bento-body bento-nilai">
+        <div class="section-label label-cyan"><i class="fa-solid fa-heart"></i> Nilai Utama</div>
+        <h2>Core Values<br>Kami</h2>
+        <div class="values-grid">
+          <div class="value-item"><div class="value-dot"></div><div><strong>Amanah</strong><span>Jujur & bertanggung jawab.</span></div></div>
+          <div class="value-item"><div class="value-dot"></div><div><strong>Profesional</strong><span>Standar kualitas terbaik.</span></div></div>
+          <div class="value-item"><div class="value-dot"></div><div><strong>Responsif</strong><span>Cepat sesuai prioritas.</span></div></div>
+          <div class="value-item"><div class="value-dot"></div><div><strong>Solutif</strong><span>Solusi tepat & efektif.</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cakupan Layanan -->
+    <div class="bento-row reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80" alt="Cakupan Layanan" />
+      </div>
+      <div class="bento-body bento-scope">
+        <div class="section-label label-violet"><i class="fa-solid fa-sitemap"></i> Cakupan Layanan</div>
+        <h2>Dua Tim,<br>Satu Tujuan</h2>
+        <div class="scope-grid">
+          <div class="scope-box">
+            <h3><i class="fa-solid fa-laptop-code" style="margin-right:6px"></i>Tim IT</h3>
+            <p>Perangkat, jaringan, software, akun pengguna & pemeliharaan teknologi informasi.</p>
+          </div>
+          <div class="scope-box">
+            <h3><i class="fa-solid fa-tools" style="margin-right:6px"></i>Tim GA</h3>
+            <p>Listrik, AC, pertukangan, sarana prasarana & kebersihan area kerja.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLA -->
+    <div class="bento-row reverse reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80" alt="SLA" />
+      </div>
+      <div class="bento-body bento-sla">
+        <div class="section-label label-green"><i class="fa-solid fa-clock"></i> SLA</div>
+        <h2>Target Waktu<br>Penanganan</h2>
+        <table>
+          <thead><tr><th>Jenis</th><th>Target</th><th>Keterangan</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge-kritis">Kritis</span></td><td>1–3 jam</td><td>Menghambat aktivitas utama.</td></tr>
+            <tr><td><span class="badge-rutin">Rutin</span></td><td>1×24 jam</td><td>Perlu tindak lanjut segera.</td></tr>
+            <tr><td><span class="badge-non">Non-Critical</span></td><td>2–3 hari</td><td>Butuh pengecekan lanjut.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flex justify-center gap-4 py-8 bg-[#070b14] border-t border-gray-800">
+    <a href="/" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-sm font-semibold hover:opacity-90 transition">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <button onclick="history.back()" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-gray-600 text-gray-300 text-sm font-semibold hover:bg-gray-800 hover:text-white transition">
+      <i class="fa-solid fa-arrow-left"></i> Kembali
+    </button>
+  </div>
+
+  <footer class="bg-[#070b14] py-8 px-6 text-center text-xs text-gray-400 border-t border-gray-800/50 space-y-3">
+    <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6">
+      <span><i class="fa-solid fa-phone mr-2 text-pink-300"></i>(022) 710 2888</span>
+      <span><i class="fa-solid fa-envelope mr-2 text-pink-300"></i>info@cendekiamuda.sch.id</span>
+    </div>
+    <p><i class="fa-solid fa-location-dot mr-2 text-pink-300"></i>JL Puri Ayu Pratama III No. 17 Arcamanik Bandung</p>
+    <p class="pt-2 text-gray-500 border-t border-gray-900 max-w-md mx-auto">© 2024 Cendekia Muda. All rights reserved.</p>
+  </footer>
+
+  <script>
+        // Logo fallback
+    document.querySelector('img[alt="Logo KCM"]').addEventListener('error', function() {
+      this.style.display = 'none';
+      document.getElementById('logo-fallback').style.display = 'flex';
+    });
+
+    // Particles
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for (let i = 0; i < 70; i++) {
+      particles.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, r: Math.random()*1.5+0.3, dx: (Math.random()-0.5)*0.4, dy: (Math.random()-0.5)*0.4, alpha: Math.random()*0.5+0.1, color: Math.random()>0.5?'34,211,238':'244,114,182' });
+    }
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${p.color},${p.alpha})`; ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*100); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
