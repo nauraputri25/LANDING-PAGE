@@ -11,8 +11,8 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(express.json({ limit: '50mb' }));
 
-// 🔗 URL WEB APP GOOGLE APPS SCRIPT
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLjemhWAcGUOUOsla77fbP_AZMgBUDAGB3UUsXJXKNn-gj291A5uSAz7qF1nwoxncG/exec";
+// 🔗 URL WEB APP GOOGLE APPS SCRIPT BARU
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0foV6ZgwL6mf6VMoDPYPzr5b4mo9NvOTKdLExeOiaCrtMg_r8D0JeVdTKLibmDUWp/exec";
 
 // --- RUTE HALAMAN UTAMA ---
 app.get("/", (req, res) => {
@@ -51,9 +51,10 @@ app.post("/it-support/submit", async (req, res) => {
   } = req.body;
 
   try {
-    console.log(`[INFO] Mengirim laporan dari ${nama_request}...`);
+    console.log(`[INFO IT] Mengirim laporan dari ${nama_request}...`);
 
     const responseGAS = await axios.post(APPS_SCRIPT_URL, {
+      kategori: "IT_Support", // <-- Dikirim ke Tab IT_Support & Folder Foto IT
       unit,
       nama_request,
       kelas,
@@ -65,30 +66,71 @@ app.post("/it-support/submit", async (req, res) => {
       headers: { "Content-Type": "application/json" }
     });
 
-    console.log("[RESPON ASLI DARI GAS]:", responseGAS.data);
+    console.log("[RESPON ASLI DARI GAS - IT]:", responseGAS.data);
 
-    // HANYA anggap sukses jika GAS secara eksplisit menjawab result: "success"
     if (responseGAS.data && responseGAS.data.result === "success") {
-      console.log(`[SUKSES] Laporan dari ${nama_request} berhasil dikirim!`);
+      console.log(`[SUKSES IT] Laporan dari ${nama_request} berhasil dikirim!`);
       return res.json({ status: "success", redirectUrl: "/it-support/form?success=true" });
     } else {
-      console.error("[GAGAL DARI GAS]:", responseGAS.data);
+      console.error("[GAGAL DARI GAS - IT]:", responseGAS.data);
       return res.json({ status: "error", redirectUrl: "/it-support/form?success=false" });
     }
 
   } catch (error) {
-    console.error("[ERROR SERVER]:", error.message);
+    console.error("[ERROR SERVER IT]:", error.message);
     return res.json({ status: "error", redirectUrl: "/it-support/form?success=false" });
   }
 });
 
 // --- RUTE GENERAL AFFAIR (GA) ---
+
+// 1. Halaman Form General Affair
 app.get("/ga", (req, res) => {
   res.render("ga", { activePage: "ga", success: req.query.success });
 });
 
+// 2. Proses Kirim Form GA ke Google Spreadsheet & Drive
 app.post("/ga/submit", async (req, res) => {
-  res.redirect("/ga?success=true");
+  const { 
+    unit, 
+    nama_request, 
+    lokasi, 
+    permasalahan, 
+    detail_permasalahan,
+    fotoBase64,
+    fotoMimeType 
+  } = req.body;
+
+  try {
+    console.log(`[INFO GA] Mengirim laporan dari ${nama_request}...`);
+
+    const responseGAS = await axios.post(APPS_SCRIPT_URL, {
+      kategori: "GA", // <-- Dikirim ke Tab GA & Folder Foto GA
+      unit,
+      nama_request,
+      lokasi,
+      permasalahan,
+      detail_permasalahan,
+      fotoBase64,
+      fotoMimeType
+    }, {
+      headers: { "Content-Type": "application/json" }
+    });
+
+    console.log("[RESPON ASLI DARI GAS - GA]:", responseGAS.data);
+
+    if (responseGAS.data && responseGAS.data.result === "success") {
+      console.log(`[SUKSES GA] Laporan dari ${nama_request} berhasil dikirim!`);
+      return res.json({ status: "success", redirectUrl: "/ga?success=true" });
+    } else {
+      console.error("[GAGAL DARI GAS - GA]:", responseGAS.data);
+      return res.json({ status: "error", redirectUrl: "/ga?success=false" });
+    }
+
+  } catch (error) {
+    console.error("[ERROR SERVER GA]:", error.message);
+    return res.json({ status: "error", redirectUrl: "/ga?success=false" });
+  }
 });
 
 // --- JALANKAN SERVER ---
