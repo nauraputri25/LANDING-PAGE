@@ -15,10 +15,8 @@
         --text-main: #0f172a;
         --text-muted: #64748b;
         
-        /* Palet Warna Biru & Toska */
-        --color-deep-blue: #074173;
+        --color-nav-bg: #074173;
         --color-med-blue: #1679AB;
-        --color-cyan: #0891b2;
         --color-accent-toska: #5DEBD7;
       }
 
@@ -33,58 +31,126 @@
         min-height: 100vh;
       }
 
-      /* Header Navbar Sesuai Struktur Folder */
+      /* Navbar Sesuai Permintaan Sebelumnya */
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 16px 32px;
-        border-bottom: 1px solid #e2e8f0;
-        background-color: rgba(255, 255, 255, 0.95);
+        padding: 10px 32px;
+        background-color: var(--color-nav-bg);
+        border-bottom: 2px solid rgba(93, 235, 215, 0.2);
         position: sticky;
         top: 0;
         z-index: 1000;
-        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-decoration: none;
+        margin-left: 12px;
       }
 
       header img {
-        max-height: 38px;
+        height: 42px;
         width: auto;
         object-fit: contain;
       }
 
+      .brand-title {
+        color: var(--color-accent-toska);
+        font-weight: 700;
+        font-size: 17px;
+        letter-spacing: 0.08em;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        padding-left: 16px;
+        text-transform: uppercase;
+      }
+
       .nav-links {
         display: flex;
-        gap: 24px;
-        font-size: 14px;
+        gap: 28px;
+        font-size: 16px;
         font-weight: 500;
-      }
-
-      .nav-links a {
-        color: var(--text-muted);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-
-      .nav-links a:hover, .nav-links a.active {
-        color: var(--color-deep-blue);
-      }
-      
-      /* Hero Banner */
-      .hero-banner {
-        position: relative;
-        width: 100%;
-        padding: 60px 20px;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        border-bottom: 1px solid #e2e8f0;
-        display: flex;
-        justify-content: center;
         align-items: center;
       }
 
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+        padding-bottom: 4px;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      .nav-links a.active {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .nav-links a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-accent-toska);
+        border-radius: 2px;
+      }
+      
+      /* Hero Banner - Foto Latar Transparan dengan Gradasi & Glow Shadow ala Referensi */
+      .hero-banner {
+        position: relative;
+        width: 100%;
+        min-height: 460px;
+        display: flex;
+        align-items: center;
+        padding: 80px 20px;
+        color: #ffffff;
+        overflow: hidden;
+        border-bottom: 3px solid var(--color-accent-toska);
+        background-color: #041c32;
+        /* Ganti url di bawah dengan foto/ilustrasi milik Anda */
+        background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Lapisan gradasi gelap agar foto terlihat transparan namun teks tetap terbaca */
+      .hero-banner::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg,
+          rgba(4, 28, 50, 0.97) 0%,
+          rgba(7, 65, 115, 0.92) 30%,
+          rgba(7, 65, 115, 0.6) 60%,
+          rgba(22, 121, 171, 0.25) 100%);
+        z-index: 1;
+      }
+
+      /* Glow lembut warna toska di sisi kanan, senada dengan gambar referensi */
+      .hero-banner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 85% 40%, rgba(93, 235, 215, 0.25) 0%, transparent 55%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
       .hero-container {
+        position: relative;
+        z-index: 2;
         width: 100%;
         max-width: 1200px;
+        margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr;
         gap: 40px;
@@ -92,34 +158,36 @@
       }
       @media (min-width: 1024px) {
         .hero-container {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1.1fr 0.9fr;
         }
       }
 
-      h1 {
+      .hero-banner h1 {
         font-size: 36px;
         font-weight: 900;
         line-height: 1.2;
-        color: var(--color-deep-blue);
+        color: #ffffff;
         margin-bottom: 10px;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(93, 235, 215, 0.15);
       }
       @media (min-width: 1024px) {
-        h1 { font-size: 44px; text-align: left; }
+        .hero-banner h1 { font-size: 42px; text-align: left; }
       }
 
-      .sub-title {
+      .hero-banner .sub-title {
         font-size: 16px;
         font-weight: 700;
         letter-spacing: 0.2em;
-        color: var(--color-med-blue);
+        color: var(--color-accent-toska);
         margin-bottom: 16px;
         text-transform: uppercase;
+        text-shadow: 0 2px 10px rgba(93, 235, 215, 0.5);
       }
 
-      p.description {
+      .hero-banner p.description {
         font-size: 15px;
         line-height: 1.7;
-        color: var(--text-muted);
+        color: #cbd5e1;
         margin-bottom: 28px;
       }
 
@@ -130,27 +198,28 @@
       }
 
       .btn-primary {
-        background-color: var(--color-deep-blue);
-        color: #ffffff;
+        background-color: var(--color-accent-toska);
+        color: #041c32;
         padding: 12px 24px;
         border-radius: 9999px;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
         text-decoration: none;
-        box-shadow: 0 4px 15px rgba(7, 65, 115, 0.2);
+        box-shadow: 0 4px 20px rgba(93, 235, 215, 0.4);
         transition: all 0.2s;
         display: inline-flex;
         align-items: center;
       }
       .btn-primary:hover {
-        background-color: var(--color-med-blue);
+        background-color: #ffffff;
         transform: translateY(-2px);
       }
 
       .btn-outline {
-        border: 2px solid var(--color-med-blue);
-        background-color: transparent;
-        color: var(--color-deep-blue);
+        border: 2px solid var(--color-accent-toska);
+        background-color: rgba(7, 65, 115, 0.4);
+        backdrop-filter: blur(4px);
+        color: #ffffff;
         padding: 12px 24px;
         border-radius: 9999px;
         font-size: 14px;
@@ -161,8 +230,25 @@
         align-items: center;
       }
       .btn-outline:hover {
-        background-color: rgba(22, 121, 171, 0.05);
+        background-color: rgba(93, 235, 215, 0.15);
         transform: translateY(-2px);
+      }
+
+      /* Ilustrasi kanan - tampil transparan menyatu dengan background, bukan kotak/card */
+      .hero-img-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .hero-img-wrapper img {
+        width: 100%;
+        max-width: 460px;
+        display: block;
+        filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 25px rgba(93, 235, 215, 0.2));
+        mix-blend-mode: luminosity;
+        opacity: 0.9;
       }
 
       /* Konten Utama & Dashboard Section */
@@ -177,7 +263,7 @@
       .section-title {
         font-size: 24px;
         font-weight: 800;
-        color: var(--color-deep-blue);
+        color: var(--color-nav-bg);
         margin-bottom: 24px;
         letter-spacing: 0.5px;
       }
@@ -204,10 +290,11 @@
   </head>
   <body>
 
-    <!-- Header Navbar Sesuai Folder -->
+    <!-- Header Navbar -->
     <header>
-      <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+      <a href="/" class="navbar-brand">
        <img src="/images/logo-kcm.png" alt="Logo KCM" />
+       <span class="brand-title">IT Support & General Affair</span>
       </a>
       <div class="nav-links">
         <a href="/" class="active">Home</a>
@@ -217,14 +304,14 @@
       </div>
     </header>
 
-    <!-- Hero Banner dengan Tombol Menuju Halaman Form -->
+    <!-- Hero Banner (Foto Transparan + Gradasi + Glow Shadow) -->
     <div class="hero-banner">
       <div class="hero-container">
         <div>
           <h1>PUSAT LAYANAN & MAINTENANCE</h1>
           <p class="sub-title">CENDEKIA MUDA</p>
           <p class="description">
-            Portal Bantuan IT & General Affair Sekolah Cendekia Muda. Solusi cepat, amanah, dan terintegrasi untuk menangani kendala operasional harian Anda.
+            Portal Bantuan IT Sekolah Cendekia Muda. Insya Allah, kami berkomitmen memberikan pelayanan yang amanah dan profesional untuk setiap kendala teknis Anda.
           </p>
           <div class="btn-group">
             <a href="/it-support/form" class="btn-primary">
@@ -235,10 +322,9 @@
             </a>
           </div>
         </div>
-        <div style="display: flex; justify-content: center;">
-          <div style="width: 100%; max-width: 480px; border-radius: 16px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="Hero Illustration" style="width: 100%; display: block;" />
-          </div>
+        <div class="hero-img-wrapper">
+          <!-- Ganti dengan ilustrasi/foto Anda sendiri -->
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="Hero Illustration" />
         </div>
       </div>
     </div>
@@ -248,7 +334,7 @@
       <h2 class="section-title"><i class="fa-solid fa-chart-line" style="margin-right: 10px;"></i>MONITORING & DIAGRAM REAL-TIME</h2>
       
       <div class="dashboard-card">
-        <h3 style="color: var(--color-deep-blue); font-size: 18px; margin-bottom: 6px; text-align: center;">Statistik Pengajuan Berdasarkan Unit</h3>
+        <h3 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 6px; text-align: center;">Statistik Pengajuan Berdasarkan Unit</h3>
         <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Tersinkronisasi otomatis dari Google Spreadsheet</p>
 
         <!-- Grafik Chart.js -->
@@ -257,11 +343,11 @@
         </div>
 
         <!-- Tabel Data Riwayat -->
-        <h3 style="color: var(--color-deep-blue); font-size: 16px; margin-bottom: 12px;">Daftar Riwayat Terbaru</h3>
+        <h3 style="color: var(--color-nav-bg); font-size: 16px; margin-bottom: 12px;">Daftar Riwayat Terbaru</h3>
         <div style="overflow-x: auto; max-height: 380px; overflow-y: auto;">
           <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
             <thead>
-              <tr style="border-bottom: 2px solid var(--color-med-blue); color: var(--color-deep-blue); background: #f1f5f9; position: sticky; top: 0;">
+              <tr style="border-bottom: 2px solid var(--color-med-blue); color: var(--color-nav-bg); background: #f1f5f9; position: sticky; top: 0;">
                 <th style="padding: 12px;">Timestamp</th>
                 <th style="padding: 12px;">Unit</th>
                 <th style="padding: 12px;">Kendala / Pesanan</th>
@@ -333,7 +419,7 @@
             tr.style.borderBottom = '1px solid #e2e8f0';
             tr.innerHTML = `
               <td style="padding: 12px;">${timestamp}</td>
-              <td style="padding: 12px; font-weight: 600; color: var(--color-deep-blue);">${unit}</td>
+              <td style="padding: 12px; font-weight: 600; color: var(--color-nav-bg);">${unit}</td>
               <td style="padding: 12px;">${kendala}</td>
               <td style="padding: 12px;">${pemohon}</td>
               <td style="padding: 12px;">${statusBadge}</td>
@@ -358,8 +444,8 @@
             datasets: [{
               label: 'Jumlah Pengajuan per Unit',
               data: data,
-              backgroundColor: ['#074173', '#1679AB', '#0891b2', '#15803d'],
-              borderColor: ['#074173', '#1679AB', '#0891b2', '#15803d'],
+              backgroundColor: ['#074173', '#1679AB', '#5DEBD7', '#15803d'],
+              borderColor: ['#074173', '#1679AB', '#5DEBD7', '#15803d'],
               borderWidth: 1,
               borderRadius: 6
             }]
