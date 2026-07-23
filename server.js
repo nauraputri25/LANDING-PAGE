@@ -54,7 +54,7 @@ app.post("/it-support/submit", async (req, res) => {
     console.log(`[INFO IT] Mengirim laporan dari ${nama_request}...`);
 
     const responseGAS = await axios.post(APPS_SCRIPT_URL, {
-      kategori: "IT_Support", // <-- Dikirim ke Tab IT_Support & Folder Foto IT
+      kategori: "IT_Support",
       unit,
       nama_request,
       kelas,
@@ -84,12 +84,17 @@ app.post("/it-support/submit", async (req, res) => {
 
 // --- RUTE GENERAL AFFAIR (GA) ---
 
-// 1. Halaman Form General Affair
+// 1. Halaman Utama GA (yang ada tombolnya)
 app.get("/ga", (req, res) => {
   res.render("ga", { activePage: "ga", success: req.query.success });
 });
 
-// 2. Proses Kirim Form GA ke Google Spreadsheet & Drive
+// 2. Halaman Form Pengaduan GA
+app.get("/ga/form", (req, res) => {
+  res.render("ga-form", { activePage: "ga" });
+});
+
+// 3. Proses Submit GA
 app.post("/ga/submit", async (req, res) => {
   const { 
     unit, 
@@ -105,7 +110,7 @@ app.post("/ga/submit", async (req, res) => {
     console.log(`[INFO GA] Mengirim laporan dari ${nama_request}...`);
 
     const responseGAS = await axios.post(APPS_SCRIPT_URL, {
-      kategori: "GA", // <-- Dikirim ke Tab GA & Folder Foto GA
+      kategori: "GA",
       unit,
       nama_request,
       lokasi,
@@ -124,12 +129,12 @@ app.post("/ga/submit", async (req, res) => {
       return res.json({ status: "success", redirectUrl: "/ga?success=true" });
     } else {
       console.error("[GAGAL DARI GAS - GA]:", responseGAS.data);
-      return res.json({ status: "error", redirectUrl: "/ga?success=false" });
+      return res.json({ status: "error", redirectUrl: "/ga/form?success=false" });
     }
 
   } catch (error) {
     console.error("[ERROR SERVER GA]:", error.message);
-    return res.json({ status: "error", redirectUrl: "/ga?success=false" });
+    return res.json({ status: "error", redirectUrl: "/ga/form?success=false" });
   }
 });
 
