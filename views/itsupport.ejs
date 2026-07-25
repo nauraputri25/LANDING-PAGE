@@ -44,12 +44,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 50px;
-            background-color: var(--color-dark-blue);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(90deg, rgba(7,65,115,0.96), rgba(8,96,144,0.98));
+            border-bottom: 1px solid rgba(93, 235, 215, 0.18);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
         }
 
         .logo-container {
@@ -85,14 +85,16 @@
             gap: 28px;
         }
 
-        nav a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            position: relative;
-            padding: 4px 0;
+        nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-cyan-mint), #9cf2c7);
+            border-radius: 2px;
         }
 
         nav a:hover, nav a.active {
