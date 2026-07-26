@@ -20,7 +20,7 @@
             --text-main: #074173;
             --text-muted: #64748b;
         }
-        *, *::before, *::after {
+        * {
             box-sizing: border-box;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -34,9 +34,8 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
-            width: 100%;
         }
-        /* HEADER (NAVBAR) */
+        /* 🚀 HEADER (DARK BLUE MODE) */
         header {
             display: flex;
             justify-content: space-between;
@@ -48,24 +47,27 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            width: 100%;
         }
+
         .logo-container {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .logo-img {
             height: 32px;
             width: auto;
             display: block;
             object-fit: contain;
         }
+
         .logo-divider {
             width: 1px;
             height: 22px;
             background-color: rgba(255, 255, 255, 0.3);
         }
+
         .logo-sub {
             font-size: 17px;
             color: var(--color-cyan-mint);
@@ -73,11 +75,13 @@
             font-weight: 700;
             text-transform: uppercase;
         }
+
         nav {
             display: flex;
             align-items: center;
             gap: 28px;
         }
+
         nav a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
@@ -87,9 +91,11 @@
             position: relative;
             padding: 4px 0;
         }
+
         nav a:hover, nav a.active {
             color: #ffffff;
         }
+
         nav a.active::after {
             content: "";
             position: absolute;
@@ -101,19 +107,19 @@
             border-radius: 2px;
         }
 
-        /*  HERO BANNER SECTION  */
+        /* 🌌 HERO BANNER (THEME: CYBER DATA CABLE & NETWORK STREAM) */
         .hero {
             position: relative;
             width: 100%;
-            padding: 120px 20px 180px 20px; 
-            min-height: 520px; 
+            padding: 85px 20px 150px 20px; 
             text-align: center;
             overflow: hidden;
             background: 
-                linear-gradient(180deg, rgba(4, 22, 45, 0.88) 0%, rgba(7, 45, 80, 0.85) 60%, rgba(4, 22, 45, 0.95) 100%),
-                url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80') center/cover no-repeat;
+                linear-gradient(180deg, rgba(4, 22, 45, 0.92) 0%, rgba(7, 45, 80, 0.88) 60%, rgba(4, 22, 45, 0.96) 100%),
+                url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&q=80') center/cover no-repeat;
         }
 
+        /* Canvas Khusus Animasi Garis Kabel Data Flow */
         .hero canvas#heroCableCanvas {
             position: absolute;
             inset: 0;
@@ -121,6 +127,7 @@
             z-index: 1;
         }
 
+        /* Tech Mesh Grid Overlay */
         .hero-grid {
             position: absolute; inset: 0; pointer-events: none; z-index: 1;
             background-image: 
@@ -128,6 +135,7 @@
                 linear-gradient(90deg, rgba(93,235,215,0.04) 1px, transparent 1px);
             background-size: 40px 40px;
         }
+
         .hero-inner { 
             position: relative; 
             z-index: 2; 
@@ -135,6 +143,7 @@
             margin: 0 auto; 
         }
         
+        /* Badge Pill */
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             background: rgba(93,235,215,0.08);
@@ -153,6 +162,7 @@
             box-shadow: 0 0 10px var(--color-cyan-mint);
             animation: dotBlink 1.5s ease-in-out infinite;
         }
+
         .hero h1 {
             font-size: clamp(2.4rem, 5.5vw, 4rem);
             font-weight: 900;
@@ -172,33 +182,29 @@
             filter: drop-shadow(0 0 18px rgba(93,235,215,0.35));
         }
         .hero p {
-            color: rgba(255,255,255,0.88);
-            font-size: 1rem;
+            color: rgba(255,255,255,0.82);
+            font-size: 0.98rem;
             max-width: 640px;
             margin: 0 auto;
             line-height: 1.7;
         }
 
-        /* FLOATING STATS BAR */
         .hero-stats-wrapper {
             position: relative;
             z-index: 10;
-            max-width: 800px;
-            margin: -60px auto 40px auto; 
+            max-width: 900px; 
+            margin: -50px auto 30px auto; 
             padding: 0 20px;
-            width: 100%;
-        }
+        }       
         .hero-stats {
             display: flex; 
             justify-content: space-around;
             align-items: center;
-            background: rgba(6, 28, 54, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(93, 235, 215, 0.25);
-            border-radius: 16px;
-            padding: 24px 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(93, 235, 215, 0.1);
+            background: #0f2744; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px; 
+            padding: 16px 20px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35); 
         }
         .stat-item {
             flex: 1; text-align: center;
@@ -213,29 +219,47 @@
             background: linear-gradient(to bottom, transparent, rgba(93, 235, 215, 0.3), transparent);
         }
         .stat-num {
-            font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
-            font-weight: 900; 
+            font-size: 1.8rem; 
+            font-weight: 800; 
             line-height: 1;
-            background: linear-gradient(135deg, #ffffff 20%, var(--color-cyan-mint) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            color: #79ebd8; 
         }
         .stat-label { 
-            font-size: 0.72rem; 
-            color: rgba(255,255,255,0.65); 
+            font-size: 0.65rem; 
+            color: rgba(255, 255, 255, 0.7); 
             text-transform: uppercase; 
             letter-spacing: 0.12em; 
-            margin-top: 8px; 
-            font-weight: 600;
+            margin-top: 6px; 
+            font-weight: 700;
         }
 
-        /*  MAIN CONTAINER */
+        /* PENYESUAIAN SECTION TIM IT  */
+        .section-tim-it {
+            position: relative;
+            padding-top: 10px; /* Menambah kenyamanan ritme mata */
+        }
+        
+        .stat-item {
+            flex: 1; text-align: center;
+            padding: 0 16px;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-size: 1.6rem; font-weight: 900; line-height: 1;
+            background: linear-gradient(135deg, var(--color-cyan-mint), var(--color-lime-green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+        /* 📦 MAIN CONTAINER */
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 20px 24px 70px 24px;
+            padding: 10px 24px 70px 24px;
             width: 100%;
-            box-sizing: border-box;
         }
+
         .section-header {
             font-size: 15px;
             font-weight: 800;
@@ -248,13 +272,11 @@
             text-transform: uppercase;
         }
 
-        /* TEAM CARDS GRID */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 24px;
             margin-bottom: 45px;
-            width: 100%;
         }
         .team-card {
             background: var(--card-bg);
@@ -270,7 +292,7 @@
             cursor: pointer;
         }
         .team-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px) scale(1.01);
             border-color: var(--color-ocean-blue);
             box-shadow: 0 15px 30px rgba(22, 121, 171, 0.15);
         }
@@ -282,8 +304,8 @@
         }
         .avatar-wrapper {
             position: relative;
-            width: 75px;
-            height: 75px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-cyan-mint));
@@ -298,7 +320,7 @@
         }
         .team-info h3 {
             margin: 0;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 800;
             color: var(--color-dark-blue);
             letter-spacing: 0.5px;
@@ -311,7 +333,7 @@
             font-weight: 700;
             padding: 4px 8px;
             border-radius: 6px;
-            margin: 6px 0;
+            margin: 6px 0 8px 0;
             letter-spacing: 0.8px;
         }
         .contact-list {
@@ -331,7 +353,6 @@
             border-radius: 10px;
             text-align: center;
             text-decoration: none;
-            display: block;
         }
         .team-card:hover .btn-contact {
             background-color: var(--color-ocean-blue);
@@ -339,32 +360,28 @@
             border-color: var(--color-ocean-blue);
         }
 
-        /*  DASHBOARD GRID */
+        /* 📊 DASHBOARD GRID & 4 REKOMENDASI CHARTS */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 1fr 1.4fr;
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
-            margin-bottom: 50px;
-            width: 100%;
+            margin-bottom: 24px;
         }
         .card-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 22px;
-            padding: 26px;
+            padding: 24px;
             box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
-            width: 100%;
-            box-sizing: border-box;
         }
         .card-box:hover {
             border-color: var(--color-ocean-blue);
             transform: translateY(-4px);
         }
-        .chart-wrapper {
+        .chart-container-box {
             position: relative;
-            width: 210px;
-            height: 210px;
-            margin: 0 auto;
+            height: 200px;
+            width: 100%;
         }
         .chart-center-text {
             position: absolute;
@@ -375,33 +392,41 @@
             pointer-events: none;
         }
         .chart-center-text .number {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 900;
             color: var(--color-dark-blue);
             line-height: 1;
         }
         .chart-center-text .label {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-top: 4px;
+            letter-spacing: 0.8px;
+            margin-top: 3px;
         }
 
-        /* TICKET LIST */
+        /* 🎟️ TICKET LIST FULL-WIDTH BELOW CHARTS */
+        .ticket-box-full {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
+            margin-bottom: 40px;
+        }
         .ticket-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
         }
         .ticket-item {
             background: #f8fafc;
             border: 1px solid var(--border-color);
-            padding: 14px 18px;
+            padding: 16px;
             border-radius: 14px;
         }
         .ticket-item:hover {
             background: #ffffff;
-            transform: translateX(6px);
+            transform: translateY(-3px);
             border-color: var(--color-ocean-blue);
             box-shadow: 0 4px 12px rgba(7, 65, 115, 0.08);
         }
@@ -451,7 +476,7 @@
             border-radius: 10px;
         }
 
-        /* CTA BUTTON */
+        /* 🔥 CALL TO ACTION BUTTON */
         .cta-box {
             text-align: center;
             margin-top: 20px;
@@ -469,15 +494,12 @@
             border-radius: 16px;
             text-decoration: none;
             box-shadow: 0 10px 25px rgba(7, 65, 115, 0.25);
-            animation: pulseShadow 2.5s ease-in-out infinite;
         }
         .btn-submit-main:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 15px 30px rgba(22, 121, 171, 0.35);
             background: var(--color-ocean-blue);
-            animation: none;
         }
-
         footer {
             background-color: #ffffff;
             padding: 24px;
@@ -486,13 +508,11 @@
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
             margin-top: auto;
-            width: 100%;
         }
 
         @media (max-width: 768px) {
             header { padding: 16px 20px; }
             .dashboard-grid { grid-template-columns: 1fr; }
-            .hero { padding: 90px 15px 140px 15px; }
         }
 
         /* ANIMATIONS */
@@ -521,11 +541,11 @@
             50% { opacity:0.4; box-shadow:0 0 3px var(--color-cyan-mint); } 
         }
 
-        .hero h1        { animation: fadeDown 0.7s 0.1s ease both; }
+        .hero h1 { animation: fadeDown 0.7s 0.1s ease both; }
         .hero .subtitle { animation: fadeDown 0.7s 0.25s ease both; }
-        .hero p         { animation: fadeDown 0.7s 0.4s ease both; }
+        .hero p { animation: fadeDown 0.7s 0.4s ease both; }
         .section-header { animation: fadeLeft 0.6s 0.2s ease both; }
-
+        
         .anim-reveal {
             animation: fadeUp 0.6s ease both;
             animation-play-state: paused;
@@ -533,7 +553,6 @@
         .anim-reveal.visible {
             animation-play-state: running;
         }
-
         .avatar-wrapper::before {
             content: '';
             position: absolute;
@@ -547,81 +566,12 @@
             position: relative;
             z-index: 1;
         }
-        .ticket-item {
-            animation: fadeLeft 0.5s ease both;
-            animation-play-state: paused;
-        }
-        .ticket-item.visible {
-            animation-play-state: running;
-        }
-
-        /* ── ANIMATIONS ── */
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(32px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeLeft {
-            from { opacity: 0; transform: translateX(-24px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes shimmer {
-            0%   { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-        @keyframes rotateBorder {
-            from { transform: rotate(0deg); }
-            to   { transform: rotate(360deg); }
-        }
-        @keyframes pulseShadow {
-            0%, 100% { box-shadow: 0 10px 25px rgba(7,65,115,0.25); }
-            50%       { box-shadow: 0 10px 35px rgba(93,235,215,0.45), 0 0 0 6px rgba(93,235,215,0.1); }
-        }
-
-        /* Hero entrance */
-        .hero h1         { animation: fadeDown 0.7s 0.1s ease both; }
-        .hero .subtitle  { animation: fadeDown 0.7s 0.25s ease both; }
-        .hero p          { animation: fadeDown 0.7s 0.4s ease both; }
-
-        /* Section header slide from left */
-        .section-header  { animation: fadeLeft 0.6s 0.2s ease both; }
-
-        /* Scroll reveal base — pakai wrapper animasi terpisah agar tidak bentrok dengan hover transform */
-        .anim-reveal {
-            animation: fadeUp 0.6s ease both;
-            animation-play-state: paused;
-        }
-        .anim-reveal.visible {
-            animation-play-state: running;
-        }
-
-        /* Avatar rotating gradient ring */
-        .avatar-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            background: conic-gradient(var(--color-cyan-mint), var(--color-lime-green), var(--color-ocean-blue), var(--color-cyan-mint));
-            animation: rotateBorder 3s linear infinite;
-            z-index: 0;
-        }
-        .avatar-wrapper img {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* CTA button pulse */
         .btn-submit-main {
             animation: pulseShadow 2.5s ease-in-out infinite;
         }
         .btn-submit-main:hover {
             animation: none;
         }
-
-        /* Ticket items stagger via JS */
         .ticket-item {
             animation: fadeLeft 0.5s ease both;
             animation-play-state: paused;
@@ -632,8 +582,7 @@
     </style>
 </head>
 <body>
-
-    <!-- HEADER NAVIGATION -->
+    <!-- HEADER -->
     <header>
         <div class="logo-container">
             <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
@@ -667,23 +616,21 @@
     <div class="hero-stats-wrapper">
         <div class="hero-stats">
             <div class="stat-item">
-                <div class="stat-num" id="statHero1">15 Menit</div>
+                <div class="stat-num" id="statHero1">15 mnt</div>
                 <div class="stat-label">SLA Penanganan</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num" id="statHero2">1,240</div>
+                <div class="stat-num" id="statHero2">124</div>
                 <div class="stat-label">Tiket Terselesaikan</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num" id="statHero3">99.9%</div>
+                <div class="stat-num" id="statHero3">99%</div>
                 <div class="stat-label">Uptime Jaringan</div>
             </div>
         </div>
     </div>
 
-    <!-- MAIN CONTAINER CONTROLLING LAYOUT PADDING -->
     <main class="container">
-        
         <!-- SECTION TIM IT SUPPORT -->
         <div class="section-header">
             <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM IT SUPPORT / PIC
@@ -725,55 +672,93 @@
             </div>
         </div>
 
-        <!-- SECTION DASHBOARD & TICKETS -->
+        <!-- SECTION 4 REKOMENDASI DASHBOARD CHARTS -->
+        <div class="section-header">
+            <i class="fa-solid fa-chart-simple" style="color: var(--color-ocean-blue);"></i> ANALISTIK & MONITORING TIKET
+        </div>
+        
         <div class="dashboard-grid">
-            <!-- Donut Chart Card -->
+            <!-- 1. BAR CHART: LAPORAN PER UNIT -->
             <div class="card-box">
-                <div class="section-header" style="font-size: 13px; margin-bottom: 16px;">
-                    <i class="fa-solid fa-chart-pie" style="color: var(--color-ocean-blue);"></i> KATEGORI KERUSAKAN IT
+                <div class="section-header" style="font-size: 13px; margin-bottom: 14px;">
+                    <i class="fa-solid fa-school" style="color: var(--color-ocean-blue);"></i> 1. LAPORAN PER UNIT / JENJANG
                 </div>
-                <div class="chart-wrapper">
-                    <canvas id="damageChart"></canvas>
+                <div class="chart-container-box">
+                    <canvas id="unitBarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 2. LINE CHART: TREN LAPORAN BULANAN -->
+            <div class="card-box">
+                <div class="section-header" style="font-size: 13px; margin-bottom: 14px;">
+                    <i class="fa-solid fa-chart-line" style="color: var(--color-ocean-blue);"></i> 2. TREN LAPORAN BULANAN
+                </div>
+                <div class="chart-container-box">
+                    <canvas id="trendLineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 3. DOUGHNUT CHART: PERMASALAHAN PALING SERING (IT) -->
+            <div class="card-box">
+                <div class="section-header" style="font-size: 13px; margin-bottom: 14px;">
+                    <i class="fa-solid fa-laptop-code" style="color: var(--color-ocean-blue);"></i> 3. KATEGORI PROBLEM IT
+                </div>
+                <div class="chart-container-box" style="height: 180px;">
+                    <canvas id="problemCategoryChart"></canvas>
                     <div class="chart-center-text">
                         <div class="number">124</div>
-                        <div class="label">TIKET/BLN</div>
+                        <div class="label">TOTAL TIKET</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tiket Berjalan -->
+            <!-- 4. STATUS BREAKDOWN (PENDING / PROCESS / DONE) -->
             <div class="card-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-                    <div class="section-header" style="font-size: 13px; margin: 0;">
-                        <i class="fa-solid fa-list-check" style="color: var(--color-ocean-blue);"></i> TIKET IT AKTIF
-                    </div>
-                    <span style="font-size: 11px; color: var(--color-ocean-blue); font-weight: 700;">3 Tiket Berjalan</span>
+                <div class="section-header" style="font-size: 13px; margin-bottom: 14px;">
+                    <i class="fa-solid fa-spinner" style="color: var(--color-ocean-blue);"></i> 4. STATUS BREAKDOWN TIKET
                 </div>
-                <div class="ticket-list">
-                    <div class="ticket-item">
-                        <div class="ticket-top">
-                            <span class="ticket-title">Troubleshoot Server Lantai 3</span>
-                            <span class="badge-priority">PRIORITY</span>
-                        </div>
-                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Harisma Permana</span>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%;"></div></div>
+                <div class="chart-container-box" style="height: 180px;">
+                    <canvas id="statusBreakdownChart"></canvas>
+                    <div class="chart-center-text">
+                        <div class="number">92%</div>
+                        <div class="label">RESOLVED</div>
                     </div>
-                    <div class="ticket-item">
-                        <div class="ticket-top">
-                            <span class="ticket-title">Instalasi PC Baru HRD</span>
-                            <span class="badge-normal">NORMAL</span>
-                        </div>
-                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Budi Santoso</span>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 30%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION TIKET BERJALAN -->
+        <div class="ticket-box-full">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                <div class="section-header" style="font-size: 13px; margin: 0;">
+                    <i class="fa-solid fa-list-check" style="color: var(--color-ocean-blue);"></i> TIKET IT AKTIF / BERJALAN
+                </div>
+                <span style="font-size: 11px; color: var(--color-ocean-blue); font-weight: 700;">3 Tiket Berlangsung</span>
+            </div>
+            <div class="ticket-list">
+                <div class="ticket-item">
+                    <div class="ticket-top">
+                        <span class="ticket-title">Troubleshoot Server Lantai 3</span>
+                        <span class="badge-priority">PRIORITY</span>
                     </div>
-                    <div class="ticket-item">
-                        <div class="ticket-top">
-                            <span class="ticket-title">Optimalisasi Wi-Fi Area Lapangan</span>
-                            <span class="badge-priority">PRIORITY</span>
-                        </div>
-                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Harisma Permana</span>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 15%;"></div></div>
+                    <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Harisma Permana</span>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%;"></div></div>
+                </div>
+                <div class="ticket-item">
+                    <div class="ticket-top">
+                        <span class="ticket-title">Instalasi PC Baru HRD</span>
+                        <span class="badge-normal">NORMAL</span>
                     </div>
+                    <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Budi Santoso</span>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 30%;"></div></div>
+                </div>
+                <div class="ticket-item">
+                    <div class="ticket-top">
+                        <span class="ticket-title">Optimalisasi Wi-Fi Area Lapangan</span>
+                        <span class="badge-priority">PRIORITY</span>
+                    </div>
+                    <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Harisma Permana</span>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 15%;"></div></div>
                 </div>
             </div>
         </div>
@@ -785,53 +770,122 @@
                 <i class="fa-solid fa-arrow-right-long"></i>
             </a>
         </div>
-
     </main>
 
     <footer>
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
-    <!-- SCRIPT ANIMASI & CHART -->
+    <!-- SCRIPT 4 CHARTS INTERAKTIF -->
     <script>
-        // Chart Configuration
-        const ctx = document.getElementById('damageChart').getContext('2d');
-        new Chart(ctx, {
+        // 1. BAR CHART: LAPORAN PER UNIT (#074173 ke #1679AB)
+        const ctxBar = document.getElementById('unitBarChart').getContext('2d');
+        const barGrad = ctxBar.createLinearGradient(0, 0, 0, 180);
+        barGrad.addColorStop(0, '#074173');
+        barGrad.addColorStop(1, '#1679AB');
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['TK', 'SD', 'SMP', 'SMA', 'Umum/HO'],
+                datasets: [{
+                    label: 'Jumlah Keluhan',
+                    data: [12, 45, 28, 32, 18],
+                    backgroundColor: barGrad,
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+                    y: { grid: { color: '#e2e8f0' }, ticks: { color: '#64748b', font: { size: 10 } }, beginAtZero: true }
+                }
+            }
+        });
+
+        // 2. LINE CHART: TREN LAPORAN BULANAN (#1679AB dengan fill #5DEBD7)
+        const ctxLine = document.getElementById('trendLineChart').getContext('2d');
+        const lineGrad = ctxLine.createLinearGradient(0, 0, 0, 180);
+        lineGrad.addColorStop(0, 'rgba(93, 235, 215, 0.45)');
+        lineGrad.addColorStop(1, 'rgba(93, 235, 215, 0.0)');
+
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                datasets: [{
+                    label: 'Tren Laporan',
+                    data: [15, 22, 18, 35, 25, 12],
+                    borderColor: '#1679AB',
+                    borderWidth: 3,
+                    backgroundColor: lineGrad,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#074173',
+                    pointBorderColor: '#5DEBD7',
+                    pointBorderWidth: 2,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+                    y: { grid: { color: '#e2e8f0' }, ticks: { color: '#64748b', font: { size: 10 } }, beginAtZero: true }
+                }
+            }
+        });
+
+        // 3. DOUGHNUT CHART: KATEGORI PROBLEM IT (Wi-Fi, Proyektor, Laptop/PC, Printer)
+        const ctxProblem = document.getElementById('problemCategoryChart').getContext('2d');
+        new Chart(ctxProblem, {
             type: 'doughnut',
             data: {
-                labels: ['Hardware & Laptop', 'Jaringan Wi-Fi', 'Software / Aplikasi'],
+                labels: ['Wi-Fi / Internet', 'Laptop / PC', 'Proyektor', 'Printer'],
                 datasets: [{
-                    data: [45, 35, 20],
-                    backgroundColor: ['#074173', '#1679AB', '#5DEBD7'],
+                    data: [40, 30, 18, 12],
+                    backgroundColor: ['#074173', '#1679AB', '#5DEBD7', '#C5FF95'],
                     borderWidth: 0,
-                    hoverOffset: 12
+                    hoverOffset: 6
                 }]
             },
             options: {
                 cutout: '72%',
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#074173',
-                        titleColor: '#ffffff',
-                        bodyColor: '#5DEBD7',
-                        borderColor: '#e2e8f0',
-                        borderWidth: 1,
-                        padding: 12,
-                        callbacks: {
-                            label: function(context) {
-                                return ` ${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
+                plugins: { legend: { display: false } }
             }
         });
 
-        // Scroll Reveal Animations
-        const revealEls = document.querySelectorAll('.team-card, .card-box, .cta-box');
+        // 4. STATUS BREAKDOWN (Pending #f59e0b, Dalam Proses #5DEBD7, Selesai #C5FF95)
+        const ctxStatus = document.getElementById('statusBreakdownChart').getContext('2d');
+        new Chart(ctxStatus, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Dalam Proses', 'Selesai'],
+                datasets: [{
+                    data: [8, 15, 101],
+                    backgroundColor: ['#f59e0b', '#5DEBD7', '#C5FF95'],
+                    borderWidth: 0,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                cutout: '72%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Scroll reveal & animations
+        const revealEls = document.querySelectorAll('.team-card, .card-box, .ticket-box-full, .cta-box');
         revealEls.forEach(el => el.classList.add('anim-reveal'));
         const observer = new IntersectionObserver(entries => {
             entries.forEach((e, i) => {
@@ -843,7 +897,6 @@
         }, { threshold: 0.1 });
         revealEls.forEach(el => observer.observe(el));
 
-        // Ticket Items Stagger Animation
         const ticketObserver = new IntersectionObserver(entries => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
@@ -855,7 +908,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.ticket-list').forEach(el => ticketObserver.observe(el));
 
-        //  ANIMASI KABEL NETWORK 
+        // 🔌 ANIMASI KABEL LAN
         const cableCanvas = document.getElementById('heroCableCanvas');
         const cCtx = cableCanvas.getContext('2d');
         let lanCables = [];
@@ -869,7 +922,7 @@
 
         function initCables() {
             lanCables = [];
-            const cableCount = 10;
+            const cableCount = 12;
             const w = cableCanvas.width;
             const h = cableCanvas.height;
             for (let i = 0; i < cableCount; i++) {
@@ -883,8 +936,7 @@
                     endX: w * 0.8 + Math.random() * (w * 0.3),
                     endY: Math.random() * h,
                     progress: Math.random(),
-                    // Kecepatan gerakan titik disetting jauh lebih lambat (sebelumnya 0.003 - 0.007)
-                    speed: 0.0008 + Math.random() * 0.0010, 
+                    speed: 0.003 + Math.random() * 0.004,
                     color: Math.random() > 0.4 ? '93, 235, 215' : '197, 255, 149',
                     width: Math.random() * 2 + 1.2
                 });
@@ -909,13 +961,10 @@
                 cCtx.strokeStyle = `rgba(${c.color}, 0.15)`;
                 cCtx.lineWidth = c.width;
                 cCtx.stroke();
-
                 c.progress += c.speed;
                 if (c.progress > 1) c.progress = 0;
-
                 const currX = getBezierPoint(c.progress, c.startX, c.cp1X, c.cp2X, c.endX);
                 const currY = getBezierPoint(c.progress, c.startY, c.cp1Y, c.cp2Y, c.endY);
-
                 cCtx.beginPath();
                 cCtx.arc(currX, currY, c.width * 2, 0, Math.PI * 2);
                 cCtx.fillStyle = `rgba(${c.color}, 0.9)`;
