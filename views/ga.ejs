@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GA (General Affair) - Cendekia Muda</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg-light: #f8fafc;
@@ -167,87 +168,81 @@
             animation: pulseGlow 1.5s infinite;
         }
 
-        .hero h1 { 
-            font-size: 48px; 
-            font-weight: 900; 
-            margin: 0 0 6px 0; 
-            letter-spacing: 2px; 
-            color: #ffffff; 
-            text-transform: uppercase;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero .subtitle { 
-            font-size: 32px; 
-            color: #C5FF95; 
-            font-weight: 900; 
-            letter-spacing: 2px; 
-            margin-bottom: 20px; 
-            text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .hero p { 
-            color: rgba(255, 255, 255, 0.95); 
-            font-size: 14px; 
-            max-width: 680px; 
-            margin: 0 auto; 
-            line-height: 1.6; 
-        }
-
-        .hero-stats-card {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translate(-50%, 50%);
-            z-index: 20;
-            width: 90%;
-            max-width: 850px;
-            background: #ffffff;
-            border: 1.5px solid #5DEBD7;
-            border-radius: 20px;
-            padding: 28px 30px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            box-shadow: 0 20px 45px rgba(7, 65, 115, 0.2);
-        }
-
-        .stat-item {
-            text-align: center;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stat-item:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 15%;
-            height: 70%;
-            width: 1px;
-            background: #e2e8f0;
-        }
-
-        .stat-number {
-            font-size: 36px;
+        .hero h1 {
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
             font-weight: 900;
-            color: #074173; 
-            margin-bottom: 6px;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
             line-height: 1.1;
-            display: block;
+            background: linear-gradient(135deg, #ffffff 0%, #d0eaf8 60%, #90d0f5 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
 
-        .stat-label {
-            font-size: 11px;
-            font-weight: 800;
-            color: #1679AB;
+        .hero .subtitle {
+            font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+            background: linear-gradient(135deg, var(--color-cyan-mint) 0%, #82f3e5 50%, var(--color-lime-green) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            font-weight: 900;
             letter-spacing: 1.5px;
-            text-transform: uppercase;
-            display: block;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 18px rgba(93,235,215,0.35));
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.88);
+            font-size: 1rem;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* FLOATING STATS BAR */
+        .hero-stats-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: -60px auto 40px auto; 
+            padding: 0 20px;
+            width: 100%;
+        }
+        .hero-stats {
+            display: flex; 
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(6, 28, 54, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(93, 235, 215, 0.25);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(93, 235, 215, 0.1);
+        }
+        .stat-item {
+            flex: 1; text-align: center;
+            padding: 0 15px;
+            position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 15%; bottom: 15%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(93, 235, 215, 0.3), transparent);
+        }
+        .stat-num {
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
+            font-weight: 900; 
+            line-height: 1;
+            background: linear-gradient(135deg, #ffffff 20%, var(--color-cyan-mint) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-label { 
+            font-size: 0.72rem; 
+            color: rgba(255,255,255,0.65); 
+            text-transform: uppercase; 
+            letter-spacing: 0.12em; 
+            margin-top: 8px; 
+            font-weight: 600;
         }
 
         /* CONTAINER */
@@ -404,13 +399,126 @@
             margin-top: auto; 
         }
 
+        /* DASHBOARD GRID */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 24px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        .card-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .card-box:hover {
+            border-color: var(--color-ocean-blue);
+            transform: translateY(-4px);
+        }
+        .chart-wrapper {
+            position: relative;
+            width: 210px;
+            height: 210px;
+            margin: 0 auto;
+        }
+        .chart-center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        .chart-center-text .number {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--color-dark-blue);
+            line-height: 1;
+        }
+        .chart-center-text .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* TICKET LIST */
+        .ticket-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .ticket-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 14px 18px;
+            border-radius: 14px;
+        }
+        .ticket-item:hover {
+            background: #ffffff;
+            transform: translateX(6px);
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 4px 12px rgba(7, 65, 115, 0.08);
+        }
+        .ticket-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .ticket-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-dark-blue);
+        }
+        .badge-priority {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .badge-normal {
+            background: rgba(22, 121, 171, 0.15);
+            color: var(--color-ocean-blue);
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .ticket-pic {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .progress-bar-bg {
+            height: 7px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-ocean-blue), var(--color-cyan-mint));
+            border-radius: 10px;
+        }
+
         /* MEDIA QUERIES */
         @media (max-width: 768px) {
             header { padding: 16px 20px; }
-            .hero h1 { font-size: 32px; }
-            .hero .subtitle { font-size: 22px; }
-            .hero-stats-card { grid-template-columns: 1fr; margin-bottom: -120px; gap: 15px; }
+            .hero { padding: 90px 15px 140px 15px; }
+            .hero-stats { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+            .stat-item { flex: 1 1 40%; padding-bottom: 12px; }
             .stat-item:not(:last-child)::after { display: none; }
+            .dashboard-grid { grid-template-columns: 1fr; }
             .container { margin-top: 140px; }
         }
 
@@ -496,18 +604,22 @@
             <p>Pusat Pengelolaan Sarana, Prasarana, Kelistrikan, AC, & Operasional Gedung Terpadu. Siap Mengatasi Kendala Fasilitas dengan Cepat, Amanah, dan Profesional.</p>
         </div>
 
-        <div class="hero-stats-card">
+    </div>
+
+    <!-- FLOATING STATS BAR -->
+    <div class="hero-stats-wrapper">
+        <div class="hero-stats">
             <div class="stat-item">
-                <span class="stat-number">30 Menit</span>
-                <span class="stat-label">SLA Penanganan GA</span>
+                <div class="stat-num">30 Menit</div>
+                <div class="stat-label">SLA Penanganan GA</div>
             </div>
             <div class="stat-item">
-                <span class="stat-number">850+</span>
-                <span class="stat-label">Fasilitas Terawat</span>
+                <div class="stat-num">850+</div>
+                <div class="stat-label">Fasilitas Terawat</div>
             </div>
             <div class="stat-item">
-                <span class="stat-number">99.5%</span>
-                <span class="stat-label">Gedung Siap Pakai</span>
+                <div class="stat-num">99.5%</div>
+                <div class="stat-label">Gedung Siap Pakai</div>
             </div>
         </div>
     </div>
@@ -550,6 +662,59 @@
                 </div>
                 <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
             </div>
+</div>
+
+        <!-- SECTION DASHBOARD FASILITAS & TIKET GA -->
+        <div class="dashboard-grid">
+            <!-- Donut Chart Card -->
+            <div class="card-box">
+                <div class="section-header" style="font-size: 13px; margin-bottom: 16px;">
+                    <i class="fa-solid fa-chart-pie" style="color: var(--color-ocean-blue);"></i> KATEGORI KERUSAKAN FASILITAS
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="damageChart"></canvas>
+                    <div class="chart-center-text">
+                        <div class="number">89</div>
+                        <div class="label">TIKET/BLN</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tiket GA Berjalan -->
+            <div class="card-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <div class="section-header" style="font-size: 13px; margin: 0;">
+                        <i class="fa-solid fa-list-check" style="color: var(--color-ocean-blue);"></i> TIKET GA AKTIF
+                    </div>
+                    <span style="font-size: 11px; color: var(--color-ocean-blue); font-weight: 700;">3 Tiket Berjalan</span>
+                </div>
+                <div class="ticket-list">
+                    <div class="ticket-item">
+                        <div class="ticket-top">
+                            <span class="ticket-title">Perbaikan AC Lantai 2</span>
+                            <span class="badge-priority">PRIORITY</span>
+                        </div>
+                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Nama PIC GA 1</span>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 60%;"></div></div>
+                    </div>
+                    <div class="ticket-item">
+                        <div class="ticket-top">
+                            <span class="ticket-title">Cek Kerusakan Atap Aula</span>
+                            <span class="badge-normal">NORMAL</span>
+                        </div>
+                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Nama PIC GA 2</span>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 25%;"></div></div>
+                    </div>
+                    <div class="ticket-item">
+                        <div class="ticket-top">
+                            <span class="ticket-title">Ganti Lampu Koridor Lt 1-3</span>
+                            <span class="badge-priority">PRIORITY</span>
+                        </div>
+                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Nama PIC GA 1</span>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 40%;"></div></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="cta-box">
@@ -564,7 +729,43 @@
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
-    <script>
+<script>
+// Chart Configuration
+        const chartCtx = document.getElementById('damageChart').getContext('2d');
+        new Chart(chartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Listrik & AC', 'Sarana Prasarana', 'Kebersihan & Lainnya'],
+                datasets: [{
+                    data: [40, 35, 25],
+                    backgroundColor: ['#074173', '#1679AB', '#5DEBD7'],
+                    borderWidth: 0,
+                    hoverOffset: 12
+                }]
+            },
+            options: {
+                cutout: '72%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#074173',
+                        titleColor: '#ffffff',
+                        bodyColor: '#5DEBD7',
+                        borderColor: '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
         const canvas = document.getElementById('ga-animation-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -663,20 +864,32 @@
         }
         animateGA();
 
-        /* INTERSECTION OBSERVER ANIMATION */
-        const revealEls = document.querySelectorAll('.team-card, .cta-box');
+/* INTERSECTION OBSERVER ANIMATION */
+        const revealEls = document.querySelectorAll('.team-card, .card-box, .cta-box');
         revealEls.forEach(el => el.classList.add('anim-reveal'));
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach((e, i) => {
                 if (e.isIntersecting) {
-                    setTimeout(() => e.target.classList.add('visible'), i * 120);
+                    setTimeout(() => e.target.classList.add('visible'), i * 100);
                     observer.unobserve(e.target);
                 }
             });
-        }, { threshold: 0.12 });
+        }, { threshold: 0.1 });
 
         revealEls.forEach(el => observer.observe(el));
+
+        // Ticket Items Stagger Animation
+        const ticketObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const items = e.target.querySelectorAll('.ticket-item');
+                    items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 120));
+                    ticketObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.ticket-list').forEach(el => ticketObserver.observe(el));
     </script>
 </body>
 </html>
