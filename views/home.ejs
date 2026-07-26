@@ -18,8 +18,9 @@
         --color-nav-bg: #074173;
         --color-med-blue: #1679AB;
         --color-accent-toska: #5DEBD7;
+        --color-lime-green: #C5FF95;
+        --color-cyan-mint: linear-gradient(90deg, #5DEBD7 0%, #C5FF95 100%);
       }
-
       body {
         background-color: var(--bg-main);
         color: var(--text-main);
@@ -30,81 +31,71 @@
         flex-direction: column;
         min-height: 100vh;
       }
-
-      /* Navbar Sesuai Permintaan Sebelumnya */
+      /* navbar */
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 32px;
-        background-color: var(--color-nav-bg);
-        border-bottom: 2px solid rgba(93, 235, 215, 0.2);
+        padding: 18px 50px;
+        background: #074173;
+        border-bottom: 1px solid rgba(93, 235, 215, 0.2);
         position: sticky;
         top: 0;
         z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
       }
-
-      .navbar-brand {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        text-decoration: none;
-        margin-left: 12px;
+      .logo-container { 
+        display: flex; 
+        align-items: center; 
+        gap: 12px; 
       }
-
-      header img {
-        height: 42px;
-        width: auto;
-        object-fit: contain;
+      .logo-img { 
+        height: 32px; 
+        width: auto; 
+        display: block; 
+        object-fit: contain; 
       }
-
-      .brand-title {
-        color: var(--color-accent-toska);
-        font-weight: 700;
-        font-size: 17px;
-        letter-spacing: 0.08em;
-        border-left: 1px solid rgba(255, 255, 255, 0.3);
-        padding-left: 16px;
-        text-transform: uppercase;
+      .logo-divider { 
+        width: 1px; 
+        height: 22px; 
+        background-color: rgba(255,255,255,0.2); 
       }
-
-      .nav-links {
-        display: flex;
-        gap: 28px;
-        font-size: 16px;
-        font-weight: 500;
-        align-items: center;
+      .logo-sub { 
+        font-size: 17px; 
+        color: var(--color-accent-toska); 
+        letter-spacing: 2px; 
+        font-weight: 700; 
+        text-transform: uppercase; 
       }
-
-      .nav-links a {
-        color: #cbd5e1;
-        text-decoration: none;
-        transition: color 0.2s;
-        position: relative;
-        padding-bottom: 4px;
+      nav { 
+        display: flex; 
+        align-items: center; 
+        gap: 28px; 
       }
-
-      .nav-links a:hover {
-        color: #ffffff;
+      nav a { 
+        color: rgba(255,255,255,0.75); 
+        text-decoration: none; 
+        font-size: 16px; 
+        font-weight: 600; 
+        letter-spacing: 0.5px; 
+        position: relative; 
+        padding: 4px 0; 
       }
-
-      .nav-links a.active {
-        color: #ffffff;
-        font-weight: 600;
+      nav a:hover, nav a.active { 
+        color: #ffffff; 
       }
-      .nav-links a.active::after {
-        content: '';
+      nav a.active::after {
+        content: "";
         position: absolute;
         bottom: -2px;
         left: 0;
         width: 100%;
-        height: 2px;
-        background-color: var(--color-accent-toska);
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-accent-toska), var(--color-lime-green));
         border-radius: 2px;
       }
-      
-      /* Hero Banner - Foto Latar Transparan dengan Gradasi & Glow Shadow ala Referensi */
+
       .hero-banner {
         position: relative;
         width: 100%;
@@ -116,13 +107,10 @@
         overflow: hidden;
         border-bottom: 3px solid var(--color-accent-toska);
         background-color: #041c32;
-        /* Ganti url di bawah dengan foto/ilustrasi milik Anda */
         background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop');
         background-size: cover;
         background-position: center;
       }
-
-      /* Lapisan gradasi gelap agar foto terlihat transparan namun teks tetap terbaca */
       .hero-banner::before {
         content: '';
         position: absolute;
@@ -134,8 +122,6 @@
           rgba(22, 121, 171, 0.25) 100%);
         z-index: 1;
       }
-
-      /* Glow lembut warna toska di sisi kanan, senada dengan gambar referensi */
       .hero-banner::after {
         content: '';
         position: absolute;
@@ -144,7 +130,6 @@
         pointer-events: none;
         z-index: 1;
       }
-
       .hero-container {
         position: relative;
         z-index: 2;
@@ -161,7 +146,6 @@
           grid-template-columns: 1.1fr 0.9fr;
         }
       }
-
       .hero-banner h1 {
         font-size: 36px;
         font-weight: 900;
@@ -173,7 +157,6 @@
       @media (min-width: 1024px) {
         .hero-banner h1 { font-size: 42px; text-align: left; }
       }
-
       .hero-banner .sub-title {
         font-size: 16px;
         font-weight: 700;
@@ -183,20 +166,17 @@
         text-transform: uppercase;
         text-shadow: 0 2px 10px rgba(93, 235, 215, 0.5);
       }
-
       .hero-banner p.description {
         font-size: 15px;
         line-height: 1.7;
         color: #cbd5e1;
         margin-bottom: 28px;
       }
-
       .btn-group {
         display: flex;
         flex-wrap: wrap;
         gap: 16px;
       }
-
       .btn-primary {
         background-color: var(--color-accent-toska);
         color: #041c32;
@@ -214,7 +194,6 @@
         background-color: #ffffff;
         transform: translateY(-2px);
       }
-
       .btn-outline {
         border: 2px solid var(--color-accent-toska);
         background-color: rgba(7, 65, 115, 0.4);
@@ -233,15 +212,12 @@
         background-color: rgba(93, 235, 215, 0.15);
         transform: translateY(-2px);
       }
-
-      /* Ilustrasi kanan - tampil transparan menyatu dengan background, bukan kotak/card */
       .hero-img-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
       }
-
       .hero-img-wrapper img {
         width: 100%;
         max-width: 460px;
@@ -250,8 +226,7 @@
         mix-blend-mode: luminosity;
         opacity: 0.9;
       }
-
-      /* Konten Utama & Dashboard Section */
+      
       .main-content-area {
         max-width: 1200px;
         margin: 0 auto;
@@ -259,7 +234,6 @@
         padding: 40px 20px;
         box-sizing: border-box;
       }
-
       .section-title {
         font-size: 24px;
         font-weight: 800;
@@ -267,7 +241,6 @@
         margin-bottom: 24px;
         letter-spacing: 0.5px;
       }
-
       .dashboard-card {
         background: var(--bg-card);
         border: 1px solid #e2e8f0;
@@ -276,7 +249,6 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         margin-bottom: 30px;
       }
-
       footer {
         background-color: #f8fafc;
         padding: 24px;
@@ -286,25 +258,28 @@
         border-top: 1px solid #e2e8f0;
         margin-top: auto;
       }
+
+      @media (max-width: 768px) {
+        header { padding: 16px 20px; }
+      }
     </style>
   </head>
   <body>
-
-    <!-- Header Navbar -->
+    <!-- navbar -->
     <header>
-      <a href="/" class="navbar-brand">
-       <img src="/images/logo-kcm.png" alt="Logo KCM" />
-       <span class="brand-title">IT Support & General Affair</span>
-      </a>
-      <div class="nav-links">
+      <div class="logo-container">
+        <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img" />
+        <div class="logo-divider"></div>
+        <div class="logo-sub">IT Support & General Affair</div>
+      </div>
+      <nav>
         <a href="/" class="active">Home</a>
         <a href="/it-support">IT Support</a>
         <a href="/ga">GA (General Affair)</a>
         <a href="/about">About Us</a>
-      </div>
+      </nav>
     </header>
 
-    <!-- Hero Banner (Foto Transparan + Gradasi + Glow Shadow) -->
     <div class="hero-banner">
       <div class="hero-container">
         <div>
@@ -323,26 +298,21 @@
           </div>
         </div>
         <div class="hero-img-wrapper">
-          <!-- Ganti dengan ilustrasi/foto Anda sendiri -->
           <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="Hero Illustration" />
         </div>
       </div>
     </div>
-
-    <!-- Konten Utama: Statistik & Grafik Real-Time -->
     <div class="main-content-area" id="statistik">
       <h2 class="section-title"><i class="fa-solid fa-chart-line" style="margin-right: 10px;"></i>MONITORING & DIAGRAM REAL-TIME</h2>
       
       <div class="dashboard-card">
         <h3 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 6px; text-align: center;">Statistik Pengajuan Berdasarkan Unit</h3>
         <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Tersinkronisasi otomatis dari Google Spreadsheet</p>
-
-        <!-- Grafik Chart.js -->
+        
         <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
           <canvas id="unitChart" style="max-height: 280px;"></canvas>
         </div>
-
-        <!-- Tabel Data Riwayat -->
+        
         <h3 style="color: var(--color-nav-bg); font-size: 16px; margin-bottom: 12px;">Daftar Riwayat Terbaru</h3>
         <div style="overflow-x: auto; max-height: 380px; overflow-y: auto;">
           <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
@@ -364,8 +334,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Footer -->
     <footer>
       <p>
         <i class="fa-solid fa-phone" style="color: var(--color-med-blue)"></i> (022) 710 2888
@@ -375,12 +343,9 @@
       </p>
       <p>© 2026 Cendekia Muda. All rights reserved.</p>
     </footer>
-
-    <!-- Chart.js Script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       const csvUrl = 'GANTIKAN_DENGAN_LINK_CSV_SPREADSHEET_KAMU';
-
       async function loadSpreadsheetData() {
         try {
           const response = await fetch(csvUrl);
@@ -389,23 +354,17 @@
           const rows = data.split('\n').map(row => row.split(','));
           const headers = rows[0];
           const items = rows.slice(1).filter(row => row.length === headers.length);
-
           const tableBody = document.getElementById('tableBody');
           tableBody.innerHTML = '';
-
           let unitCounts = {};
-
           items.forEach(row => {
             let timestamp = row[0]?.replace(/"/g, '').trim();
             let unit = row[1]?.replace(/"/g, '').trim();
             let kendala = row[2]?.replace(/"/g, '').trim();
             let pemohon = row[3]?.replace(/"/g, '').trim();
             let status = row[4]?.replace(/"/g, '').trim();
-
             if (!unit) return;
-
             unitCounts[unit] = (unitCounts[unit] || 0) + 1;
-
             let statusBadge = status;
             if(status === 'Selesai') {
               statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
@@ -414,7 +373,6 @@
             } else {
               statusBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${status || 'Menunggu'}</span>`;
             }
-
             let tr = document.createElement('tr');
             tr.style.borderBottom = '1px solid #e2e8f0';
             tr.innerHTML = `
@@ -426,15 +384,12 @@
             `;
             tableBody.appendChild(tr);
           });
-
           renderChart(Object.keys(unitCounts), Object.values(unitCounts));
-
         } catch (error) {
           console.error('Gagal memuat data spreadsheet:', error);
           document.getElementById('tableBody').innerHTML = `<tr><td colspan="5" style="padding: 20px; text-align: center; color: #991b1b;">Gagal memuat data. Pastikan link CSV Spreadsheet sudah benar & dipublikasikan.</td></tr>`;
         }
       }
-
       function renderChart(labels, data) {
         const ctx = document.getElementById('unitChart').getContext('2d');
         new Chart(ctx, {
@@ -463,7 +418,6 @@
           }
         });
       }
-
       loadSpreadsheetData();
     </script>
   </body>

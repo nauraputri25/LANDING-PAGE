@@ -106,6 +106,7 @@
             position: relative;
             width: 100%;
             padding: 120px 20px 180px 20px; 
+            min-height: 520px; 
             text-align: center;
             overflow: hidden;
             background: 
@@ -829,7 +830,6 @@
             }
         });
 
-<<<<<<< HEAD
         // Scroll Reveal Animations
         const revealEls = document.querySelectorAll('.team-card, .card-box, .cta-box');
         revealEls.forEach(el => el.classList.add('anim-reveal'));
@@ -844,38 +844,16 @@
         revealEls.forEach(el => observer.observe(el));
 
         // Ticket Items Stagger Animation
-=======
-        // Scroll reveal — cards, card-box, cta
-        const revealEls = document.querySelectorAll('.team-card, .card-box, .cta-box');
-        revealEls.forEach(el => el.classList.add('anim-reveal'));
-
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach((e, i) => {
-                if (e.isIntersecting) {
-                    setTimeout(() => e.target.classList.add('visible'), i * 120);
-                    observer.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.12 });
-        revealEls.forEach(el => observer.observe(el));
-
-        // Ticket items stagger
->>>>>>> edeb6c26c9d288d9bc383f5637a5bab6d85bfd40
         const ticketObserver = new IntersectionObserver(entries => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
                     const items = e.target.querySelectorAll('.ticket-item');
-<<<<<<< HEAD
                     items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 120));
-=======
-                    items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 150));
->>>>>>> edeb6c26c9d288d9bc383f5637a5bab6d85bfd40
                     ticketObserver.unobserve(e.target);
                 }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.ticket-list').forEach(el => ticketObserver.observe(el));
-<<<<<<< HEAD
 
         //  ANIMASI KABEL NETWORK 
         const cableCanvas = document.getElementById('heroCableCanvas');
@@ -952,8 +930,6 @@
         window.addEventListener('resize', resizeCableCanvas);
         resizeCableCanvas();
         drawLanCables();
-=======
->>>>>>> edeb6c26c9d288d9bc383f5637a5bab6d85bfd40
     </script>
 </body>
 </html>
