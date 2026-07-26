@@ -17,9 +17,7 @@
             --text-main: #074173;
             --text-muted: #64748b;
         }
-
         * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
         body {
             background-color: var(--bg-light);
             color: var(--text-main);
@@ -31,7 +29,6 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         header {
             display: flex;
             justify-content: space-between;
@@ -45,12 +42,10 @@
             backdrop-filter: blur(12px);
             box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
         }
-
         .logo-container { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
         .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
         .logo-sub { font-size: 17px; color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
-
         nav { display: flex; align-items: center; gap: 28px; }
         nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; position: relative; padding: 4px 0; }
         nav a:hover, nav a.active { color: #ffffff; }
@@ -65,16 +60,142 @@
             border-radius: 2px;
         }
 
+        /* ── HERO BANNER FIX (TIDAK KEPOTONG LAGI) ── */
         .hero {
-            padding: 70px 20px 40px 20px;
+            position: relative;
+            padding: 70px 20px 80px 20px;
             text-align: center;
-            background: radial-gradient(circle at 50% 20%, rgba(93, 235, 215, 0.25) 0%, transparent 70%);
+            background: linear-gradient(180deg, rgba(4, 28, 52, 0.92) 0%, rgba(7, 65, 115, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1600&q=80') center/cover no-repeat;
+            color: #ffffff;
+            /* OVERFLOW HIDDEN DIHAPUS SUPAYA BOX STATISTIK TIDAK KEPOTONG */
+            overflow: visible; 
         }
-        .hero h1 { font-size: 42px; font-weight: 900; margin: 0 0 8px 0; letter-spacing: 3px; color: var(--color-dark-blue); }
-        .hero .subtitle { font-size: 24px; color: var(--color-ocean-blue); font-weight: 800; letter-spacing: 1.5px; margin-bottom: 14px; }
-        .hero p { color: var(--text-muted); font-size: 14px; max-width: 620px; margin: 0 auto; line-height: 1.6; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 10px 24px 70px 24px; width: 100%; }
+        #ga-animation-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Top Capsule Badge */
+        .badge-capsule {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 30px;
+            background: rgba(93, 235, 215, 0.1);
+            border: 1px solid rgba(93, 235, 215, 0.4);
+            color: var(--color-cyan-mint);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .badge-capsule .dot-pulse {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--color-cyan-mint);
+            box-shadow: 0 0 10px var(--color-cyan-mint);
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .hero h1 { 
+            font-size: 46px; 
+            font-weight: 900; 
+            margin: 0 0 4px 0; 
+            letter-spacing: 2px; 
+            color: #ffffff; 
+            text-transform: uppercase;
+        }
+        .hero .subtitle { 
+            font-size: 30px; 
+            color: var(--color-cyan-mint); 
+            font-weight: 900; 
+            letter-spacing: 2px; 
+            margin-bottom: 16px; 
+            text-transform: uppercase;
+        }
+        .hero p { 
+            color: rgba(255, 255, 255, 0.82); 
+            font-size: 14px; 
+            max-width: 680px; 
+            margin: 0 auto 35px auto; 
+            line-height: 1.6; 
+        }
+
+        /* FLOATING STAT CARD FIX (Gunakan margin-bottom negatif yang pas) */
+        .hero-stats-card {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto -55px auto; /* Diatur pas biar muncul utuh */
+            background: rgba(11, 38, 68, 0.92);
+            border: 1px solid rgba(93, 235, 215, 0.3);
+            border-radius: 16px;
+            padding: 22px 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(16px);
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+        .stat-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-cyan-mint);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 90px auto 0 auto; /* Margin top disesuaikan dengan posisi floating card */
+            padding: 10px 24px 70px 24px; 
+            width: 100%; 
+        }
 
         .section-header {
             font-size: 15px;
@@ -87,14 +208,12 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 24px;
             margin-bottom: 45px;
         }
-
         .team-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -113,9 +232,7 @@
             border-color: var(--color-ocean-blue);
             box-shadow: 0 15px 30px rgba(22, 121, 171, 0.15);
         }
-
         .team-body { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
-
         .avatar-wrapper {
             position: relative;
             width: 80px;
@@ -126,7 +243,6 @@
             flex-shrink: 0;
         }
         .avatar-wrapper img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background-color: #f1f5f9; }
-
         .team-info h3 { margin: 0; font-size: 17px; font-weight: 800; color: var(--color-dark-blue); letter-spacing: 0.5px; }
         .team-info .role-badge {
             display: inline-block;
@@ -140,7 +256,6 @@
             letter-spacing: 0.8px;
         }
         .contact-list { font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
-
         .btn-contact {
             background-color: #f1f5f9;
             border: 1px solid var(--border-color);
@@ -153,12 +268,7 @@
             text-decoration: none;
         }
         .team-card:hover .btn-contact { background-color: var(--color-ocean-blue); color: #ffffff; border-color: var(--color-ocean-blue); }
-
-
-
-        /* CTA */
         .cta-box { text-align: center; margin-top: 20px; }
-
         .btn-submit-main {
             display: inline-flex;
             align-items: center;
@@ -178,12 +288,15 @@
             box-shadow: 0 15px 30px rgba(22, 121, 171, 0.35);
             background: var(--color-ocean-blue);
         }
-
         footer { background-color: #ffffff; padding: 24px; text-align: center; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: auto; }
-
+        
         @media (max-width: 768px) {
             header { padding: 16px 20px; }
-            .form-card { padding: 22px; }
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 22px; }
+            .hero-stats-card { grid-template-columns: 1fr; margin-bottom: -120px; gap: 15px; }
+            .stat-item:not(:last-child)::after { display: none; }
+            .container { margin-top: 140px; }
         }
 
         /* ── ANIMATIONS ── */
@@ -199,40 +312,22 @@
             from { opacity: 0; transform: translateX(-24px); }
             to   { opacity: 1; transform: translateX(0); }
         }
-        @keyframes shimmer {
-            0%   { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
         @keyframes rotateBorder {
             from { transform: rotate(0deg); }
             to   { transform: rotate(360deg); }
         }
         @keyframes pulseShadow {
             0%, 100% { box-shadow: 0 10px 25px rgba(7,65,115,0.25); }
-            50%       { box-shadow: 0 10px 35px rgba(93,235,215,0.45), 0 0 0 6px rgba(93,235,215,0.1); }
+            50%      { box-shadow: 0 10px 35px rgba(93,235,215,0.45), 0 0 0 6px rgba(93,235,215,0.1); }
         }
 
-        /* Hero entrance */
         .hero h1    { animation: fadeDown 0.7s 0.1s ease both; }
         .hero .subtitle { animation: fadeDown 0.7s 0.25s ease both; }
         .hero p     { animation: fadeDown 0.7s 0.4s ease both; }
-
-        /* Section header slide from left */
         .section-header { animation: fadeLeft 0.6s 0.2s ease both; }
+        .anim-reveal { animation: fadeUp 0.6s ease both; animation-play-state: paused; }
+        .anim-reveal.visible { animation-play-state: running; }
 
-        /* Scroll reveal base — pakai animation bukan opacity/transform agar tidak bentrok dengan hover */
-        .anim-reveal {
-            animation: fadeUp 0.6s ease both;
-            animation-play-state: paused;
-        }
-        .anim-reveal.visible {
-            animation-play-state: running;
-        }
-
-        /* Avatar rotating gradient ring */
-        .avatar-wrapper {
-            position: relative;
-        }
         .avatar-wrapper::before {
             content: '';
             position: absolute;
@@ -242,23 +337,12 @@
             animation: rotateBorder 3s linear infinite;
             z-index: 0;
         }
-        .avatar-wrapper img {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* CTA button shimmer + pulse */
-        .btn-submit-main {
-            background-size: 200% auto;
-            animation: pulseShadow 2.5s ease-in-out infinite;
-        }
-        .btn-submit-main:hover {
-            animation: none;
-        }
+        .avatar-wrapper img { position: relative; z-index: 1; }
+        .btn-submit-main { animation: pulseShadow 2.5s ease-in-out infinite; }
+        .btn-submit-main:hover { animation: none; }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo-container">
             <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
@@ -274,18 +358,38 @@
     </header>
 
     <div class="hero">
-        <h1>LAYANAN FASILITAS</h1>
-        <div class="subtitle">CENDEKIA MUDA</div>
-        <p>Siap mengelola sarana, prasarana, dan operasional lingkungan sekolah dengan amanah dan profesional.</p>
+        <canvas id="ga-animation-canvas"></canvas>
+        <div class="hero-inner">
+            <div class="badge-capsule">
+                <div class="dot-pulse"></div> GA & FACILITY OPERATIONS CENTER
+            </div>
+            <h1>LAYANAN FASILITAS</h1>
+            <div class="subtitle">CENDEKIA MUDA</div>
+            <p>Pusat Pengelolaan Sarana, Prasarana, Kelistrikan, AC, & Operasional Gedung Terpadu. Siap Mengatasi Kendala Fasilitas dengan Cepat, Amanah, dan Profesional.</p>
+        </div>
+
+        <!-- STATS CARD UTUH DI SINI -->
+        <div class="hero-stats-card">
+            <div class="stat-item">
+                <div class="stat-number">30 Menit</div>
+                <div class="stat-label">SLA Penanganan GA</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">850+</div>
+                <div class="stat-label">Fasilitas Terawat</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.5%</div>
+                <div class="stat-label">Gedung Siap Pakai</div>
+            </div>
+        </div>
     </div>
 
     <main class="container">
-
         <!-- TIM GA -->
         <div class="section-header">
             <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM GENERAL AFFAIR / PIC
         </div>
-
         <div class="team-grid">
             <div class="team-card">
                 <div class="team-body">
@@ -303,7 +407,6 @@
                 </div>
                 <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
             </div>
-
             <div class="team-card">
                 <div class="team-body">
                     <div class="avatar-wrapper">
@@ -321,7 +424,6 @@
                 <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
             </div>
         </div>
-
         <!-- TOMBOL ACTION KE FORM -->
         <div class="cta-box">
             <a href="/ga/form" class="btn-submit-main">
@@ -329,7 +431,6 @@
                 <i class="fa-solid fa-arrow-right-long"></i>
             </a>
         </div>
-
     </main>
 
     <footer>
@@ -337,10 +438,62 @@
     </footer>
 
     <script>
-        // Scroll reveal
+        const canvas = document.getElementById('ga-animation-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const nodes = [];
+        for (let i = 0; i < 25; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8,
+                radius: Math.random() * 2 + 1
+            });
+        }
+
+        function drawNodes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(93, 235, 215, 0.7)';
+            ctx.strokeStyle = 'rgba(93, 235, 215, 0.15)';
+            ctx.lineWidth = 1;
+
+            nodes.forEach((node, i) => {
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const other = nodes[j];
+                    const dist = Math.hypot(node.x - other.x, node.y - other.y);
+                    if (dist < 140) {
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y);
+                        ctx.lineTo(other.x, other.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(drawNodes);
+        }
+        drawNodes();
+
         const revealEls = document.querySelectorAll('.team-card, .cta-box');
         revealEls.forEach(el => el.classList.add('anim-reveal'));
-
         const observer = new IntersectionObserver(entries => {
             entries.forEach((e, i) => {
                 if (e.isIntersecting) {
@@ -349,7 +502,6 @@
                 }
             });
         }, { threshold: 0.12 });
-
         revealEls.forEach(el => observer.observe(el));
     </script>
 </body>
