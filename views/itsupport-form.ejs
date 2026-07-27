@@ -264,11 +264,8 @@
             <div class="logo-sub">IT Support & General Affair</div>
         </div>
         <nav>
-            <a href="/">Home</a>
-            <a href="/it-support" class="active">IT Support</a>
-            <a href="/ga">GA (General Affair)</a>
-            <a href="/about">About Us</a>
-        </nav>
+            <a href="/"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
+        nav>
     </header>
 
     <main>
@@ -472,6 +469,14 @@
             sendData(payload);
         }
     });
+    setTimeout(function() {
+    const alertBox = document.querySelector('.alert-success');
+    if (alertBox) {
+        alertBox.style.transition = 'opacity 0.5s ease';
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 500);
+    }
+}, 3000);
 </script>
 </body>
 </html>

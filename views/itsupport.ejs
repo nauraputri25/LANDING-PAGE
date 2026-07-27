@@ -111,7 +111,8 @@
         .hero {
             position: relative;
             width: 100%;
-            padding: 85px 20px 150px 20px; 
+            padding: 130px 20px 170px 20px;
+            min-height: 520px;
             text-align: center;
             overflow: hidden;
             background: 
@@ -192,19 +193,22 @@
         .hero-stats-wrapper {
             position: relative;
             z-index: 10;
-            max-width: 900px; 
-            margin: -50px auto 30px auto; 
+            max-width: 800px;
+            margin: -60px auto 40px auto; 
             padding: 0 20px;
+            width: 100%;
         }       
         .hero-stats {
             display: flex; 
             justify-content: space-around;
             align-items: center;
-            background: #0f2744; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px; 
-            padding: 16px 20px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35); 
+            background: rgba(6, 28, 54, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(93, 235, 215, 0.25);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(93, 235, 215, 0.1);
         }
         .stat-item {
             flex: 1; text-align: center;
@@ -219,38 +223,20 @@
             background: linear-gradient(to bottom, transparent, rgba(93, 235, 215, 0.3), transparent);
         }
         .stat-num {
-            font-size: 1.8rem; 
-            font-weight: 800; 
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
+            font-weight: 900; 
             line-height: 1;
-            color: #79ebd8; 
-        }
-        .stat-label { 
-            font-size: 0.65rem; 
-            color: rgba(255, 255, 255, 0.7); 
-            text-transform: uppercase; 
-            letter-spacing: 0.12em; 
-            margin-top: 6px; 
-            font-weight: 700;
-        }
-
-        /* PENYESUAIAN SECTION TIM IT  */
-        .section-tim-it {
-            position: relative;
-            padding-top: 10px; /* Menambah kenyamanan ritme mata */
-        }
-        
-        .stat-item {
-            flex: 1; text-align: center;
-            padding: 0 16px;
-            border-right: 1px solid rgba(255,255,255,0.08);
-        }
-        .stat-item:last-child { border-right: none; }
-        .stat-num {
-            font-size: 1.6rem; font-weight: 900; line-height: 1;
-            background: linear-gradient(135deg, var(--color-cyan-mint), var(--color-lime-green));
+            background: linear-gradient(135deg, #ffffff 20%, var(--color-cyan-mint) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+        .stat-label { 
+            font-size: 0.72rem; 
+            color: rgba(255,255,255,0.65); 
+            text-transform: uppercase; 
+            letter-spacing: 0.12em; 
+            margin-top: 8px; 
+            font-weight: 600;
+        }
 
         /* 📦 MAIN CONTAINER */
         .container {
@@ -616,7 +602,7 @@
     <div class="hero-stats-wrapper">
         <div class="hero-stats">
             <div class="stat-item">
-                <div class="stat-num" id="statHero1">15 mnt</div>
+                <div class="stat-num" id="statHero1">15 menit</div>
                 <div class="stat-label">SLA Penanganan</div>
             </div>
             <div class="stat-item">
