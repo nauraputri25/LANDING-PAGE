@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengaduan IT Support - Cendekia Muda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { 
+            --bg-body: #f8fafc; 
+            --card-bg: #ffffff; 
+            --border-color: #e2e8f0; 
+            --color-dark-blue: #074173; 
+            --color-ocean-blue: #1679AB; 
+            --color-cyan-mint: #5DEBD7; 
+            --color-lime-green: #C5FF95; 
+            --text-main: #074173; 
+            --text-muted: #64748b; 
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+            background: #074173;
+            border-bottom: 1px solid rgba(93, 235, 215, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
+        .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
+        .logo-sub { font-size: 17px; color: var(--color-cyan-mint); letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
+
+        nav { display: flex; align-items: center; gap: 28px; }
+        nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; position: relative; padding: 4px 0; }
+        nav a:hover, nav a.active { color: #ffffff; }
+        nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-cyan-mint), var(--color-lime-green));
+            border-radius: 2px;
+        }
+
+        main { 
+            flex-grow: 1; 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .container-box { 
+            width: 100%; 
+            max-width: 52rem; 
+        }
+
+        .card { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            padding: 40px; 
+            box-shadow: 0 10px 30px rgba(7, 65, 115, 0.08); 
+        }
+
+        h1 { 
+            font-size: 28px; 
+            color: var(--color-dark-blue); 
+            margin-top: 0; 
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        p.subtitle { 
+            font-size: 14px; 
+            color: var(--text-muted); 
+            margin-bottom: 32px; 
+            line-height: 1.6; 
+            text-align: center;
+        }
+
+        .alert-success { 
+            background-color: rgba(197, 255, 149, 0.3); 
+            border: 1px solid var(--color-lime-green); 
+            color: #15803d; 
+            font-size: 14px; 
+            padding: 14px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            font-weight: 600; 
+        }
+
+        .alert-error { 
+            background-color: rgba(239, 68, 68, 0.1); 
+            border: 1px solid #ef4444; 
+            color: #dc2626; 
+            font-size: 14px; 
+            padding: 14px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            font-weight: 600; 
+        }
+
+        .form-row { 
+            display: flex; 
+            gap: 20px; 
+        }
+
+        .form-group { 
+            flex: 1; 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            display: block; 
+            color: var(--color-dark-blue); 
+            margin-bottom: 8px; 
+            font-size: 15px; 
+            font-weight: 700; 
+        }
+
+        .required { 
+            color: #ef4444; 
+        }
+
+        input, select, textarea { 
+            width: 100%; 
+            background-color: #f8fafc; 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 14px; 
+            color: var(--color-dark-blue); 
+            font-size: 14px; 
+            font-family: inherit;
+            box-sizing: border-box; 
+            outline: none; 
+            transition: all 0.2s ease; 
+        }
+
+        input:focus, select:focus, textarea:focus { 
+            border-color: var(--color-ocean-blue); 
+            background-color: #ffffff; 
+            box-shadow: 0 0 0 4px rgba(93, 235, 215, 0.2); 
+        }
+
+        .upload-box { 
+            border: 2px dashed var(--border-color); 
+            border-radius: 12px; 
+            padding: 30px 24px;
+            min-height: 120px; 
+            text-align: center; 
+            background-color: #f8fafc; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-box:hover { 
+            border-color: var(--color-ocean-blue); 
+            background-color: rgba(93, 235, 215, 0.1); 
+        }
+
+        .upload-box i { 
+            color: var(--color-ocean-blue); 
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .upload-box p { 
+            color: var(--text-muted); 
+            font-size: 13px; 
+            margin: 0; 
+        }
+
+        .image-preview { 
+            max-width: 180px; 
+            max-height: 180px; 
+            margin-top: 14px; 
+            display: none; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        button.btn-submit { 
+            width: 100%; 
+            background-color: #003B6B; 
+            color: #ffffff; 
+            font-weight: 700; 
+            padding: 16px; 
+            border-radius: 14px; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 15px; 
+            letter-spacing: 0.5px; 
+            margin-top: 16px; 
+            transition: all 0.2s; 
+            box-shadow: 0 5px 15px rgba(7, 65, 115, 0.2); 
+        }
+
+        button.btn-submit:hover { 
+            background-color: var(--color-ocean-blue); 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(7, 65, 115, 0.3); 
+        }
+
+        button.btn-submit:disabled { 
+            background-color: var(--text-muted); 
+            cursor: not-allowed; 
+            transform: none;
+            box-shadow: none; 
+        }
+
+        footer { 
+            background-color: #ffffff; 
+            padding: 24px; 
+            text-align: center; 
+            font-size: 12px; 
+            color: var(--text-muted); 
+            border-top: 1px solid var(--border-color); 
+        }
+
+        @media (max-width: 768px) { 
+            header { padding: 16px 20px; flex-direction: column; gap: 16px; }
+            nav { gap: 16px; }
+            .form-row { flex-direction: column; gap: 0; } 
+            .logo-divider { display: none; } 
+            .card { padding: 24px; } 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR IT SUPPORT (CLASS ACTIVE ADA DI IT SUPPORT) -->
+    <header>
+        <div class="logo-container">
+            <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
+            <div class="logo-divider"></div>
+            <div class="logo-sub">IT Support & General Affair</div>
+        </div>
+        <nav>
+            <a href="/"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
+        nav>
+    </header>
+
+    <main>
+        <div class="container-box">
+            <div class="card">
+                <h1>Form Pengaduan IT Support</h1>
+                <p class="subtitle">Isi data di bawah ini untuk mengajukan penanganan kendala perangkat atau jaringan IT.</p>
+
+                <% if (typeof success !== 'undefined' && success === 'true') { %>
+                    <div class="alert-success"><i class="fa-solid fa-circle-check"></i> Laporan IT Support & foto berhasil dikirim!</div>
+                <% } else if (typeof success !== 'undefined' && success === 'false') { %>
+                    <div class="alert-error"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim data. Silakan coba lagi.</div>
+                <% } %>
+
+                <form id="uploadForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Pelapor <span class="required">*</span></label>
+                            <input type="text" id="nama_request" name="nama_request" required placeholder="Masukkan nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Sekolah <span class="required">*</span></label>
+                            <select id="unit" name="unit" required onchange="updateKelasOptions()">
+                                <option value="" disabled selected>Pilih Unit</option>
+                                <option value="Daycare">Daycare</option>
+                                <option value="TK">TK</option>
+                                <option value="SD Bandung">SD Bandung</option>
+                                <option value="SD Bilingual">SD Bilingual</option>
+                                <option value="SD Makasar">SD Makasar</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                                <option value="UPPP">UPPP</option>
+                                <option value="Catering">Catering</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kelas / Level <span class="required">*</span></label>
+                            <select id="kelas" name="kelas" required>
+                                <option value="" disabled selected>Pilih Unit Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori Kendala IT <span class="required">*</span></label>
+                            <select id="permasalahan" name="permasalahan" required>
+                                <option value="" disabled selected>Pilih Kategori IT</option>
+                                <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
+                                <option value="Komputer / Laptop">Komputer / Laptop</option>
+                                <option value="Printer / Scanner">Printer / Scanner</option>
+                                <option value="Webcam">Webcam</option>
+                                <option value="Microphone / Audio">Microphone / Audio</option>
+                                <option value="TV / Display">TV / Display</option>
+                                <option value="Projector">Projector</option>
+                                <option value="Sistem / Aplikasi">Sistem / Aplikasi</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detail Permasalahan IT <span class="required">*</span></label>
+                        <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kendala perangkat atau jaringan..."></textarea>
+                    </div>
+
+                    <!-- FITUR UNGGAH FOTO BUKTI -->
+                    <div class="form-group">
+                        <label>Unggah Foto Kendala <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
+                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p id="uploadStatus">Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)</p>
+                            <img id="imagePreview" class="image-preview" src="" alt="Pratinjau Foto">
+                            <input type="file" id="fileInput" name="foto" accept="image/jpeg, image/png" style="display: none;">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN IT SUPPORT
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
+    </footer>
+
+    <script>
+    function updateKelasOptions() { 
+        const unit = document.getElementById("unit").value; 
+        const kelasSelect = document.getElementById("kelas"); 
+        kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas</option>'; 
+        let options = []; 
+        if (unit.includes("SD")) { 
+            options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"]; 
+        } else if (unit === "SMP") { 
+            options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C"]; 
+        } else if (unit === "SMA") { 
+            options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C"]; 
+        } else { 
+            options = ["Non-Kelas / Staf", "Lainnya"]; 
+        } 
+        options.forEach(opt => { 
+            const el = document.createElement("option"); 
+            el.value = opt; 
+            el.textContent = opt; 
+            kelasSelect.appendChild(el); 
+        }); 
+    }
+
+    const fileInput = document.getElementById('fileInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                fileInput.value = '';
+                imagePreview.style.display = 'none';
+                uploadStatus.textContent = 'Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)';
+                return;
+            }
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                alert('Hanya diperbolehkan file JPG atau PNG.');
+                fileInput.value = '';
+                imagePreview.style.display = 'none';
+                uploadStatus.textContent = 'Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                imagePreview.src = event.target.result;
+                imagePreview.style.display = 'block';
+                uploadStatus.textContent = 'File terpilih: ' + file.name;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    const form = document.getElementById('uploadForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENGIRIM LAPORAN...';
+
+        const file = fileInput.files[0];
+        const payload = {
+            unit: document.getElementById('unit').value,
+            nama_request: document.getElementById('nama_request').value,
+            kelas: document.getElementById('kelas').value,
+            permasalahan: document.getElementById('permasalahan').value,
+            detail_permasalahan: document.getElementById('detail_permasalahan').value,
+            fotoBase64: "",
+            fotoMimeType: ""
+        };
+
+        const sendData = (finalPayload) => {
+            fetch('/it-support/submit', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(finalPayload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    alert('Terjadi kesalahan saat menyimpan data.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN IT SUPPORT';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Gagal mengirim laporan. Cek koneksi Anda.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN IT SUPPORT';
+            });
+        };
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const rawBase64 = event.target.result;
+                payload.fotoBase64 = rawBase64.split(',')[1];
+                payload.fotoMimeType = file.type;
+                sendData(payload);
+            };
+            reader.onerror = () => {
+                alert('Gagal membaca file foto.');
+                sendData(payload);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            sendData(payload);
+        }
+    });
+    setTimeout(function() {
+    const alertBox = document.querySelector('.alert-success');
+    if (alertBox) {
+        alertBox.style.transition = 'opacity 0.5s ease';
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 500);
+    }
+}, 3000);
+</script>
+</body>
+</html>

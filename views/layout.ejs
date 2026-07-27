@@ -3,197 +3,245 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pusat Layanan dan Maintenance - Cendekia Muda</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title><%= title %></title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
     <style>
+      :root {
+        --color-dark: #1f2544;
+        --color-muted-blue: #474f7a;
+        --color-purple: #81689d;
+        --color-pink: #ffd0ec;
+        --text-main: #ffffff;
+        --text-muted: #d1d5db;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
-        background-color: #0b1120;
-        color: #ffffff;
+        background-color: var(--color-dark);
+        color: var(--text-main);
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 32px;
+        background-color: rgba(31, 37, 68, 0.95);
+        border-bottom: 1px solid var(--color-muted-blue);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        font-size: 20px;
+        color: var(--text-main);
+      }
+
+      .logo-container span {
+        color: var(--color-pink);
+      }
+
+      .logo-subtitle {
+        font-size: 11px;
+        font-weight: normal;
+        color: var(--text-muted);
+        border-left: 1px solid var(--color-muted-blue);
+        padding-left: 12px;
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+
+      nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover {
+        color: var(--color-pink);
+      }
+
+      main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+      }
+
+      footer {
+        background-color: #151a30;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-muted);
+        border-top: 1px solid var(--color-muted-blue);
+        margin-top: auto;
+      }
+
+      footer p {
+        margin-bottom: 6px;
+      }
+      footer i {
+        color: var(--color-pink);
+      }
+
+      /* Global Components */
+      .hero-container {
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-container {
+          grid-template-columns: 1.1fr 0.9fr;
+        }
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: 900;
+        line-height: 1.2;
+        color: var(--text-main);
+        margin-bottom: 12px;
+      }
+
+      @media (min-width: 640px) {
+        h1 {
+          font-size: 44px;
+        }
+      }
+      @media (min-width: 1024px) {
+        h1 {
+          font-size: 50px;
+          text-align: left;
+        }
+      }
+
+      .sub-title {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        color: var(--color-pink);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+
+      p.description {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        max-width: 550px;
+      }
+
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      @media (min-width: 1024px) {
+        .btn-group {
+          justify-content: flex-start;
+        }
+      }
+
+      .btn-pink {
+        background-color: var(--color-pink);
+        color: var(--color-dark);
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 15px -3px rgba(255, 208, 236, 0.2);
+        transition: opacity 0.2s;
+        display: inline-flex;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-pink:hover {
+        opacity: 0.9;
+      }
+
+      .btn-purple {
+        border: 1px solid rgba(129, 104, 157, 0.6);
+        background-color: rgba(129, 104, 157, 0.2);
+        color: #f3e8ff;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--color-purple);
+        cursor: pointer;
+      }
+      .btn-purple:hover {
+        background-color: rgba(129, 104, 157, 0.4);
       }
     </style>
   </head>
-  <body
-    class="min-h-screen flex flex-col justify-between selection:bg-pink-300 selection:text-gray-900"
-  >
-    <!-- Header Atas -->
-    <header
-      class="border-b border-gray-800/60 px-4 py-4 sm:px-6 bg-[#0b1120]/80 backdrop-blur-md sticky top-0 z-40"
-    >
-      <div
-        class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between max-w-7xl mx-auto w-full"
-      >
-        <div class="flex items-center justify-between gap-4">
-          <a href="/" class="flex items-center space-x-3">
-            <div
-              class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-pink-500 text-lg text-white shadow-lg"
-            >
-              <i class="fa-solid fa-screwdriver-wrench"></i>
-            </div>
-            <div>
-              <p class="text-sm font-black tracking-[0.25em] text-white">
-                PUSAT LAYANAN
-              </p>
-              <p class="text-[10px] uppercase tracking-[0.3em] text-gray-400">
-                IT & GA
-              </p>
-            </div>
-          </a>
-          <div class="flex items-center space-x-3">
-            <button
-              class="text-gray-400 transition hover:text-white cursor-pointer"
-              aria-label="Search"
-            >
-              <i class="fa-solid fa-search"></i>
-            </button>
-            <button
-              id="menu-btn"
-              class="cursor-pointer text-xl text-gray-200 transition hover:text-pink-300 p-2"
-              aria-label="Open Menu"
-            >
-              <i class="fa-solid fa-bars"></i>
-            </button>
-          </div>
-        </div>
-
-        <nav class="hidden md:flex flex-wrap items-center gap-2">
-          <a
-            href="/it-support"
-            class="rounded-full px-4 py-2 text-sm font-medium transition <%= typeof activePage !== 'undefined' && activePage === 'itsupport' ? 'bg-pink-500/20 text-pink-200 ring-1 ring-pink-400/40' : 'bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white' %>"
-          >
-            IT Support
-          </a>
-          <a
-            href="/ga"
-            class="rounded-full px-4 py-2 text-sm font-medium transition <%= typeof activePage !== 'undefined' && activePage === 'ga' ? 'bg-cyan-500/20 text-cyan-200 ring-1 ring-cyan-400/40' : 'bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white' %>"
-          >
-            GA
-          </a>
-          <a
-            href="/about"
-            class="rounded-full px-4 py-2 text-sm font-medium transition <%= typeof activePage !== 'undefined' && activePage === 'about' ? 'bg-violet-500/20 text-violet-200 ring-1 ring-violet-400/40' : 'bg-gray-900/70 text-gray-300 hover:bg-gray-800 hover:text-white' %>"
-          >
-            About
-          </a>
-        </nav>
+  <body>
+    <header>
+      <div class="logo-container">
+        <i
+          class="fa-solid fa-network-wired"
+          style="color: var(--color-pink)"
+        ></i>
+        KCM
+        <span class="logo-subtitle">LANDING PAGE IT</span>
       </div>
+      <nav>
+        <a href="/" style="color: var(--text-main)">Home</a>
+        <a href="/it-support">IT Support</a>
+        <a href="/ga">GA (General Affair)</a>
+        <a href="/about">About Us</a>
+      </nav>
     </header>
 
-    <!-- Overlay Backdrop untuk Sidebar -->
-    <div
-      id="sidebar-overlay"
-      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300"
-    ></div>
+    <main><%- body %></main>
 
-    <!-- Side Navigation Drawer (Muncul dari Kanan) -->
-    <div
-      id="side-nav"
-      class="fixed inset-y-0 right-0 w-80 bg-[#111827] shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col justify-between p-6 border-l border-gray-800"
-    >
-      <div>
-        <div
-          class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4"
-        >
-          <span class="font-semibold text-lg text-gray-200">Navigation</span>
-          <button
-            id="close-btn"
-            class="text-gray-400 hover:text-white text-xl cursor-pointer p-1"
-            aria-label="Close Menu"
-          >
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <nav class="space-y-2">
-          <a
-            href="/"
-            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
-          >
-            <i class="fa-solid fa-house w-5 text-center"></i>
-            <span>Home</span>
-          </a>
-          <a
-            href="/it-support"
-            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'itsupport' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
-          >
-            <i class="fa-solid fa-laptop-code w-5 text-center"></i>
-            <span>IT Support</span>
-          </a>
-          <a
-            href="/ga"
-            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'ga' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
-          >
-            <i class="fa-solid fa-tools w-5 text-center"></i>
-            <span>General Affair (GA)</span>
-          </a>
-          <a
-            href="/about"
-            class="flex items-center space-x-4 px-4 py-3 rounded-xl transition <%= typeof activePage !== 'undefined' && activePage === 'about' ? 'bg-[#3b3259] text-white font-medium' : 'text-gray-400 hover:bg-gray-800 hover:text-white' %>"
-          >
-            <i class="fa-solid fa-circle-info w-5 text-center"></i>
-            <span>About Us</span>
-          </a>
-        </nav>
-      </div>
-      <div
-        class="text-[11px] text-gray-500 text-center pb-2 border-t border-gray-800/60 pt-4"
-      >
-        Cendekia Muda Portal v1.0
-      </div>
-    </div>
-
-    <!-- Main Content Container -->
-    <main class="flex-grow"><%- body %></main>
-
-    <!-- Footer Bawah -->
-    <footer
-      class="bg-[#070b14] py-8 px-6 text-center text-xs text-gray-400 border-t border-gray-800 space-y-3"
-    >
-      <div
-        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6"
-      >
-        <span>
-          <i class="fa-solid fa-phone mr-2 text-pink-300"></i>(022) 710 2888
-        </span>
-        <span>
-          <i class="fa-solid fa-envelope mr-2 text-pink-300"></i
-          >info@cendekiamuda.sch.id
-        </span>
-      </div>
+    <footer>
       <p>
-        <i class="fa-solid fa-location-dot mr-2 text-pink-300"></i> JL Puri Ayu
-        Pratama III No. 17 Arcamanik Bandung
+        <i class="fa-solid fa-phone"></i> (022) 710 2888 &nbsp;|&nbsp;
+        <i class="fa-solid fa-envelope"></i> info@cendekiamuda.sch.id
       </p>
-      <p class="pt-2 text-gray-500 border-t border-gray-900 max-w-md mx-auto">
-        © 2024 Cendekia Muda. All rights reserved.
-      </p>
+      <p>© 2026 Cendekia Muda. All rights reserved.</p>
     </footer>
-
-    <!-- Script Toggle Sidebar yang Diperkuat -->
-    <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const closeBtn = document.getElementById("close-btn");
-      const sideNav = document.getElementById("side-nav");
-      const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-      function openSidebar() {
-        sideNav.classList.remove("translate-x-full");
-        sidebarOverlay.classList.remove("opacity-0", "pointer-events-none");
-        sidebarOverlay.classList.add("opacity-100");
-      }
-
-      function closeSidebar() {
-        sideNav.classList.add("translate-x-full");
-        sidebarOverlay.classList.remove("opacity-100");
-        sidebarOverlay.classList.add("opacity-0", "pointer-events-none");
-      }
-
-      menuBtn.addEventListener("click", openSidebar);
-      closeBtn.addEventListener("click", closeSidebar);
-      sidebarOverlay.addEventListener("click", closeSidebar);
-    </script>
   </body>
 </html>

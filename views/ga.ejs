@@ -3,189 +3,893 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form General Affair - Cendekia Muda</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>GA (General Affair) - Cendekia Muda</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        :root {
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --color-dark-blue: #074173;
+            --color-ocean-blue: #1679AB;
+            --color-cyan-mint: #5DEBD7;
+            --color-lime-green: #C5FF95;
+            --text-main: #074173;
+            --text-muted: #64748b;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+
         body {
-            background-color: #0b1120;
-            color: #ffffff;
+            background-color: var(--bg-light);
+            color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* HEADER & NAVIGATION */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid #1f293d;
+            padding: 18px 50px;
+            background: #074173;
+            border-bottom: 1px solid rgba(93, 235, 215, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 16px rgba(7, 65, 115, 0.3);
         }
-        main {
-            flex-grow: 1;
-            padding: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+        .logo-container { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
         }
-        .container-box {
+
+        .logo-img { 
+            height: 32px; 
+            width: auto; 
+            display: block; 
+            object-fit: contain; 
+        }
+
+        .logo-divider { 
+            width: 1px; 
+            height: 22px; 
+            background-color: rgba(255,255,255,0.2); 
+        }
+
+        .logo-sub { 
+            font-size: 17px; 
+            color: var(--color-cyan-mint); 
+            letter-spacing: 2px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+        }
+
+        nav { 
+            display: flex; 
+            align-items: center; 
+            gap: 28px; 
+        }
+
+        nav a { 
+            color: rgba(255,255,255,0.75); 
+            text-decoration: none; 
+            font-size: 16px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            padding: 4px 0; 
+        }
+
+        nav a:hover, nav a.active { 
+            color: #ffffff; 
+        }
+
+        nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
             width: 100%;
-            max-width: 28rem;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-cyan-mint), var(--color-lime-green));
+            border-radius: 2px;
+        }
+
+        /* HERO BANNER */
+        .hero {
+            position: relative;
+            padding: 130px 20px 170px 20px; 
+            min-height: 520px; 
+            text-align: center;
+            background: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+                linear-gradient(135deg, rgba(22, 121, 171, 0.88) 0%, rgba(7, 65, 115, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80') center/cover no-repeat;
+            background-size: 35px 35px, 35px 35px, cover, cover;
+            color: #ffffff;
+            overflow: visible;
+        }
+
+        #ga-animation-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
             margin: 0 auto;
         }
-        .card {
-            background-color: #131c31;
-            border: 1px solid #1f293d;
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+        .badge-capsule {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: rgba(197, 255, 149, 0.15);
+            border: 1px solid #C5FF95;
+            color: #C5FF95;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            backdrop-filter: blur(8px);
         }
-        h1 {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fce7f3;
+
+        .badge-capsule .dot-pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #C5FF95;
+            box-shadow: 0 0 10px #C5FF95;
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
+            font-weight: 900;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #d0eaf8 60%, #90d0f5 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+            background: linear-gradient(135deg, var(--color-cyan-mint) 0%, #82f3e5 50%, var(--color-lime-green) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 18px rgba(93,235,215,0.35));
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.88);
+            font-size: 1rem;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* FLOATING STATS BAR */
+        .hero-stats-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: -60px auto 40px auto; 
+            padding: 0 20px;
+            width: 100%;
+        }
+        .hero-stats {
+            display: flex; 
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(6, 28, 54, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(93, 235, 215, 0.25);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(93, 235, 215, 0.1);
+        }
+        .stat-item {
+            flex: 1; text-align: center;
+            padding: 0 15px;
+            position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 15%; bottom: 15%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(93, 235, 215, 0.3), transparent);
+        }
+        .stat-num {
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
+            font-weight: 900; 
+            line-height: 1;
+            background: linear-gradient(135deg, #ffffff 20%, var(--color-cyan-mint) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-label { 
+            font-size: 0.72rem; 
+            color: rgba(255,255,255,0.65); 
+            text-transform: uppercase; 
+            letter-spacing: 0.12em; 
+            margin-top: 8px; 
+            font-weight: 600;
+        }
+
+        /* CONTAINER */
+        .container { 
+            max-width: 1100px; 
+            margin: 110px auto 0 auto; 
+            padding: 10px 24px 70px 24px; 
+            width: 100%; 
+        }
+
+        .section-header {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--color-dark-blue);
+            margin-bottom: 22px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 0;
-            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
-        p.subtitle {
-            font-size: 12px;
-            color: #9ca3af;
-            margin-bottom: 20px;
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 45px;
         }
-        .alert-success {
-            background-color: rgba(22, 163, 74, 0.2);
-            border: 1px solid #22c55e;
-            color: #86efac;
-            font-size: 12px;
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-        .alert-error {
-            background-color: rgba(220, 38, 38, 0.2);
-            border: 1px solid #ef4444;
-            color: #fca5a5;
-            font-size: 12px;
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-        .form-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            color: #d1d5db;
-            margin-bottom: 6px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        input, select, textarea {
-            width: 100%;
-            background-color: #1b253b;
-            border: 1px solid #374151;
-            border-radius: 12px;
-            padding: 12px;
-            color: #ffffff;
-            font-size: 12px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #fbcfe8;
-        }
-        button.btn-submit {
-            width: 100%;
-            background-color: #fbcfe8;
-            color: #111827;
-            font-weight: bold;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
+
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
             cursor: pointer;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.15);
+        }
+
+        .team-body { 
+            display: flex; 
+            align-items: center; 
+            gap: 18px; 
+            margin-bottom: 16px; 
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-cyan-mint));
+            flex-shrink: 0;
+        }
+
+        .avatar-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            background-color: #f1f5f9; 
+        }
+
+        .team-info h3 { 
+            margin: 0; 
+            font-size: 17px; 
+            font-weight: 800; 
+            color: var(--color-dark-blue); 
+            letter-spacing: 0.5px; 
+        }
+
+        .team-info .role-badge {
+            display: inline-block;
+            background: rgba(22, 121, 171, 0.1);
+            color: var(--color-ocean-blue);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin: 6px 0 8px 0;
+            letter-spacing: 0.8px;
+        }
+
+        .contact-list { 
+            font-size: 11px; 
+            color: var(--text-muted); 
+            display: flex; 
+            flex-direction: column; 
+            gap: 4px; 
+        }
+
+        .btn-contact {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            color: var(--color-dark-blue);
             font-size: 12px;
-            transition: background-color 0.2s;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .team-card:hover .btn-contact { 
+            background-color: var(--color-ocean-blue); 
+            color: #ffffff; 
+            border-color: var(--color-ocean-blue); 
+        }
+
+        .cta-box { 
+            text-align: center; 
+            margin-top: 20px; 
+        }
+
+        .btn-submit-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--color-dark-blue);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 1px;
+            padding: 18px 42px;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.25);
+        }
+
+        .btn-submit-main:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(22, 121, 171, 0.35);
+            background: var(--color-ocean-blue);
+        }
+
+        footer { 
+            background-color: #ffffff; 
+            padding: 24px; 
+            text-align: center; 
+            font-size: 12px; 
+            color: var(--text-muted); 
+            border-top: 1px solid var(--border-color); 
+            margin-top: auto; 
+        }
+
+        /* DASHBOARD GRID */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 24px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        .card-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .card-box:hover {
+            border-color: var(--color-ocean-blue);
+            transform: translateY(-4px);
+        }
+        .chart-wrapper {
+            position: relative;
+            width: 210px;
+            height: 210px;
+            margin: 0 auto;
+        }
+        .chart-center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        .chart-center-text .number {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--color-dark-blue);
+            line-height: 1;
+        }
+        .chart-center-text .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* TICKET LIST */
+        .ticket-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .ticket-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 14px 18px;
+            border-radius: 14px;
+        }
+        .ticket-item:hover {
+            background: #ffffff;
+            transform: translateX(6px);
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 4px 12px rgba(7, 65, 115, 0.08);
+        }
+        .ticket-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .ticket-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-dark-blue);
+        }
+        .badge-priority {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .badge-normal {
+            background: rgba(22, 121, 171, 0.15);
+            color: var(--color-ocean-blue);
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .ticket-pic {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .progress-bar-bg {
+            height: 7px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
             margin-top: 8px;
         }
-        button.btn-submit:hover {
-            background-color: #f472b6;
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-ocean-blue), var(--color-cyan-mint));
+            border-radius: 10px;
         }
-        footer {
-            background-color: #070b14;
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
-            border-top: 1px solid #1f293d;
+
+        /* MEDIA QUERIES */
+        @media (max-width: 768px) {
+            header { padding: 16px 20px; }
+            .hero { padding: 90px 15px 140px 15px; }
+            .hero-stats { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+            .stat-item { flex: 1 1 40%; padding-bottom: 12px; }
+            .stat-item:not(:last-child)::after { display: none; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .container { margin-top: 140px; }
         }
+
+        /* ANIMATIONS */
+        @keyframes pulseGlow {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(197, 255, 149, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(197, 255, 149, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(197, 255, 149, 0); }
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(32px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeLeft {
+            from { opacity: 0; transform: translateX(-24px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes rotateBorder {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseShadow {
+            0%, 100% { box-shadow: 0 10px 25px rgba(7,65,115,0.25); }
+            50%      { box-shadow: 0 10px 35px rgba(93,235,215,0.45), 0 0 0 6px rgba(93,235,215,0.1); }
+        }
+
+        .hero h1        { animation: fadeDown 0.7s 0.1s ease both; }
+        .hero .subtitle { animation: fadeDown 0.7s 0.25s ease both; }
+        .hero p         { animation: fadeDown 0.7s 0.4s ease both; }
+        .section-header { animation: fadeLeft 0.6s 0.2s ease both; }
+
+        .anim-reveal { animation: fadeUp 0.6s ease both; animation-play-state: paused; }
+        .anim-reveal.visible { animation-play-state: running; }
+
+        .avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(var(--color-cyan-mint), var(--color-lime-green), var(--color-ocean-blue), var(--color-cyan-mint));
+            animation: rotateBorder 3s linear infinite;
+            z-index: 0;
+        }
+
+        .avatar-wrapper img { position: relative; z-index: 1; }
+        .btn-submit-main { animation: pulseShadow 2.5s ease-in-out infinite; }
+        .btn-submit-main:hover { animation: none; }
     </style>
 </head>
 <body>
 
     <header>
-        <span style="font-weight: bold; letter-spacing: 2px;">CENDEKIA MUDA</span>
-        <a href="/" style="color: #9ca3af; text-decoration: none; font-size: 14px;"><i class="fa-solid fa-house"></i> Home</a>
+        <div class="logo-container">
+            <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
+            <div class="logo-divider"></div>
+            <div class="logo-sub">IT Support & General Affair</div>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/it-support">IT Support</a>
+            <a href="/ga" class="active">GA (General Affair)</a>
+            <a href="/about">About Us</a>
+        </nav>
     </header>
 
-    <main>
-        <div class="container-box">
-            <div class="card">
-                <h1>
-                    <i class="fa-solid fa-tools" style="color: #fbcfe8;"></i> 
-                    <span>Form General Affair (GA)</span>
-                </h1>
-                <p class="subtitle">Ajukan perbaikan fasilitas, sarana, prasarana, atau logistik sekolah.</p>
-
-                <% if (success === 'true') { %>
-                    <div class="alert-success">
-                        Pengajuan berhasil dikirim dan otomatis tercatat di Spreadsheet!
-                    </div>
-                <% } else if (success === 'false') { %>
-                    <div class="alert-error">
-                        Gagal mengirim data. Periksa konfigurasi spreadsheet Anda.
-                    </div>
-                <% } %>
-
-                <form action="/ga/submit" method="POST">
-                    <div class="form-group">
-                        <label>Nama Pemohon</label>
-                        <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
-                    </div>
-                    <div class="form-group">
-                        <label>Unit / Ruangan</label>
-                        <input type="text" name="unit" required placeholder="Contoh: Ruang Guru / Kelas 8A">
-                    </div>
-                    <div class="form-group">
-                        <label>Jenis Pengajuan</label>
-                        <select name="jenisPengajuan">
-                            <option value="Perbaikan Sarana/Prasarana">Perbaikan Sarana / Prasarana</option>
-                            <option value="Peminjaman Barang/Ruangan">Peminjaman Barang / Ruangan</option>
-                            <option value="Permintaan Logistik/ATK">Permintaan Logistik / ATK</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Keterangan / Detail Kebutuhan</label>
-                        <textarea name="keterangan" rows="4" required placeholder="Tuliskan detail barang atau perbaikan..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">
-                        Kirim Pengajuan GA
-                    </button>
-                </form>
+    <div class="hero">
+        <canvas id="ga-animation-canvas"></canvas>
+        <div class="hero-inner">
+            <div class="badge-capsule">
+                <div class="dot-pulse"></div> GA & FACILITY OPERATIONS CENTER
             </div>
+            <h1>LAYANAN FASILITAS</h1>
+            <div class="subtitle">CENDEKIA MUDA</div>
+            <p>Pusat Pengelolaan Sarana, Prasarana, Kelistrikan, AC, & Operasional Gedung Terpadu. Siap Mengatasi Kendala Fasilitas dengan Cepat, Amanah, dan Profesional.</p>
+        </div>
+
+    </div>
+
+    <!-- FLOATING STATS BAR -->
+    <div class="hero-stats-wrapper">
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-num">30 Menit</div>
+                <div class="stat-label">SLA Penanganan GA</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">850+</div>
+                <div class="stat-label">Fasilitas Terawat</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">99.5%</div>
+                <div class="stat-label">Gedung Siap Pakai</div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="section-header">
+            <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM GENERAL AFFAIR / PIC
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop&q=80" alt="PIC GA 1">
+                    </div>
+                    <div class="team-info">
+                        <h3>NAMA PIC GA 1</h3>
+                        <div class="role-badge">TIM GENERAL AFFAIR</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 201</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0812-xxxx-xxxx</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
+            </div>
+
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop&q=80" alt="PIC GA 2">
+                    </div>
+                    <div class="team-info">
+                        <h3>NAMA PIC GA 2</h3>
+                        <div class="role-badge">SPESIALIS SARANA & PRASARANA</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 202</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0813-xxxx-xxxx</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi PIC</a>
+            </div>
+</div>
+
+        <!-- SECTION DASHBOARD FASILITAS & TIKET GA -->
+        <div class="dashboard-grid">
+            <!-- Donut Chart Card -->
+            <div class="card-box">
+                <div class="section-header" style="font-size: 13px; margin-bottom: 16px;">
+                    <i class="fa-solid fa-chart-pie" style="color: var(--color-ocean-blue);"></i> KATEGORI KERUSAKAN FASILITAS
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="damageChart"></canvas>
+                    <div class="chart-center-text">
+                        <div class="number">89</div>
+                        <div class="label">TIKET/BLN</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tiket GA Berjalan -->
+            <div class="card-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <div class="section-header" style="font-size: 13px; margin: 0;">
+                        <i class="fa-solid fa-list-check" style="color: var(--color-ocean-blue);"></i> TIKET GA AKTIF
+                    </div>
+                    <span style="font-size: 11px; color: var(--color-ocean-blue); font-weight: 700;">3 Tiket Berjalan</span>
+                </div>
+                <div class="ticket-list">
+                    <div class="ticket-item">
+                        <div class="ticket-top">
+                            <span class="ticket-title">Perbaikan AC Lantai 2</span>
+                            <span class="badge-priority">PRIORITY</span>
+                        </div>
+                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Nama PIC GA 1</span>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 60%;"></div></div>
+                    </div>
+                    <div class="ticket-item">
+                        <div class="ticket-top">
+                            <span class="ticket-title">Cek Kerusakan Atap Aula</span>
+                            <span class="badge-normal">NORMAL</span>
+                        </div>
+                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Nama PIC GA 2</span>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 25%;"></div></div>
+                    </div>
+                    <div class="ticket-item">
+                        <div class="ticket-top">
+                            <span class="ticket-title">Ganti Lampu Koridor Lt 1-3</span>
+                            <span class="badge-priority">PRIORITY</span>
+                        </div>
+                        <span class="ticket-pic"><i class="fa-solid fa-user-gear"></i> PIC: Nama PIC GA 1</span>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 40%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <a href="/ga/form" class="btn-submit-main">
+                <span>AJUKAN REQUEST FASILITAS GA</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
         </div>
     </main>
 
     <footer>
-        <p><i class="fa-solid fa-phone" style="color: #fbcfe8;"></i> (022) 710 2888 &nbsp;|&nbsp; <i class="fa-solid fa-envelope" style="color: #fbcfe8;"></i> info@cendekiamuda.sch.id</p>
-        <p>© 2024 Cendekia Muda. All rights reserved.</p>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
+<script>
+// Chart Configuration
+        const chartCtx = document.getElementById('damageChart').getContext('2d');
+        new Chart(chartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Listrik & AC', 'Sarana Prasarana', 'Kebersihan & Lainnya'],
+                datasets: [{
+                    data: [40, 35, 25],
+                    backgroundColor: ['#074173', '#1679AB', '#5DEBD7'],
+                    borderWidth: 0,
+                    hoverOffset: 12
+                }]
+            },
+            options: {
+                cutout: '72%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#074173',
+                        titleColor: '#ffffff',
+                        bodyColor: '#5DEBD7',
+                        borderColor: '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const canvas = document.getElementById('ga-animation-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        /* ANIMASI GA: ROTATING GEARS & FLOATING PARTICLES */
+        const gears = [
+            { x: 0.12, y: 0.25, radius: 45, teeth: 8, angle: 0, speed: 0.005, color: 'rgba(93, 235, 215, 0.25)' },
+            { x: 0.88, y: 0.35, radius: 60, teeth: 12, angle: 0, speed: -0.003, color: 'rgba(197, 255, 149, 0.2)' },
+            { x: 0.82, y: 0.70, radius: 35, teeth: 8, angle: 0, speed: 0.006, color: 'rgba(93, 235, 215, 0.2)' }
+        ];
+
+        const particles = [];
+        for (let i = 0; i < 20; i++) {
+            particles.push({
+                x: Math.random(),
+                y: Math.random(),
+                size: Math.random() * 3 + 1,
+                speedY: -(Math.random() * 0.4 + 0.1),
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function drawGear(cx, cy, radius, teeth, angle, color) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle);
+            ctx.fillStyle = color;
+
+            const outerRadius = radius;
+            const innerRadius = radius * 0.75;
+            const holeRadius = radius * 0.3;
+
+            for (let i = 0; i < teeth; i++) {
+                const alpha = (Math.PI * 2 / teeth) * i;
+                const alphaNext = (Math.PI * 2 / teeth) * (i + 0.5);
+
+                const x1 = Math.cos(alpha) * innerRadius;
+                const y1 = Math.sin(alpha) * innerRadius;
+                const x2 = Math.cos(alpha) * outerRadius;
+                const y2 = Math.sin(alpha) * outerRadius;
+                const x3 = Math.cos(alphaNext) * outerRadius;
+                const y3 = Math.sin(alphaNext) * outerRadius;
+                const x4 = Math.cos(alphaNext) * innerRadius;
+                const y4 = Math.sin(alphaNext) * innerRadius;
+
+                if (i === 0) ctx.moveTo(x1, y1);
+                else ctx.lineTo(x1, y1);
+
+                ctx.lineTo(x2, y2);
+                ctx.lineTo(x3, y3);
+                ctx.lineTo(x4, y4);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            /* Lubang Tengah Gear */
+            ctx.beginPath();
+            ctx.arc(0, 0, holeRadius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(7, 65, 115, 0.6)';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animateGA() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            /* 1. Gambar Gerigi (Gears) GA */
+            gears.forEach(g => {
+                g.angle += g.speed;
+                const posX = g.x * canvas.width;
+                const posY = g.y * canvas.height;
+                drawGear(posX, posY, g.radius, g.teeth, g.angle, g.color);
+            });
+
+            /* 2. Floating Particles GA */
+            particles.forEach(p => {
+                p.y += p.speedY / canvas.height;
+                if (p.y < 0) {
+                    p.y = 1;
+                    p.x = Math.random();
+                }
+                ctx.fillStyle = `rgba(197, 255, 149, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x * canvas.width, p.y * canvas.height, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateGA);
+        }
+        animateGA();
+
+/* INTERSECTION OBSERVER ANIMATION */
+        const revealEls = document.querySelectorAll('.team-card, .card-box, .cta-box');
+        revealEls.forEach(el => el.classList.add('anim-reveal'));
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 100);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealEls.forEach(el => observer.observe(el));
+
+        // Ticket Items Stagger Animation
+        const ticketObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const items = e.target.querySelectorAll('.ticket-item');
+                    items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 120));
+                    ticketObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.ticket-list').forEach(el => ticketObserver.observe(el));
+    </script>
 </body>
 </html>

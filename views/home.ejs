@@ -8,226 +8,736 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      :root {
+        --bg-main: #ffffff;
+        --bg-card: #f8fafc;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+
+        --color-nav-bg: #074173;
+        --color-dark-blue: #074173;
+        --color-med-blue: #1679AB;
+        --color-ocean-blue: #1679AB;
+        --color-accent-toska: #5DEBD7;
+        --color-cyan-mint: #5DEBD7;
+        --color-lime-green: #C5FF95;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
       body {
-        background-color: #060816;
-        color: #ffffff;
+        background-color: var(--bg-main);
+        color: var(--text-main);
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         padding: 0;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        overflow-x: hidden;
+        width: 100%;
       }
+
+      /* ================= NAVBAR ================= */
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 24px;
-        border-bottom: 1px solid #1f293d;
-        background-color: #060816;
+        padding: 18px 50px;
+        background: var(--color-dark-blue);
+        border-bottom: 1px solid rgba(93, 235, 215, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       }
-      main {
-        flex-grow: 1;
+      .logo-container { display: flex; align-items: center; gap: 12px; }
+      .logo-img { height: 32px; width: auto; display: block; object-fit: contain; }
+      .logo-divider { width: 1px; height: 22px; background-color: rgba(255,255,255,0.2); }
+      .logo-sub {
+        font-size: 17px;
+        color: var(--color-accent-toska);
+        letter-spacing: 2px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      nav { display: flex; align-items: center; gap: 28px; }
+      nav a {
+        color: rgba(255,255,255,0.75);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        position: relative;
+        padding: 4px 0;
+      }
+      nav a:hover, nav a.active { color: #ffffff; }
+      nav a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-accent-toska), var(--color-lime-green));
+        border-radius: 2px;
+      }
+
+      /* ================= HERO BANNER ================= */
+      .hero-banner {
+        position: relative;
+        width: 100%;
+        padding: 100px 20px 170px 20px;
+        min-height: 480px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 40px 20px;
+        color: #ffffff;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(3, 22, 40, 0.95) 0%, rgba(7, 48, 85, 0.88) 35%, rgba(7, 65, 115, 0.65) 65%, rgba(22, 121, 171, 0.3) 100%),
+          url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      }
+      .hero-banner canvas#heroParticleCanvas {
+        position: absolute;
+        inset: 0;
+        pointer-events: auto;
+        z-index: 1;
+      }
+      .hero-grid {
+        position: absolute; inset: 0; pointer-events: none; z-index: 1;
+        background-image:
+          linear-gradient(rgba(93,235,215,0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(93,235,215,0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .hero-banner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 85% 40%, rgba(93, 235, 215, 0.3) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 1;
       }
       .hero-container {
+        position: relative;
+        z-index: 2;
         width: 100%;
         max-width: 1200px;
+        margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr;
         gap: 40px;
         align-items: center;
       }
       @media (min-width: 1024px) {
-        .hero-container {
-          grid-template-columns: 1.1fr 0.9fr;
-        }
+        .hero-container { grid-template-columns: 1.1fr 0.9fr; }
       }
-      h1 {
-        font-size: 36px;
+
+      .hero-badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(93,235,215,0.1);
+        border: 1px solid rgba(93,235,215,0.4);
+        color: var(--color-cyan-mint);
+        font-size: 0.85rem; font-weight: 700;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        padding: 9px 22px; border-radius: 999px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 20px rgba(93, 235, 215, 0.25);
+        backdrop-filter: blur(8px);
+      }
+      .hero-badge-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--color-cyan-mint);
+        box-shadow: 0 0 12px var(--color-cyan-mint);
+        animation: dotBlink 1.5s ease-in-out infinite;
+      }
+
+      .hero-banner h1 {
+        font-size: 40px;
         font-weight: 900;
         line-height: 1.2;
         color: #ffffff;
         margin-bottom: 12px;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 35px rgba(93, 235, 215, 0.25);
+        animation: fadeDown 0.7s 0.1s ease both;
       }
-      @media (min-width: 640px) {
-        h1 {
-          font-size: 44px;
-        }
-      }
-      @media (min-width: 1024px) {
-        h1 {
-          font-size: 50px;
-          text-align: left;
-        }
-      }
-      .sub-title {
-        font-size: 20px;
-        font-weight: 800;
-        letter-spacing: 0.15em;
-        color: #fbcfe8;
-        margin-bottom: 20px;
+      @media (min-width: 1024px) { .hero-banner h1 { font-size: 48px; text-align: left; } }
+      .hero-banner .sub-title {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--color-accent-toska);
+        margin-bottom: 18px;
         text-transform: uppercase;
+        text-shadow: 0 2px 12px rgba(93, 235, 215, 0.6);
+        animation: fadeDown 0.7s 0.25s ease both;
       }
-      p.description {
-        font-size: 15px;
-        line-height: 1.8;
+      .hero-banner p.description {
+        font-size: 16px;
+        line-height: 1.75;
         color: #d1d5db;
-        margin-bottom: 32px;
-        max-width: 550px;
+        margin-bottom: 30px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        animation: fadeDown 0.7s 0.4s ease both;
       }
-      .btn-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        justify-content: center;
+      .btn-group { display: flex; flex-wrap: wrap; gap: 16px; }
+      .btn-primary {
+        background-color: var(--color-accent-toska);
+        color: #041c32;
+        padding: 13px 26px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(93, 235, 215, 0.4);
+        display: inline-flex;
+        align-items: center;
+        animation: pulseShadow 2.5s ease-in-out infinite;
       }
-      @media (min-width: 1024px) {
-        .btn-group {
-          justify-content: flex-start;
-        }
+      .btn-primary:hover {
+        background-color: #ffffff;
+        transform: translateY(-2px);
+        animation: none;
       }
-      .btn-pink {
-        background-color: #ec4899;
+      .btn-outline {
+        border: 2px solid var(--color-accent-toska);
+        background-color: rgba(7, 65, 115, 0.4);
+        backdrop-filter: blur(4px);
         color: #ffffff;
-        padding: 12px 24px;
+        padding: 13px 26px;
         border-radius: 9999px;
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
-        box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.2);
-        transition: background-color 0.2s;
         display: inline-flex;
         align-items: center;
       }
-      .btn-pink:hover {
-        background-color: #f472b6;
+      .btn-outline:hover {
+        background-color: rgba(93, 235, 215, 0.15);
+        transform: translateY(-2px);
       }
-      .btn-cyan {
-        border: 1px solid rgba(34, 211, 238, 0.4);
-        background-color: rgba(34, 211, 238, 0.1);
-        color: #cffafe;
-        padding: 12px 24px;
-        border-radius: 9999px;
-        font-size: 14px;
+
+      /* ================= EFEK SHADOW TRANSPARAN & BLENDING BIRU MENYATU ================= */
+      .hero-img-wrapper { 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        position: relative; 
+      }
+      
+      /* Lapisan gradasi biru transparan di sekeliling gambar agar melebur mulus dengan background */
+      .hero-img-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: -15px;
+        border-radius: 24px;
+        background: radial-gradient(circle, rgba(7, 65, 115, 0.45) 0%, rgba(3, 22, 40, 0.8) 75%);
+        filter: blur(20px);
+        z-index: 1;
+        opacity: 0.9;
+        pointer-events: none;
+      }
+
+      .hero-img-wrapper img {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 480px;
+        border-radius: 18px;
+        display: block;
+        border: 1px solid rgba(93, 235, 215, 0.25);
+        /* Efek Blending & Shadow Biru Transparan Mengambang */
+        mix-blend-mode: luminosity;
+        opacity: 0.88;
+        filter: contrast(1.1) brightness(0.95);
+        box-shadow: 
+          0 20px 40px rgba(3, 22, 40, 0.8),
+          0 0 35px rgba(22, 121, 171, 0.5),
+          inset 0 0 25px rgba(93, 235, 215, 0.15);
+        transition: all 0.5s ease;
+      }
+      
+      .hero-img-wrapper img:hover {
+        mix-blend-mode: normal;
+        opacity: 1;
+        filter: contrast(1.15) brightness(1.02);
+        box-shadow: 
+          0 25px 50px rgba(3, 22, 40, 0.9),
+          0 0 50px rgba(93, 235, 215, 0.45),
+          inset 0 0 30px rgba(93, 235, 215, 0.25);
+        transform: scale(1.02);
+      }
+
+      /* ================= FLOATING STATS BAR ================= */
+      .hero-stats-wrapper {
+        position: relative;
+        z-index: 10;
+        max-width: 900px;
+        margin: -60px auto 40px auto;
+        padding: 0 20px;
+        width: 100%;
+      }
+      .hero-stats {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: rgba(6, 28, 54, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(93, 235, 215, 0.25);
+        border-radius: 16px;
+        padding: 24px 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(93, 235, 215, 0.1);
+      }
+      .stat-item { flex: 1; text-align: center; padding: 0 15px; position: relative; }
+      .stat-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0; top: 15%; bottom: 15%;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(93, 235, 215, 0.3), transparent);
+      }
+      .stat-num {
+        font-size: clamp(1.4rem, 2.2vw, 2rem);
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(135deg, #ffffff 20%, var(--color-cyan-mint) 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      .stat-label {
+        font-size: 0.72rem;
+        color: rgba(255,255,255,0.65);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-top: 8px;
         font-weight: 600;
-        text-decoration: none;
-        transition: background-color 0.2s;
-        display: inline-flex;
-        align-items: center;
       }
-      .btn-cyan:hover {
-        background-color: rgba(34, 211, 238, 0.2);
+
+      /* ================= MAIN CONTENT ================= */
+      .main-content-area {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 20px 20px 60px 20px;
+        box-sizing: border-box;
+      }
+      .section-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--color-nav-bg);
+        margin-bottom: 24px;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: fadeLeft 0.6s 0.2s ease both;
+      }
+      .dashboard-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+      .dashboard-card:hover {
+        border-color: var(--color-ocean-blue);
+        box-shadow: 0 15px 30px rgba(22, 121, 171, 0.12);
       }
       footer {
-        background-color: #030712;
-        padding: 20px;
+        background-color: #f8fafc;
+        padding: 24px;
         text-align: center;
         font-size: 12px;
-        color: #9ca3af;
-        border-top: 1px solid #1f293d;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border-color);
+        margin-top: auto;
       }
+
+      @media (max-width: 768px) {
+        header { padding: 16px 20px; }
+        .hero-banner { padding: 80px 15px 140px 15px; }
+      }
+
+      /* ================= ANIMATIONS ================= */
+      @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(32px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeLeft {
+        from { opacity: 0; transform: translateX(-24px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes pulseShadow {
+        0%, 100% { box-shadow: 0 4px 20px rgba(93,235,215,0.4); }
+        50%       { box-shadow: 0 4px 30px rgba(93,235,215,0.65), 0 0 0 6px rgba(93,235,215,0.12); }
+      }
+      @keyframes dotBlink {
+        0%,100% { opacity:1; box-shadow:0 0 8px var(--color-cyan-mint); }
+        50%      { opacity:0.4; box-shadow:0 0 3px var(--color-cyan-mint); }
+      }
+
+      .anim-reveal {
+        animation: fadeUp 0.6s ease both;
+        animation-play-state: paused;
+      }
+      .anim-reveal.visible { animation-play-state: running; }
+
+      tbody tr {
+        animation: fadeLeft 0.4s ease both;
+        animation-play-state: paused;
+      }
+      tbody tr.visible { animation-play-state: running; }
     </style>
   </head>
   <body>
+    <!-- navbar -->
     <header>
-      <span style="font-weight: bold; letter-spacing: 2px"
-        >KCM
-        <span
-          style="
-            font-size: 11px;
-            font-weight: normal;
-            color: #9ca3af;
-            margin-left: 8px;
-          "
-          >LANDING PAGE IT</span
-        ></span
-      >
-      <div style="display: flex; gap: 16px; font-size: 14px">
-        <a href="/" style="color: #ffffff; text-decoration: none">Home</a>
-        <a href="/it-support" style="color: #9ca3af; text-decoration: none"
-          >IT Support</a
-        >
-        <a href="/ga" style="color: #9ca3af; text-decoration: none"
-          >GA (General Affair)</a
-        >
-        <a href="/about" style="color: #9ca3af; text-decoration: none"
-          >About Us</a
-        >
+      <div class="logo-container">
+        <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img" />
+        <div class="logo-divider"></div>
+        <div class="logo-sub">IT Support & General Affair</div>
       </div>
+      <nav>
+        <a href="/" class="active">Home</a>
+        <a href="/it-support">IT Support</a>
+        <a href="/ga">GA (General Affair)</a>
+        <a href="/about">About Us</a>
+      </nav>
     </header>
 
-    <main>
+    <!-- hero banner dengan animasi partikel jaringan di belakangnya -->
+    <div class="hero-banner">
+      <canvas id="heroParticleCanvas"></canvas>
+      <div class="hero-grid"></div>
       <div class="hero-container">
-        <!-- Kolom Kiri: Gambar Ilustrasi 3D dari Referensi Kamu -->
-        <div
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          <div
-            style="
-              width: 100%;
-              max-width: 580px;
-              border-radius: 20px;
-              overflow: hidden;
-              background: rgba(255, 255, 255, 0.02);
-              border: 1px solid rgba(255, 255, 255, 0.05);
-            "
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
-              alt="Ilustrasi Landpage IT"
-              style="
-                width: 100%;
-                height: auto;
-                display: block;
-                object-fit: cover;
-                opacity: 0.9;
-              "
-            />
+        <div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Layanan Terpadu IT & GA
+          </div>
+          <h1>PUSAT LAYANAN & MAINTENANCE</h1>
+          <p class="sub-title">CENDEKIA MUDA</p>
+          <p class="description">
+            Portal Bantuan IT Sekolah Cendekia Muda. Insya Allah, kami berkomitmen memberikan pelayanan yang amanah dan profesional untuk setiap kendala teknis Anda.
+          </p>
+          <div class="btn-group">
+            <a href="/it-support/form" class="btn-primary">
+              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i>Form IT Support
+            </a>
+            <a href="/ga/form" class="btn-outline">
+              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>Form General Affair
+            </a>
           </div>
         </div>
-
-        <!-- Kolom Kanan: Teks & Informasi Sesuai Referensi -->
-        <div style="text-align: center" class="lg-left">
-          <div>
-            <h1>PUSAT LAYANAN & MAINTENANCE</h1>
-            <p class="sub-title">CENDEKIA MUDA</p>
-            <p
-              class="description"
-              style="margin-left: auto; margin-right: auto"
-            >
-              Portal Bantuan IT Sekolah Cendekia Muda. Insya Allah, kami
-              berkomitmen memberikan pelayanan yang amanah dan profesional untuk
-              setiap kendala teknis Anda.
-            </p>
-          </div>
-
-          <div class="btn-group">
-            <a href="/it-support" class="btn-pink">
-              <i class="fa-solid fa-laptop-code" style="margin-right: 8px"></i
-              >IT Support
-            </a>
-            <a href="/ga" class="btn-cyan">
-              <i class="fa-solid fa-tools" style="margin-right: 8px"></i>GA
-              (General Affair)
-            </a>
-          </div>
+        <div class="hero-img-wrapper">
+          <img src="images/support.jfif" alt="IT Support & General Affair Maintenance" />
         </div>
       </div>
-    </main>
+    </div>
+
+    <!-- floating stats bar -->
+    <div class="hero-stats-wrapper">
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num" id="statTotal">-</div>
+          <div class="stat-label">Total Pengajuan</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="statSelesai">-</div>
+          <div class="stat-label">Selesai</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="statProgress">-</div>
+          <div class="stat-label">On Progress</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content-area" id="statistik">
+      <h2 class="section-title"><i class="fa-solid fa-chart-line"></i>MONITORING & DIAGRAM REAL-TIME</h2>
+
+      <div class="dashboard-card anim-reveal">
+        <h3 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 6px; text-align: center;">Statistik Pengajuan Berdasarkan Unit</h3>
+        <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Tersinkronisasi otomatis dari Google Spreadsheet</p>
+
+        <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); margin-bottom: 30px;">
+          <canvas id="unitChart" style="max-height: 280px;"></canvas>
+        </div>
+
+        <h3 style="color: var(--color-nav-bg); font-size: 16px; margin-bottom: 12px;">Daftar Riwayat Terbaru</h3>
+        <div style="overflow-x: auto; max-height: 380px; overflow-y: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--color-med-blue); color: var(--color-nav-bg); background: #f1f5f9; position: sticky; top: 0;">
+                <th style="padding: 12px;">Timestamp</th>
+                <th style="padding: 12px;">Unit</th>
+                <th style="padding: 12px;">Kendala / Pesanan</th>
+                <th style="padding: 12px;">Pemohon</th>
+                <th style="padding: 12px;">Status</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" style="color: var(--text-main);">
+              <tr>
+                <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">Memuat data dari Spreadsheet...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <footer>
       <p>
-        <i class="fa-solid fa-phone" style="color: #fbcfe8"></i> (022) 710 2888
+        <i class="fa-solid fa-phone" style="color: var(--color-med-blue)"></i> (022) 710 2888
         &nbsp;|&nbsp;
-        <i class="fa-solid fa-envelope" style="color: #fbcfe8"></i>
+        <i class="fa-solid fa-envelope" style="color: var(--color-med-blue)"></i>
         info@cendekiamuda.sch.id
       </p>
-      <p>© 2024 Cendekia Muda. All rights reserved.</p>
+      <p>© 2026 Cendekia Muda. All rights reserved.</p>
     </footer>
+
+    <script>
+      const csvUrl = 'GANTIKAN_DENGAN_LINK_CSV_SPREADSHEET_KAMU';
+
+      async function loadSpreadsheetData() {
+        try {
+          const response = await fetch(csvUrl);
+          const data = await response.text();
+
+          const rows = data.split('\n').map(row => row.split(','));
+          const headers = rows[0];
+          const items = rows.slice(1).filter(row => row.length === headers.length);
+          const tableBody = document.getElementById('tableBody');
+          tableBody.innerHTML = '';
+          let unitCounts = {};
+          let selesaiCount = 0;
+          let progressCount = 0;
+
+          items.forEach(row => {
+            let timestamp = row[0]?.replace(/"/g, '').trim();
+            let unit = row[1]?.replace(/"/g, '').trim();
+            let kendala = row[2]?.replace(/"/g, '').trim();
+            let pemohon = row[3]?.replace(/"/g, '').trim();
+            let status = row[4]?.replace(/"/g, '').trim();
+            if (!unit) return;
+            unitCounts[unit] = (unitCounts[unit] || 0) + 1;
+
+            let statusBadge = status;
+            if (status === 'Selesai') {
+              selesaiCount++;
+              statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
+            } else if (status === 'On Progress') {
+              progressCount++;
+              statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
+            } else {
+              statusBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${status || 'Menunggu'}</span>`;
+            }
+
+            let tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+            tr.innerHTML = `
+              <td style="padding: 12px;">${timestamp}</td>
+              <td style="padding: 12px; font-weight: 600; color: var(--color-nav-bg);">${unit}</td>
+              <td style="padding: 12px;">${kendala}</td>
+              <td style="padding: 12px;">${pemohon}</td>
+              <td style="padding: 12px;">${statusBadge}</td>
+            `;
+            tableBody.appendChild(tr);
+          });
+
+          document.getElementById('statTotal').textContent = items.length;
+          document.getElementById('statSelesai').textContent = selesaiCount;
+          document.getElementById('statProgress').textContent = progressCount;
+
+          renderChart(Object.keys(unitCounts), Object.values(unitCounts));
+          revealTableRows();
+        } catch (error) {
+          console.error('Gagal memuat data spreadsheet:', error);
+          document.getElementById('tableBody').innerHTML = `<tr><td colspan="5" style="padding: 20px; text-align: center; color: #991b1b;">Gagal memuat data. Pastikan link CSV Spreadsheet sudah benar & dipublikasikan.</td></tr>`;
+        }
+      }
+
+      function renderChart(labels, data) {
+        const ctx = document.getElementById('unitChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Jumlah Pengajuan per Unit',
+              data: data,
+              backgroundColor: ['#074173', '#1679AB', '#5DEBD7', '#15803d'],
+              borderColor: ['#074173', '#1679AB', '#5DEBD7', '#15803d'],
+              borderWidth: 1,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'Grafik Volume Kendala Berdasarkan Unit', color: '#074173', font: { size: 14, weight: 'bold' } }
+            },
+            scales: {
+              x: { ticks: { color: '#0f172a' }, grid: { color: '#f1f5f9' } },
+              y: { ticks: { color: '#0f172a', beginAtZero: true, stepSize: 1 }, grid: { color: '#e2e8f0' } }
+            }
+          }
+        });
+      }
+
+      loadSpreadsheetData();
+
+      /* ================= SCROLL REVEAL ================= */
+      const revealEls = document.querySelectorAll('.anim-reveal');
+      const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 100);
+            revealObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => revealObserver.observe(el));
+
+      function revealTableRows() {
+        const rows = document.querySelectorAll('#tableBody tr');
+        rows.forEach((row, i) => setTimeout(() => row.classList.add('visible'), i * 80));
+      }
+
+      /* ================= ANIMASI PARTIKEL JARINGAN INTERAKTIF & CYBER PULSE (HERO) ================= */
+      const particleCanvas = document.getElementById('heroParticleCanvas');
+      const pCtx = particleCanvas.getContext('2d');
+      let particles = [];
+      const maxLinkDistance = 150;
+      let mouse = { x: null, y: null, radius: 130 };
+
+      particleCanvas.addEventListener('mousemove', (e) => {
+        const rect = particleCanvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      particleCanvas.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      function resizeParticleCanvas() {
+        if (!particleCanvas) return;
+        particleCanvas.width = particleCanvas.parentElement.offsetWidth;
+        particleCanvas.height = particleCanvas.parentElement.offsetHeight;
+        initParticles();
+      }
+
+      function initParticles() {
+        particles = [];
+        const w = particleCanvas.width;
+        const h = particleCanvas.height;
+        const count = Math.floor((w * h) / 11000);
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            r: Math.random() * 2 + 1,
+            color: Math.random() > 0.35 ? '93, 235, 215' : '197, 255, 149',
+            pulse: Math.random() * Math.PI
+          });
+        }
+      }
+
+      function drawParticles() {
+        const w = particleCanvas.width;
+        const h = particleCanvas.height;
+        pCtx.clearRect(0, 0, w, h);
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          if (mouse.x !== null && mouse.y !== null) {
+            let dx = mouse.x - p.x;
+            let dy = mouse.y - p.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius) {
+              const force = (mouse.radius - dist) / mouse.radius;
+              p.x -= (dx / dist) * force * 1.5;
+              p.y -= (dy / dist) * force * 1.5;
+            }
+          }
+
+          p.pulse += 0.04;
+        });
+
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i];
+            const b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxLinkDistance) {
+              const opacity = (1 - dist / maxLinkDistance) * 0.3;
+              pCtx.beginPath();
+              pCtx.moveTo(a.x, a.y);
+              pCtx.lineTo(b.x, b.y);
+              pCtx.strokeStyle = `rgba(93, 235, 215, ${opacity})`;
+              pCtx.lineWidth = 1;
+              pCtx.stroke();
+            }
+          }
+
+          if (mouse.x !== null && mouse.y !== null) {
+            const a = particles[i];
+            const dx = a.x - mouse.x;
+            const dy = a.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius) {
+              const opacity = (1 - dist / mouse.radius) * 0.45;
+              pCtx.beginPath();
+              pCtx.moveTo(a.x, a.y);
+              pCtx.lineTo(mouse.x, mouse.y);
+              pCtx.strokeStyle = `rgba(197, 255, 149, ${opacity})`;
+              pCtx.lineWidth = 1.2;
+              pCtx.stroke();
+            }
+          }
+        }
+
+        particles.forEach(p => {
+          let currentR = p.r + Math.sin(p.pulse) * 0.6;
+          if (currentR < 0.5) currentR = 0.5;
+
+          pCtx.beginPath();
+          pCtx.arc(p.x, p.y, currentR, 0, Math.PI * 2);
+          pCtx.fillStyle = `rgba(${p.color}, 0.95)`;
+          pCtx.shadowBlur = 12;
+          pCtx.shadowColor = `rgba(${p.color}, 1)`;
+          pCtx.fill();
+          pCtx.shadowBlur = 0;
+        });
+
+        requestAnimationFrame(drawParticles);
+      }
+
+      window.addEventListener('resize', resizeParticleCanvas);
+      resizeParticleCanvas();
+      drawParticles();
+    </script>
   </body>
 </html>

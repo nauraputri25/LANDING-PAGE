@@ -1,129 +1,588 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - Cendekia Muda</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #0b1120;
-        color: #ffffff;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      header {
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Cendekia Muda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --color-dark-blue: #074173;
+      --color-ocean-blue: #1679AB;
+      --color-cyan-mint: #5DEBD7;
+      --color-lime-green: #C5FF95;
+      --bg-light: #f8fafc;
+      --border-color: #e2e8f0;
+      --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", sans-serif; background: var(--bg-light); color: var(--color-dark-blue); }
+
+    /* 🚀 HEADER (DARK BLUE MODE) */
+    header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 24px;
-        border-bottom: 1px solid #1f293d;
-      }
-      main {
-        flex-grow: 1;
+        padding: 18px 50px;
+        background-color: var(--color-dark-blue);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo-container {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 24px;
-      }
-      .card {
-        background-color: #131c31;
-        border: 1px solid #1f293d;
-        border-radius: 20px;
-        padding: 32px;
-        width: 100%;
-        max-width: 28rem;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        text-align: center;
-      }
-      .icon-box {
-        display: flex;
-        justify-content: center;
-        color: #fbcfe8;
-        font-size: 36px;
-        margin-bottom: 16px;
-      }
-      h1 {
-        font-size: 24px;
-        font-weight: bold;
-        color: #fce7f3;
-        margin-bottom: 12px;
-      }
-      p {
-        font-size: 14px;
-        color: #9ca3af;
-        line-height: 1.6;
-        margin-bottom: 24px;
-      }
-      .footer-info {
-        padding-top: 20px;
-        border-top: 1px solid #1f293d;
-        font-size: 12px;
-        color: #6b7280;
-        line-height: 1.5;
-      }
-      .footer-info strong {
-        color: #9ca3af;
+        gap: 12px;
+    }
+
+    .logo-img {
+        height: 32px;
+        width: auto;
         display: block;
-        margin-bottom: 4px;
-      }
-      footer {
-        background-color: #070b14;
-        padding: 20px;
-        text-align: center;
-        font-size: 12px;
-        color: #9ca3af;
-        border-top: 1px solid #1f293d;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <span style="font-weight: bold; letter-spacing: 2px">CENDEKIA MUDA</span>
-      <a href="/" style="color: #9ca3af; text-decoration: none; font-size: 14px"
-        ><i class="fa-solid fa-house"></i> Home</a
-      >
-    </header>
+        object-fit: contain;
+    }
 
-    <main>
-      <div class="card">
-        <div class="icon-box">
-          <i class="fa-solid fa-circle-info"></i>
-        </div>
+    .logo-divider {
+        width: 1px;
+        height: 22px;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
 
-        <h1>About Us</h1>
+    .logo-sub {
+        font-size: 17px;
+        color: var(--color-cyan-mint);
+        letter-spacing: 2px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
 
-        <p>
-          Sekolah Islam Cendekia Muda berkomitmen memberikan layanan terbaik
-          melalui sistem digital terintegrasi untuk mendukung kelancaran
-          kegiatan operasional, pendidikan, serta fasilitas sekolah.
-        </p>
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+    }
 
-        <div class="footer-info">
-          <strong>Request Portal v1.0</strong>
-          <p>
-            Dikembangkan untuk mendukung efisiensi layanan IT dan General
-            Affair.
-          </p>
+    nav a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        position: relative;
+        padding: 4px 0;
+    }
+
+    nav a:hover, nav a.active {
+        color: #ffffff;
+    }
+
+    nav a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--color-cyan-mint);
+        border-radius: 2px;
+    }
+
+    /* ── COVER ── */
+    .cover-banner {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(4,22,45,0.97) 0%, rgba(7,65,115,0.92) 45%, rgba(22,121,171,0.85) 100%),
+        url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80') center/cover no-repeat;
+    }
+    .cover-banner canvas { position: absolute; inset: 0; pointer-events: none; }
+
+    /* Glow orbs */
+    .cover-orb {
+      position: absolute; border-radius: 50%; pointer-events: none; filter: blur(80px);
+    }
+    .cover-orb-1 { width:500px; height:500px; top:-100px; left:-120px; background:rgba(93,235,215,0.12); animation: orbFloat 8s ease-in-out infinite; }
+    .cover-orb-2 { width:400px; height:400px; bottom:-80px; right:-100px; background:rgba(197,255,149,0.10); animation: orbFloat 10s ease-in-out infinite reverse; }
+    .cover-orb-3 { width:300px; height:300px; top:40%; left:60%; background:rgba(22,121,171,0.15); animation: orbFloat 7s ease-in-out infinite 2s; }
+
+    .cover-glow-ring {
+      position: absolute;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    .cover-glow-ring:nth-child(5) { width:600px; height:600px; border: 1px solid rgba(93,235,215,0.18); }
+    .cover-glow-ring:nth-child(6) { width:900px; height:900px; border: 1px solid rgba(197,255,149,0.09); animation-delay:1.5s; }
+
+    /* Grid overlay texture */
+    .cover-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(93,235,215,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(93,235,215,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .cover-inner { position: relative; z-index: 2; padding: 0 24px; max-width: 800px; }
+
+    /* Badge pill */
+    .cover-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(93,235,215,0.12);
+      border: 1px solid rgba(93,235,215,0.35);
+      color: var(--color-cyan-mint);
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 7px 18px; border-radius: 999px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.7s 0s ease both;
+      backdrop-filter: blur(8px);
+    }
+    .cover-badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--color-cyan-mint);
+      box-shadow: 0 0 8px var(--color-cyan-mint);
+      animation: dotBlink 1.5s ease-in-out infinite;
+    }
+
+    .cover-title {
+    font-size: clamp(5.2rem, 10vw, 8rem);
+    font-weight: 900;
+    line-height: 0.95;
+    margin: 0 0 10px;
+    letter-spacing: -0.04em;
+    animation: fadeDown 0.8s 0.15s ease both;
+    }
+    .word-about {
+      background: linear-gradient(135deg, #ffffff 0%, #d0eaf8 60%, #90d0f5 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: block;
+    }
+    .word-us {
+      background: linear-gradient(135deg, var(--color-cyan-mint) 0%, #82f3e5 50%, var(--color-lime-green) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      position: relative; display: inline-block;
+      filter: drop-shadow(0 0 18px rgba(93,235,215,0.35));
+    }
+    .word-us::after {
+      content: ''; position: absolute;
+      bottom: 2px; left: 0; width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--color-cyan-mint), var(--color-lime-green));
+      border-radius: 2px;
+      animation: lineGrow 1s 1s ease both; transform-origin: left;
+      box-shadow: 0 0 12px rgba(93,235,215,0.6);
+    }
+
+    .cover-sub {
+      color: rgba(255,255,255,0.88); font-size: 1rem;
+      max-width: 640px; margin: 0 auto 0; line-height: 1.7;
+      animation: fadeDown 0.8s 0.35s ease both;
+    }
+
+    /* FLOATING STATS BAR */
+    .hero-stats-wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: -60px auto 40px auto; 
+      padding: 0 20px;
+      width: 100%;
+    }
+    .hero-stats {
+      display: flex; 
+      justify-content: space-around;
+      align-items: center;
+      background: rgba(6, 28, 54, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(93, 235, 215, 0.25);
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(93, 235, 215, 0.1);
+    }
+    .stat-item {
+      flex: 1; text-align: center;
+      padding: 0 15px;
+      position: relative;
+    }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 15%; bottom: 15%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(93, 235, 215, 0.3), transparent);
+    }
+    .stat-num {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
+      font-weight: 900; 
+      line-height: 1;
+      background: linear-gradient(135deg, #ffffff 20%, var(--color-cyan-mint) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { 
+      font-size: 0.72rem; 
+      color: rgba(255,255,255,0.65); 
+      text-transform: uppercase; 
+      letter-spacing: 0.12em; 
+      margin-top: 8px; 
+      font-weight: 600;
+    }
+
+    /* ── CONTENT SECTION ── */
+    .page-shell { width: min(1100px, calc(100% - 24px)); margin: 0 auto; padding: 80px 0 40px; background: var(--bg-light); }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 5px 12px; border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .label-pink  { background: rgba(7,65,115,0.10);   color: var(--color-dark-blue); }
+    .label-cyan  { background: rgba(22,121,171,0.12);  color: var(--color-ocean-blue); }
+    .label-violet{ background: rgba(93,235,215,0.15);  color: #0a8a7a; }
+    .label-green { background: rgba(197,255,149,0.25); color: #3a7d1e; }
+
+    /* bento row: foto + teks */
+    .bento-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 16px 48px rgba(7,65,115,0.08);
+      margin-bottom: 32px;
+    }
+    .bento-row.reverse { direction: rtl; }
+    .bento-row.reverse > * { direction: ltr; }
+
+    .bento-img {
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+    }
+    .bento-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .bento-row:hover .bento-img img { transform: scale(1.04); }
+    .bento-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(7,65,115,0.2), transparent);
+    }
+
+    .bento-body {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bento-body h2 {
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--color-dark-blue); margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .bento-body p, .bento-body li {
+      color: var(--text-muted); line-height: 1.8; font-size: 0.95rem;
+    }
+    .bento-body ul { padding-left: 18px; margin: 10px 0 0; }
+    .bento-body ul li { margin-bottom: 6px; }
+
+    /* visi bg */
+    .bento-visi   { background: linear-gradient(135deg, rgba(7,65,115,0.05),   #ffffff); }
+    .bento-nilai  { background: linear-gradient(135deg, rgba(22,121,171,0.06),  #ffffff); }
+    .bento-scope  { background: linear-gradient(135deg, rgba(93,235,215,0.08),  #ffffff); }
+    .bento-sla    { background: linear-gradient(135deg, rgba(197,255,149,0.12), #ffffff); }
+
+    .quote-text {
+      font-style: italic; color: var(--text-muted);
+      border-left: 3px solid var(--color-ocean-blue);
+      padding-left: 14px; margin-bottom: 16px;
+      font-size: 0.95rem; line-height: 1.75;
+    }
+
+    /* nilai grid */
+    .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .value-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px; border-radius: 12px;
+      background: rgba(22,121,171,0.05);
+      border: 1px solid rgba(22,121,171,0.12);
+    }
+    .value-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-ocean-blue); margin-top: 6px; flex-shrink: 0; }
+    .value-item strong { color: var(--color-dark-blue); font-size: 0.88rem; display: block; margin-bottom: 2px; }
+    .value-item span { color: var(--text-muted); font-size: 0.82rem; }
+
+    /* scope */
+    .scope-grid { display: grid; gap: 12px; margin-top: 8px; }
+    .scope-box {
+      padding: 14px 16px; border-radius: 12px;
+      background: rgba(93,235,215,0.07);
+      border: 1px solid rgba(93,235,215,0.2);
+    }
+    .scope-box h3 { margin: 0 0 4px; font-size: 0.9rem; color: var(--color-ocean-blue); }
+
+    /* sla table */
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.88rem; }
+    th { color: var(--color-ocean-blue); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { color: var(--text-muted); }
+    tr:last-child td { border-bottom: none; }
+    .badge-kritis { display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(239,68,68,0.12); color:#dc2626; font-size:0.78rem; }
+    .badge-rutin  { display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(22,121,171,0.12); color:var(--color-ocean-blue); font-size:0.78rem; }
+    .badge-non    { display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(197,255,149,0.25); color:#3a7d1e; font-size:0.78rem; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes lineGrow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+    @keyframes ringPulse { 0%,100% { transform:translate(-50%,-50%) scale(1); opacity:.5; } 50% { transform:translate(-50%,-50%) scale(1.04); opacity:1; } }
+    @keyframes orbFloat { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-30px) scale(1.05); } }
+    @keyframes dotBlink { 0%,100% { opacity:1; box-shadow:0 0 8px var(--color-cyan-mint); } 50% { opacity:0.4; box-shadow:0 0 3px var(--color-cyan-mint); } }
+
+    @media (max-width: 768px) {
+      header { padding: 16px 20px; }
+      .bento-row { grid-template-columns: 1fr; }
+      .bento-row.reverse { direction: ltr; }
+      .bento-img { min-height: 220px; }
+      .bento-body { padding: 28px 22px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+      .stat-item { flex: 1 1 40%; padding-bottom: 12px; }
+      .stat-item:not(:last-child)::after { display: none; }
+      .cover-title { font-size: clamp(3rem, 12vw, 5rem); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+        <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
+        <div class="logo-divider"></div>
+        <div class="logo-sub">IT Support & General Affair</div>
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/it-support">IT Support</a>
+        <a href="/ga">GA (General Affair)</a>
+        <a href="/about" class="active">About Us</a>
+    </nav>
+  </header>
+
+  <!-- COVER BANNER -->
+  <div class="cover-banner">
+    <canvas id="particleCanvas"></canvas>
+    <div class="cover-orb cover-orb-1"></div>
+    <div class="cover-orb cover-orb-2"></div>
+    <div class="cover-orb cover-orb-3"></div>
+    <div class="cover-grid"></div>
+    <div class="cover-glow-ring"></div>
+    <div class="cover-glow-ring"></div>
+
+    <div class="cover-inner">
+      <!-- Badge -->  
+      <div class="cover-badge">
+        <span class="cover-badge-dot"></span>
+        Cendekia Muda · IT & General Affair
+      </div>
+
+      <!-- Title -->
+      <h1 class="cover-title">
+        <span class="word-about">About</span>
+        <span class="word-us">Us</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="cover-sub">Tim IT dan General Affair yang andal, sigap, dan siap mendukung setiap kebutuhan operasional sekolah Cendekia Muda.</p>
+
+    </div>
+
+  </div>
+
+  <!-- FLOATING STATS BAR -->
+  <div class="hero-stats-wrapper">
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" id="stat1">0+</div>
+        <div class="stat-label">Tahun Pengalaman</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat2">0+</div>
+        <div class="stat-label">Tiket Terselesaikan</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat3">0%</div>
+        <div class="stat-label">Tingkat Kepuasan</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat4">0 Tim</div>
+        <div class="stat-label">Divisi Layanan</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="page-shell">
+
+    <!-- Visi & Misi -->
+    <div class="bento-row reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Visi Misi" />
+      </div>
+      <div class="bento-body bento-visi">
+        <div class="section-label label-pink"><i class="fa-solid fa-bullseye"></i> Visi & Misi</div>
+        <h2>Andal, Sigap,<br>Siap Melayani</h2>
+        <p class="quote-text">"Menjadi pusat layanan operasional dan teknologi terpadu yang andal, sigap, dan siap mendukung kelancaran kegiatan belajar-mengajar di Sekolah Cendekia Muda."</p>
+        <ul>
+          <li>Dukungan cepat, amanah, dan profesional.</li>
+          <li>Menjaga kelancaran teknologi & fasilitas sekolah.</li>
+          <li>Lingkungan kerja yang tertib, efisien, dan nyaman.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Nilai Utama -->
+    <div class="bento-row reverse reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Nilai Utama" />
+      </div>
+      <div class="bento-body bento-nilai">
+        <div class="section-label label-cyan"><i class="fa-solid fa-heart"></i> Nilai Utama</div>
+        <h2>Core Values<br>Kami</h2>
+        <div class="values-grid">
+          <div class="value-item"><div class="value-dot"></div><div><strong>Amanah</strong><span>Jujur & bertanggung jawab.</span></div></div>
+          <div class="value-item"><div class="value-dot"></div><div><strong>Profesional</strong><span>Standar kualitas terbaik.</span></div></div>
+          <div class="value-item"><div class="value-dot"></div><div><strong>Responsif</strong><span>Cepat sesuai prioritas.</span></div></div>
+          <div class="value-item"><div class="value-dot"></div><div><strong>Solutif</strong><span>Solusi tepat & efektif.</span></div></div>
         </div>
       </div>
-    </main>
+    </div>
 
-    <footer>
-      <p>
-        <i class="fa-solid fa-phone" style="color: #fbcfe8"></i> (022) 710 2888
-        &nbsp;|&nbsp;
-        <i class="fa-solid fa-envelope" style="color: #fbcfe8"></i>
-        info@cendekiamuda.sch.id
-      </p>
-      <p>© 2024 Cendekia Muda. All rights reserved.</p>
-    </footer>
-  </body>
+    <!-- Cakupan Layanan -->
+    <div class="bento-row reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80" alt="Cakupan Layanan" />
+      </div>
+      <div class="bento-body bento-scope">
+        <div class="section-label label-violet"><i class="fa-solid fa-sitemap"></i> Cakupan Layanan</div>
+        <h2>Dua Tim,<br>Satu Tujuan</h2>
+        <div class="scope-grid">
+          <div class="scope-box">
+            <h3><i class="fa-solid fa-laptop-code" style="margin-right:6px"></i>Tim IT</h3>
+            <p>Perangkat, jaringan, software, akun pengguna & pemeliharaan teknologi informasi.</p>
+          </div>
+          <div class="scope-box">
+            <h3><i class="fa-solid fa-tools" style="margin-right:6px"></i>Tim GA</h3>
+            <p>Listrik, AC, pertukangan, sarana prasarana & kebersihan area kerja.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLA -->
+    <div class="bento-row reverse reveal">
+      <div class="bento-img">
+        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80" alt="SLA" />
+      </div>
+      <div class="bento-body bento-sla">
+        <div class="section-label label-green"><i class="fa-solid fa-clock"></i> SLA</div>
+        <h2>Target Waktu<br>Penanganan</h2>
+        <table>
+          <thead><tr><th>Jenis</th><th>Target</th><th>Keterangan</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge-kritis">Kritis</span></td><td>1–3 jam</td><td>Menghambat aktivitas utama.</td></tr>
+            <tr><td><span class="badge-rutin">Rutin</span></td><td>1×24 jam</td><td>Perlu tindak lanjut segera.</td></tr>
+            <tr><td><span class="badge-non">Non-Critical</span></td><td>2–3 hari</td><td>Butuh pengecekan lanjut.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:16px; padding:32px 24px; background:#ffffff; border-top:1px solid var(--border-color);">
+    <a href="/" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:999px; background:var(--color-dark-blue); color:#fff; text-decoration:none; font-size:14px; font-weight:700;">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <button onclick="history.back()" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:999px; border:1px solid var(--border-color); background:#fff; color:var(--color-dark-blue); font-size:14px; font-weight:700; cursor:pointer;">
+      <i class="fa-solid fa-arrow-left"></i> Kembali
+    </button>
+  </div>
+
+  <footer style="background:#ffffff; padding:32px 24px; text-align:center; font-size:12px; color:var(--text-muted); border-top:1px solid var(--border-color);">
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-bottom:8px;">
+      <span><i class="fa-solid fa-phone" style="margin-right:6px; color:var(--color-ocean-blue);"></i>(022) 710 2888</span>
+      <span><i class="fa-solid fa-envelope" style="margin-right:6px; color:var(--color-ocean-blue);"></i>info@cendekiamuda.sch.id</span>
+    </div>
+    <p style="margin:4px 0;"><i class="fa-solid fa-location-dot" style="margin-right:6px; color:var(--color-ocean-blue);"></i>JL Puri Ayu Pratama III No. 17 Arcamanik Bandung</p>
+    <p style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color);">© 2026 Cendekia Muda. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Particles
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for (let i = 0; i < 90; i++) {
+      particles.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, r: Math.random()*1.8+0.3, dx: (Math.random()-0.5)*0.35, dy: (Math.random()-0.5)*0.35, alpha: Math.random()*0.45+0.08, color: ['93,235,215','197,255,149','255,255,255'][Math.floor(Math.random()*3)] });
+    }
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${p.color},${p.alpha})`; ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // Counter animation
+    function animateCounter(el, target, suffix, duration) {
+      let start = 0, step = target / (duration / 16);
+      const timer = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = Math.floor(start) + suffix;
+        if (start >= target) clearInterval(timer);
+      }, 16);
+    }
+    setTimeout(() => {
+      animateCounter(document.getElementById('stat1'), 5, '+', 1200);
+      animateCounter(document.getElementById('stat2'), 500, '+', 1500);
+      animateCounter(document.getElementById('stat3'), 98, '%', 1400);
+      animateCounter(document.getElementById('stat4'), 2, ' Tim', 800);
+    }, 600);
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*100); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
 </html>
