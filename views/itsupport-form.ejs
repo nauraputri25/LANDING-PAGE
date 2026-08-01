@@ -361,12 +361,12 @@
         const kelasSelect = document.getElementById("kelas"); 
         kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas</option>'; 
         let options = []; 
-        if (unit.includes("SD")) { 
-            options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"]; 
+        if (unit.includes("SD BANDUNG")) { 
+            options = ["KRYPTON 1", "XENON 1", "ARGON 1", "NEON 2", "HELIUM 2", "TITANIUM 2", "SELENIUM 3", "ARGENTUM 3", "AURUM 3", "PLATINUM 4", "MAGNESIUM 4", "IRRIDIUM 4", "PALLADIUM 5", "NATRIUM 5", "FERRUM 5", "HIDROGEN 6", "OKSIGEN 6", "NITROGEN 6"]; 
         } else if (unit === "SMP") { 
-            options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C"]; 
+            options = ["ELLIPSE 7", "SQUARE 7", "RECTANGLE", "TRIANGLE 7", "METROXYLON 8", "DELONIX 8", "IXORA 8", "GRAVITON 9", "NEUTRINO 9", "AXION 9", "FERMION 9"]; 
         } else if (unit === "SMA") { 
-            options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C"]; 
+            options = ["Kelas 10 Ikhwan", "Kelas 10 Akhwat", "Kelas 11 Ikhwan", "Kelas 11 Akhwat", "Kelas 12 Ikhwan", "Kelas 12 Akhwat"]; 
         } else { 
             options = ["Non-Kelas / Staf", "Lainnya"]; 
         } 
