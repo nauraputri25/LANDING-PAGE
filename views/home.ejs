@@ -16,7 +16,6 @@
         --text-main: #0f172a;
         --text-muted: #64748b;
         --border-color: #e2e8f0;
-
         --color-nav-bg: #074173;
         --color-dark-blue: #074173;
         --color-med-blue: #1679AB;
@@ -41,7 +40,6 @@
         overflow-x: hidden;
         width: 100%;
       }
-
       /* ================= NAVBAR ================= */
       header {
         display: flex;
@@ -87,7 +85,6 @@
         background: linear-gradient(90deg, var(--color-accent-toska), var(--color-lime-green));
         border-radius: 2px;
       }
-
       /* ================= HERO BANNER ================= */
       .hero-banner {
         position: relative;
@@ -137,7 +134,6 @@
       @media (min-width: 1024px) {
         .hero-container { grid-template-columns: 1.1fr 0.9fr; }
       }
-
       .hero-badge {
         display: inline-flex; align-items: center; gap: 8px;
         background: rgba(93,235,215,0.1);
@@ -156,7 +152,6 @@
         box-shadow: 0 0 12px var(--color-cyan-mint);
         animation: dotBlink 1.5s ease-in-out infinite;
       }
-
       .hero-banner h1 {
         font-size: 40px;
         font-weight: 900;
@@ -221,16 +216,12 @@
         background-color: rgba(93, 235, 215, 0.15);
         transform: translateY(-2px);
       }
-
-      /* ================= EFEK SHADOW TRANSPARAN & BLENDING BIRU MENYATU ================= */
       .hero-img-wrapper { 
         display: flex; 
         justify-content: center; 
         align-items: center; 
         position: relative; 
       }
-      
-      /* Lapisan gradasi biru transparan di sekeliling gambar agar melebur mulus dengan background */
       .hero-img-wrapper::before {
         content: '';
         position: absolute;
@@ -242,7 +233,6 @@
         opacity: 0.9;
         pointer-events: none;
       }
-
       .hero-img-wrapper img {
         position: relative;
         z-index: 2;
@@ -251,7 +241,6 @@
         border-radius: 18px;
         display: block;
         border: 1px solid rgba(93, 235, 215, 0.25);
-        /* Efek Blending & Shadow Biru Transparan Mengambang */
         mix-blend-mode: luminosity;
         opacity: 0.88;
         filter: contrast(1.1) brightness(0.95);
@@ -261,7 +250,6 @@
           inset 0 0 25px rgba(93, 235, 215, 0.15);
         transition: all 0.5s ease;
       }
-      
       .hero-img-wrapper img:hover {
         mix-blend-mode: normal;
         opacity: 1;
@@ -272,7 +260,6 @@
           inset 0 0 30px rgba(93, 235, 215, 0.25);
         transform: scale(1.02);
       }
-
       /* ================= FLOATING STATS BAR ================= */
       .hero-stats-wrapper {
         position: relative;
@@ -317,7 +304,6 @@
         margin-top: 8px;
         font-weight: 600;
       }
-
       /* ================= MAIN CONTENT ================= */
       .main-content-area {
         max-width: 1200px;
@@ -349,21 +335,102 @@
         border-color: var(--color-ocean-blue);
         box-shadow: 0 15px 30px rgba(22, 121, 171, 0.12);
       }
-      footer {
+
+      /* ================= STICKY TABLE & PAGINATION ================= */
+      .table-container {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+      }
+      .table-wrapper {
+        max-height: 420px;
+        overflow-y: auto;
+        position: relative;
+      }
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 13px;
+        text-align: left;
+      }
+      thead th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #f1f5f9;
+        color: var(--color-nav-bg);
+        padding: 12px 16px;
+        font-weight: 700;
+        border-bottom: 2px solid var(--border-color);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      }
+      tbody td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        background: #ffffff;
+      }
+      tbody tr:hover td {
         background-color: #f8fafc;
+      }
+      .pagination-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        background: #ffffff;
+        border-top: 1px solid var(--border-color);
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .pagination-info {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .pagination-buttons {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .page-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        color: var(--text-main);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .page-btn:hover:not(:disabled) {
+        background: var(--color-med-blue);
+        color: #ffffff;
+        border-color: var(--color-med-blue);
+      }
+      .page-btn.active {
+        background: var(--color-dark-blue);
+        color: #ffffff;
+        border-color: var(--color-dark-blue);
+      }
+      .page-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      footer {
+        background-color: #ffffff;
         padding: 24px;
         text-align: center;
         font-size: 12px;
         color: var(--text-muted);
         border-top: 1px solid var(--border-color);
-        margin-top: auto;
-      }
-
+            margin-top: auto;
+        }
       @media (max-width: 768px) {
         header { padding: 16px 20px; }
         .hero-banner { padding: 80px 15px 140px 15px; }
       }
-
       /* ================= ANIMATIONS ================= */
       @keyframes fadeDown {
         from { opacity: 0; transform: translateY(-24px); }
@@ -385,18 +452,11 @@
         0%,100% { opacity:1; box-shadow:0 0 8px var(--color-cyan-mint); }
         50%      { opacity:0.4; box-shadow:0 0 3px var(--color-cyan-mint); }
       }
-
       .anim-reveal {
         animation: fadeUp 0.6s ease both;
         animation-play-state: paused;
       }
       .anim-reveal.visible { animation-play-state: running; }
-
-      tbody tr {
-        animation: fadeLeft 0.4s ease both;
-        animation-play-state: paused;
-      }
-      tbody tr.visible { animation-play-state: running; }
     </style>
   </head>
   <body>
@@ -414,8 +474,8 @@
         <a href="/about">About Us</a>
       </nav>
     </header>
-
-    <!-- hero banner dengan animasi partikel jaringan di belakangnya -->
+    
+    <!-- hero banner -->
     <div class="hero-banner">
       <canvas id="heroParticleCanvas"></canvas>
       <div class="hero-grid"></div>
@@ -449,154 +509,327 @@
     <div class="hero-stats-wrapper">
       <div class="hero-stats">
         <div class="stat-item">
-          <div class="stat-num" id="statTotal">-</div>
+          <div class="stat-num" id="statTotal">0</div>
           <div class="stat-label">Total Pengajuan</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num" id="statSelesai">-</div>
+          <div class="stat-num" id="statSelesai">0</div>
           <div class="stat-label">Selesai</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num" id="statProgress">-</div>
+          <div class="stat-num" id="statProgress">0</div>
           <div class="stat-label">On Progress</div>
         </div>
       </div>
     </div>
 
     <div class="main-content-area" id="statistik">
-      <h2 class="section-title"><i class="fa-solid fa-chart-line"></i>MONITORING & DIAGRAM REAL-TIME</h2>
-
+      <h2 class="section-title"><i class="fa-solid fa-table-list"></i>MONITORING & DIAGRAM REAL-TIME</h2>
+      
       <div class="dashboard-card anim-reveal">
-        <h3 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 6px; text-align: center;">Statistik Pengajuan Berdasarkan Unit</h3>
-        <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Tersinkronisasi otomatis dari Google Spreadsheet</p>
-
-        <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); margin-bottom: 30px;">
-          <canvas id="unitChart" style="max-height: 280px;"></canvas>
+        
+        <!-- ================= BAGIAN 1: TABEL DATA (DI ATAS) ================= -->
+        <h3 style="color: var(--color-nav-bg); font-size: 22px; margin-bottom: 6px; text-align: center; margin-bottom: 24px; margin-top: 24px;">Daftar Riwayat Terbaru (Gabungan IT & GA)</h3>
+        
+        <div class="table-container" style="margin-bottom: 40px;">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kategori</th>
+                  <th>Timestamp</th>
+                  <th>Unit</th>
+                  <th>Kendala / Pesanan</th>
+                  <th>Pemohon</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 20px;">Memuat data gabungan...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- PAGINATION -->
+          <div class="pagination-container">
+            <div class="pagination-info" id="paginationInfo">Menampilkan 0 data</div>
+            <div class="pagination-buttons" id="paginationButtons"></div>
+          </div>
         </div>
 
-        <h3 style="color: var(--color-nav-bg); font-size: 16px; margin-bottom: 12px;">Daftar Riwayat Terbaru</h3>
-        <div style="overflow-x: auto; max-height: 380px; overflow-y: auto;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
-            <thead>
-              <tr style="border-bottom: 2px solid var(--color-med-blue); color: var(--color-nav-bg); background: #f1f5f9; position: sticky; top: 0;">
-                <th style="padding: 12px;">Timestamp</th>
-                <th style="padding: 12px;">Unit</th>
-                <th style="padding: 12px;">Kendala / Pesanan</th>
-                <th style="padding: 12px;">Pemohon</th>
-                <th style="padding: 12px;">Status</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody" style="color: var(--text-main);">
-              <tr>
-                <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">Memuat data dari Spreadsheet...</td>
-              </tr>
-            </tbody>
-          </table>
+        <hr style="border: 0; border-top: 1px dashed var(--border-color); margin-bottom: 35px;" />
+
+        <!-- ================= BAGIAN 2: GRAFIK & STATISTIK (DI BAWAH) ================= -->
+        <h3 style="color: var(--color-nav-bg); font-size: 22px; margin-bottom: 6px; text-align: center; margin-bottom: 24px; margin-top: 24px;">Perbandingan & Status Layanan Maintenance</h3>
+        <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Visualisasi statistik pengajuan IT Support & General Affair</p>
+        
+        <!-- GRID BARIS 1: PROPORSI & STATUS -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 20px;">
+          <!-- CHART 1: PROPORSI IT VS GA -->
+          <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center;">
+            <h4 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 12px; text-align: center;">Perbandingan Volume Laporan (IT vs GA)</h4>
+            <div style="position: relative; width: 100%; max-width: 250px;">
+              <canvas id="comparisonPieChart"></canvas>
+            </div>
+          </div>
+          <!-- CHART 2: DISTRIBUSI STATUS IT VS GA -->
+          <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color);">
+            <h4 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 12px; text-align: center;">Status Laporan berdasarkan Kategori</h4>
+            <canvas id="statusComparisonChart" style="max-height: 250px;"></canvas>
+          </div>
         </div>
+
+        <!-- GRID BARIS 2: UNIT TERBANYAK BIKIN LAPORAN -->
+        <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color);">
+          <h4 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 12px; text-align: center;"><i class="fa-solid fa-building" style="margin-right: 6px;"></i>Top 5 Unit Terbanyak Mengajukan Laporan</h4>
+          <canvas id="topUnitChart" style="max-height: 260px;"></canvas>
+        </div>
+
       </div>
     </div>
 
     <footer>
-      <p>
-        <i class="fa-solid fa-phone" style="color: var(--color-med-blue)"></i> (022) 710 2888
-        &nbsp;|&nbsp;
-        <i class="fa-solid fa-envelope" style="color: var(--color-med-blue)"></i>
-        info@cendekiamuda.sch.id
-      </p>
-      <p>© 2026 Cendekia Muda. All rights reserved.</p>
+        <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
     <script>
-      const csvUrl = 'GANTIKAN_DENGAN_LINK_CSV_SPREADSHEET_KAMU';
+      // Dapatkan Data dari Server/EJS
+      const rawIT = <%- JSON.stringify(typeof reportsIT !== "undefined" ? reportsIT : []) %>;
+      const rawGA = <%- JSON.stringify(typeof reportsGA !== "undefined" ? reportsGA : []) %>;
 
-      async function loadSpreadsheetData() {
-        try {
-          const response = await fetch(csvUrl);
-          const data = await response.text();
+      // Variable Pagination
+      let currentPage = 1;
+      const rowsPerPage = 10;
+      let combinedReports = [];
 
-          const rows = data.split('\n').map(row => row.split(','));
-          const headers = rows[0];
-          const items = rows.slice(1).filter(row => row.length === headers.length);
-          const tableBody = document.getElementById('tableBody');
-          tableBody.innerHTML = '';
-          let unitCounts = {};
-          let selesaiCount = 0;
-          let progressCount = 0;
+      function processAndRenderData() {
+        let totalTiket = rawIT.length + rawGA.length;
+        let totalSelesai = 0;
+        let totalProgress = 0;
 
-          items.forEach(row => {
-            let timestamp = row[0]?.replace(/"/g, '').trim();
-            let unit = row[1]?.replace(/"/g, '').trim();
-            let kendala = row[2]?.replace(/"/g, '').trim();
-            let pemohon = row[3]?.replace(/"/g, '').trim();
-            let status = row[4]?.replace(/"/g, '').trim();
-            if (!unit) return;
-            unitCounts[unit] = (unitCounts[unit] || 0) + 1;
+        let statusStats = {
+          IT: { selesai: 0, progress: 0, waiting: 0 },
+          GA: { selesai: 0, progress: 0, waiting: 0 }
+        };
 
-            let statusBadge = status;
-            if (status === 'Selesai') {
-              selesaiCount++;
-              statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
-            } else if (status === 'On Progress') {
-              progressCount++;
-              statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
-            } else {
-              statusBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${status || 'Menunggu'}</span>`;
-            }
+        let unitCounts = {};
 
-            let tr = document.createElement('tr');
-            tr.style.borderBottom = '1px solid #e2e8f0';
-            tr.innerHTML = `
-              <td style="padding: 12px;">${timestamp}</td>
-              <td style="padding: 12px; font-weight: 600; color: var(--color-nav-bg);">${unit}</td>
-              <td style="padding: 12px;">${kendala}</td>
-              <td style="padding: 12px;">${pemohon}</td>
-              <td style="padding: 12px;">${statusBadge}</td>
-            `;
-            tableBody.appendChild(tr);
-          });
+        // Hitung Data IT
+        rawIT.forEach(item => {
+          const st = (item.status || '').toLowerCase();
+          if (st.includes('selesai')) { statusStats.IT.selesai++; totalSelesai++; }
+          else if (st.includes('progress') || st.includes('diproses')) { statusStats.IT.progress++; totalProgress++; }
+          else { statusStats.IT.waiting++; }
 
-          document.getElementById('statTotal').textContent = items.length;
-          document.getElementById('statSelesai').textContent = selesaiCount;
-          document.getElementById('statProgress').textContent = progressCount;
+          let unitName = item.unit ? item.unit.trim().toUpperCase() : 'LAINNYA';
+          unitCounts[unitName] = (unitCounts[unitName] || 0) + 1;
+        });
 
-          renderChart(Object.keys(unitCounts), Object.values(unitCounts));
-          revealTableRows();
-        } catch (error) {
-          console.error('Gagal memuat data spreadsheet:', error);
-          document.getElementById('tableBody').innerHTML = `<tr><td colspan="5" style="padding: 20px; text-align: center; color: #991b1b;">Gagal memuat data. Pastikan link CSV Spreadsheet sudah benar & dipublikasikan.</td></tr>`;
-        }
+        // Hitung Data GA
+        rawGA.forEach(item => {
+          const st = (item.status || '').toLowerCase();
+          if (st.includes('selesai')) { statusStats.GA.selesai++; totalSelesai++; }
+          else if (st.includes('progress') || st.includes('diproses')) { statusStats.GA.progress++; totalProgress++; }
+          else { statusStats.GA.waiting++; }
+
+          let unitName = item.unit ? item.unit.trim().toUpperCase() : 'LAINNYA';
+          unitCounts[unitName] = (unitCounts[unitName] || 0) + 1;
+        });
+
+        // Update Floating Stats Card
+        document.getElementById('statTotal').textContent = totalTiket;
+        document.getElementById('statSelesai').textContent = totalSelesai;
+        document.getElementById('statProgress').textContent = totalProgress;
+
+        // Sorting Unit Terbanyak
+        let sortedUnits = Object.keys(unitCounts).map(key => ({
+          unit: key,
+          count: unitCounts[key]
+        })).sort((a, b) => b.count - a.count).slice(0, 5);
+
+        // Gabungkan Laporan dan Urutkan Terbaru
+        combinedReports = [
+          ...rawIT.map(r => ({ ...r, categoryTag: 'IT Support' })),
+          ...rawGA.map(r => ({ ...r, categoryTag: 'GA' }))
+        ].reverse();
+
+        renderTablePage(currentPage);
+        renderCharts(rawIT.length, rawGA.length, statusStats, sortedUnits);
       }
 
-      function renderChart(labels, data) {
-        const ctx = document.getElementById('unitChart').getContext('2d');
-        new Chart(ctx, {
-          type: 'bar',
+      // FUNSI RENDER PAGINATION TABLE
+      function renderTablePage(page) {
+        currentPage = page;
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '';
+
+        if (combinedReports.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="6" style="padding: 20px; text-align: center; color: var(--text-muted);">Belum ada data pengajuan.</td></tr>`;
+          document.getElementById('paginationInfo').textContent = 'Menampilkan 0 data';
+          document.getElementById('paginationButtons').innerHTML = '';
+          return;
+        }
+
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = combinedReports.slice(start, end);
+
+        pageData.forEach(row => {
+          let badgeCategory = row.categoryTag === 'IT Support' 
+            ? `<span style="background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">IT Support</span>`
+            : `<span style="background: #fef3c7; color: #b45309; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">GA</span>`;
+
+          let stLower = (row.status || '').toLowerCase();
+          let statusBadge = '';
+          if (stLower.includes('selesai')) {
+            statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
+          } else if (stLower.includes('progress') || stLower.includes('diproses')) {
+            statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
+          } else {
+            statusBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${row.status || 'Menunggu ACC'}</span>`;
+          }
+
+          let tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${badgeCategory}</td>
+            <td>${row.waktu || '-'}</td>
+            <td style="font-weight: 600; color: var(--color-nav-bg);">${row.unit || '-'}</td>
+            <td>${row.permasalahan || '-'}</td>
+            <td>${row.nama || '-'}</td>
+            <td>${statusBadge}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+
+        // Update Info Pagination
+        const totalItems = combinedReports.length;
+        const startShowing = start + 1;
+        const endShowing = Math.min(end, totalItems);
+        document.getElementById('paginationInfo').textContent = `Menampilkan ${startShowing}-${endShowing} dari ${totalItems} data`;
+
+        // Render Tombol Pagination
+        renderPaginationButtons(totalItems);
+      }
+
+      function renderPaginationButtons(totalItems) {
+        const totalPages = Math.ceil(totalItems / rowsPerPage);
+        const buttonsContainer = document.getElementById('paginationButtons');
+        buttonsContainer.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        // Tombol Prev
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'page-btn';
+        prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => renderTablePage(currentPage - 1);
+        buttonsContainer.appendChild(prevBtn);
+
+        // Angka Halaman
+        for (let i = 1; i <= totalPages; i++) {
+          const pageBtn = document.createElement('button');
+          pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+          pageBtn.textContent = i;
+          pageBtn.onclick = () => renderTablePage(i);
+          buttonsContainer.appendChild(pageBtn);
+        }
+
+        // Tombol Next
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'page-btn';
+        nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => renderTablePage(currentPage + 1);
+        buttonsContainer.appendChild(nextBtn);
+      }
+
+      function renderCharts(countIT, countGA, statusStats, topUnits) {
+        // 1. DOUGHNUT CHART PERBANDINGAN IT VS GA
+        const ctxPie = document.getElementById('comparisonPieChart').getContext('2d');
+        new Chart(ctxPie, {
+          type: 'doughnut',
           data: {
-            labels: labels,
+            labels: ['IT Support', 'General Affair (GA)'],
             datasets: [{
-              label: 'Jumlah Pengajuan per Unit',
-              data: data,
-              backgroundColor: ['#074173', '#1679AB', '#5DEBD7', '#15803d'],
-              borderColor: ['#074173', '#1679AB', '#5DEBD7', '#15803d'],
-              borderWidth: 1,
-              borderRadius: 6
+              data: [countIT, countGA],
+              backgroundColor: ['#1679AB', '#5DEBD7'],
+              borderWidth: 2,
+              borderColor: '#ffffff'
             }]
           },
           options: {
             responsive: true,
             plugins: {
-              legend: { display: false },
-              title: { display: true, text: 'Grafik Volume Kendala Berdasarkan Unit', color: '#074173', font: { size: 14, weight: 'bold' } }
-            },
+              legend: { position: 'bottom', labels: { color: '#0f172a', font: { size: 12, weight: '600' } } }
+            }
+          }
+        });
+
+        // 2. GROUPED BAR CHART
+        const ctxStatus = document.getElementById('statusComparisonChart').getContext('2d');
+        new Chart(ctxStatus, {
+          type: 'bar',
+          data: {
+            labels: ['Menunggu ACC', 'Diproses', 'Pending', 'Selesai'],
+            datasets: [
+              {
+                label: 'IT Support',
+                data: [
+                  <%= statsIT.menunggu %>, 
+                  <%= statsIT.diproses %>, 
+                  <%= statsIT.pending %>, 
+                  <%= statsIT.selesai %>
+                ],
+                backgroundColor: '#1679AB',
+                borderRadius: 6
+              },
+              {
+                label: 'General Affair (GA)',
+                data: [
+                  <%= statsGA.menunggu %>, 
+                  <%= statsGA.diproses %>, 
+                  <%= statsGA.pending %>, 
+                  <%= statsGA.selesai %>
+                ],
+                backgroundColor: '#5DEBD7',
+                borderRadius: 6
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+          }
+        });
+
+        // 3. BAR CHART TOP 5 UNIT TERBANYAK
+        const ctxUnit = document.getElementById('topUnitChart').getContext('2d');
+        new Chart(ctxUnit, {
+          type: 'bar',
+          data: {
+            labels: topUnits.map(u => u.unit),
+            datasets: [{
+              label: 'Jumlah Tiket Laporan',
+              data: topUnits.map(u => u.count),
+              backgroundColor: ['#074173', '#1679AB', '#0284c7', '#38bdf8', '#5DEBD7'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            indexAxis: 'y',
+            plugins: { legend: { display: false } },
             scales: {
-              x: { ticks: { color: '#0f172a' }, grid: { color: '#f1f5f9' } },
-              y: { ticks: { color: '#0f172a', beginAtZero: true, stepSize: 1 }, grid: { color: '#e2e8f0' } }
+              x: { ticks: { color: '#0f172a', beginAtZero: true, stepSize: 1 }, grid: { color: '#e2e8f0' } },
+              y: { ticks: { color: '#0f172a', font: { weight: 'bold' } }, grid: { display: false } }
             }
           }
         });
       }
 
-      loadSpreadsheetData();
+      processAndRenderData();
 
       /* ================= SCROLL REVEAL ================= */
       const revealEls = document.querySelectorAll('.anim-reveal');
@@ -610,12 +843,7 @@
       }, { threshold: 0.1 });
       revealEls.forEach(el => revealObserver.observe(el));
 
-      function revealTableRows() {
-        const rows = document.querySelectorAll('#tableBody tr');
-        rows.forEach((row, i) => setTimeout(() => row.classList.add('visible'), i * 80));
-      }
-
-      /* ================= ANIMASI PARTIKEL JARINGAN INTERAKTIF & CYBER PULSE (HERO) ================= */
+      /* ================= ANIMASI PARTIKEL JARINGAN ================= */
       const particleCanvas = document.getElementById('heroParticleCanvas');
       const pCtx = particleCanvas.getContext('2d');
       let particles = [];
@@ -691,6 +919,7 @@
             const dx = a.x - b.x;
             const dy = a.y - b.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
+
             if (dist < maxLinkDistance) {
               const opacity = (1 - dist / maxLinkDistance) * 0.3;
               pCtx.beginPath();
@@ -707,6 +936,7 @@
             const dx = a.x - mouse.x;
             const dy = a.y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
+
             if (dist < mouse.radius) {
               const opacity = (1 - dist / mouse.radius) * 0.45;
               pCtx.beginPath();
