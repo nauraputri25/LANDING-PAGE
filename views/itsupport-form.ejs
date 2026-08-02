@@ -29,7 +29,6 @@
             min-height: 100vh; 
         }
 
-        /* HEADER & NAVBAR */
         header {
             display: flex;
             justify-content: space-between;
@@ -68,7 +67,7 @@
             padding: 40px 20px; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
+            align-items: flex-start; /* Diubah agar posisi card aman ke bawah */
         }
 
         .container-box { 
@@ -157,6 +156,7 @@
             box-sizing: border-box; 
             outline: none; 
             transition: all 0.2s ease; 
+            max-height: 50px; 
         }
 
         input:focus, select:focus, textarea:focus { 
@@ -256,7 +256,6 @@
 </head>
 <body>
 
-    <!-- NAVBAR IT SUPPORT (CLASS ACTIVE ADA DI IT SUPPORT) -->
     <header>
         <div class="logo-container">
             <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
@@ -265,14 +264,14 @@
         </div>
         <nav>
             <a href="/"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
-        nav>
+        </nav>
     </header>
 
     <main>
         <div class="container-box">
             <div class="card">
                 <h1>Form Pengaduan IT Support</h1>
-                <p class="subtitle">Isi data di bawah ini untuk mengajukan penanganan kendala perangkat atau jaringan IT.</p>
+                <p class="subtitle">Isi data di bawah ini untuk mengajukan penanganan kendala perangkat atau jaringan IT[cite: 5].</p>
 
                 <% if (typeof success !== 'undefined' && success === 'true') { %>
                     <div class="alert-success"><i class="fa-solid fa-circle-check"></i> Laporan IT Support & foto berhasil dikirim!</div>
@@ -292,9 +291,9 @@
                                 <option value="" disabled selected>Pilih Unit</option>
                                 <option value="Daycare">Daycare</option>
                                 <option value="TK">TK</option>
-                                <option value="SD Bandung">SD Bandung</option>
-                                <option value="SD Bilingual">SD Bilingual</option>
-                                <option value="SD Makasar">SD Makasar</option>
+                                <option value="SD Bandung (Aren)">SD Bandung (Aren)</option>
+                                <option value="SD Bandung (Puray)">SD Bandung (Puray)</option>
+                                <option value="SD Makassar">SD Makassar</option>
                                 <option value="SMP">SMP</option>
                                 <option value="SMA">SMA</option>
                                 <option value="UPPP">UPPP</option>
@@ -332,7 +331,6 @@
                         <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kendala perangkat atau jaringan..."></textarea>
                     </div>
 
-                    <!-- FITUR UNGGAH FOTO BUKTI -->
                     <div class="form-group">
                         <label>Unggah Foto Kendala <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
                         <div class="upload-box" onclick="document.getElementById('fileInput').click()">
@@ -361,15 +359,26 @@
         const kelasSelect = document.getElementById("kelas"); 
         kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas</option>'; 
         let options = []; 
-        if (unit.includes("SD BANDUNG")) { 
-            options = ["KRYPTON 1", "XENON 1", "ARGON 1", "NEON 2", "HELIUM 2", "TITANIUM 2", "SELENIUM 3", "ARGENTUM 3", "AURUM 3", "PLATINUM 4", "MAGNESIUM 4", "IRRIDIUM 4", "PALLADIUM 5", "NATRIUM 5", "FERRUM 5", "HIDROGEN 6", "OKSIGEN 6", "NITROGEN 6"]; 
-        } else if (unit === "SMP") { 
-            options = ["ELLIPSE 7", "SQUARE 7", "RECTANGLE", "TRIANGLE 7", "METROXYLON 8", "DELONIX 8", "IXORA 8", "GRAVITON 9", "NEUTRINO 9", "AXION 9", "FERMION 9"]; 
-        } else if (unit === "SMA") { 
-            options = ["Kelas 10 Ikhwan", "Kelas 10 Akhwat", "Kelas 11 Ikhwan", "Kelas 11 Akhwat", "Kelas 12 Ikhwan", "Kelas 12 Akhwat"]; 
-        } else { 
-            options = ["Non-Kelas / Staf", "Lainnya"]; 
-        } 
+
+        if (unit === "Daycare") {
+            options = ["AREA KANTOR / STAF", "LAINNYA"];
+        } else if (unit === "TK") {
+            options = ["RUANG ADMIN 1", "RUANG ADMIN 2", "RUANG BAHASA", "RUANG GSG", "RUANG EKSPLOR CLASS", "RUANG SAIN CLASS", "RUANG ART", "RUANG KEPALA SEKOLAH", "LAINNYA"];
+        } else if (unit === "SD Bandung (Aren)") {
+            options = ["KRYPTON_1", "XENON_1", "ARGON_1", "NEON_2", "HELIUM_2", "TITANIUM_2", "SELENIUM_3", "ARGENTUM_3", "AURUM,_3", "LAINNYA"];
+        } else if (unit === "SD Bandung (Puray)") {
+            options = ["PLATINUM_4", "MAGNESIUM_4", "IRRIDIUM_4", "PALLADIUM_5", "NATRIUM_5", "FERRUM_5", "HIDROGEN_6", "OKSIGEN_6", "NITROGEN_6", "LAINNYA"];
+        } else if (unit === "SD Makassar") {
+            options = ["KELAS 1", "KELAS 2", "KELAS 3", "KELAS 4", "KELAS 5", "KELAS 6", "LAINNYA"];
+        } else if (unit === "SMP") {
+            options = ["ELLIPSE_7", "SQUARE_7", "RECTANGLE_7", "TRIANGLE_7", "METROXYLON_8", "DELONIX_8", "IXORA_8", "GRAVITON_9", "NEUTRINO_9", "AXION_9", "FERMION_9", "LAINNYA"];
+        } else if (unit === "SMA") {
+            options = ["IKHWAN_10", "AKHWAT_10", "IKHWAN_11", "AKHWAT_11", "IKHWAN_12", "AKHWAT_12", "Ruang Pimpinan", "Ruang Guru", "Lobi/Koridor", "LAINNYA"];
+        } else if (unit === "UPPP" || unit === "Catering") {
+            options = ["AREA KANTOR / STAF", "LAINNYA"];
+        }
+
+
         options.forEach(opt => { 
             const el = document.createElement("option"); 
             el.value = opt; 
@@ -470,13 +479,13 @@
         }
     });
     setTimeout(function() {
-    const alertBox = document.querySelector('.alert-success');
-    if (alertBox) {
-        alertBox.style.transition = 'opacity 0.5s ease';
-        alertBox.style.opacity = '0';
-        setTimeout(() => alertBox.remove(), 500);
-    }
-}, 3000);
+        const alertBox = document.querySelector('.alert-success');
+        if (alertBox) {
+            alertBox.style.transition = 'opacity 0.5s ease';
+            alertBox.style.opacity = '0';
+            setTimeout(() => alertBox.remove(), 500);
+        }
+    }, 3000);
 </script>
 </body>
 </html>

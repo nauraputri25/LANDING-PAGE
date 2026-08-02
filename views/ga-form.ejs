@@ -67,7 +67,7 @@
             padding: 40px 20px; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
+            align-items: flex-start; 
         }
 
         .container-box { 
@@ -156,6 +156,7 @@
             box-sizing: border-box; 
             outline: none; 
             transition: all 0.2s ease; 
+            max-height: 50px; 
         }
 
         input:focus, select:focus, textarea:focus { 
@@ -164,7 +165,6 @@
             box-shadow: 0 0 0 4px rgba(93, 235, 215, 0.2); 
         }
 
-        /* UPLOAD FOTO STYLE */
         .upload-box { 
             border: 2px dashed var(--border-color); 
             border-radius: 12px; 
@@ -256,7 +256,6 @@
 </head>
 <body>
 
-    <!-- NAVBAR SESUAI FOTO SCREENSHOT -->
     <header>
         <div class="logo-container">
             <img src="/images/logo-kcm.png" alt="Logo KCM" class="logo-img">
@@ -272,7 +271,7 @@
         <div class="container-box">
             <div class="card">
                 <h1>Form Pengaduan GA (General Affair)</h1>
-                <p class="subtitle">Isi data di bawah ini untuk mengajukan perbaikan sarana, prasarana, atau fasilitas sekolah.</p>
+                <p class="subtitle">Isi data di bawah ini untuk mengajukan perbaikan sarana, prasarana, atau fasilitas sekolah[cite: 4].</p>
 
                 <% if (typeof success !== 'undefined' && success === 'true') { %>
                     <div class="alert-success"><i class="fa-solid fa-circle-check"></i> Laporan pengaduan GA & foto berhasil dikirim!</div>
@@ -292,9 +291,9 @@
                                 <option value="" disabled selected>Pilih Unit</option>
                                 <option value="Daycare">Daycare</option>
                                 <option value="TK">TK</option>
-                                <option value="SD Bandung">SD Bandung</option>
-                                <option value="SD Bilingual">SD Bilingual</option>
-                                <option value="SD Makasar">SD Makasar</option>
+                                <option value="SD Bandung (Aren)">SD Bandung (Aren)</option>
+                                <option value="SD Bandung (Puray)">SD Bandung (Puray)</option>
+                                <option value="SD Makassar">SD Makassar</option>
                                 <option value="SMP">SMP</option>
                                 <option value="SMA">SMA</option>
                                 <option value="UPPP">UPPP</option>
@@ -331,7 +330,6 @@
                         <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail lokasi dan bentuk kerusakan fasilitas..."></textarea>
                     </div>
 
-                    <!-- FITUR UNGGAH FOTO BUKTI -->
                     <div class="form-group">
                         <label>Unggah Foto Kerusakan <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
                         <div class="upload-box" onclick="document.getElementById('fileInput').click()">
@@ -353,22 +351,32 @@
     <footer>
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
+
 <script>
-    // Pilih kelas berdasarkan unit
     function updateKelasOptions() { 
         const unit = document.getElementById("unit").value; 
         const kelasSelect = document.getElementById("kelas"); 
         kelasSelect.innerHTML = '<option value="" disabled selected>Pilih Kelas / Ruangan</option>'; 
         let options = []; 
-        if (unit.includes("SD")) { 
-            options = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Ruang Guru", "Lainnya"]; 
-        } else if (unit === "SMP") { 
-            options = ["Kelas 7A", "Kelas 7B", "Kelas 7C", "Kelas 8A", "Kelas 8B", "Kelas 8C", "Kelas 9A", "Kelas 9B", "Kelas 9C", "Ruang Guru", "Lainnya"]; 
-        } else if (unit === "SMA") { 
-            options = ["Kelas 10A", "Kelas 10B", "Kelas 10C", "Kelas 11A", "Kelas 11B", "Kelas 11C", "Kelas 12A", "Kelas 12B", "Kelas 12C", "Ruang Guru", "Lainnya"]; 
-        } else { 
-            options = ["Area Kantor / Staf", "Kantin", "Toilet", "Lobi / Koridor", "Lainnya"]; 
-        } 
+        
+        if (unit === "Daycare") {
+            options = ["AREA KANTOR / STAF", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "TK") {
+            options = ["RUANG ADMIN 1", "RUANG ADMIN 2", "RUANG BAHASA", "RUANG GSG", "RUANG EKSPLOR CLASS", "RUANG SAIN CLASS", "RUANG ART", "RUANG KEPALA SEKOLAH", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "SD Bandung (Aren)") {
+            options = ["KRYPTON_1", "XENON_1", "ARGON_1", "NEON_2", "HELIUM_2", "TITANIUM_2", "SELENIUM_3", "ARGENTUM_3", "AURUM_3", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "SD Bandung (Puray)") {
+            options = ["PLATINUM_4", "MAGNESIUM_4", "IRRIDIUM_4", "PALLADIUM_5", "NATRIUM_5", "FERRUM_5", "HIDROGEN_6", "OKSIGEN_6", "NITROGEN_6", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "SD Makassar") {
+            options = ["KELAS 1", "KELAS 2", "KELAS 3", "KELAS 4", "KELAS 5", "KELAS 6", "RUANG GURU", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "SMP") {
+            options = ["ELLIPSE_7", "SQUARE_7", "RECTANGLE_7", "TRIANGLE_7", "METROXYLON_8", "DELONIX_8", "IXORA_8", "GRAVITON_9", "NEUTRINO_9", "AXION_9", "FERMION_9", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "SMA") {
+            options = ["IKHWAN_10", "AKHWAT_10", "IKHWAN_11", "AKHWAT_11", "IKHWAN_12", "AKHWAT_12", "Ruang Pimpinan", "Ruang Guru", "Lobi/Koridor", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        } else if (unit === "UPPP" || unit === "Catering") {
+            options = ["AREA KANTOR / STAF", "KANTIN", "TOILET", "LOBI KORIDOR", "LAINNYA"];
+        }
+
         options.forEach(opt => { 
             const el = document.createElement("option"); 
             el.value = opt; 
@@ -377,7 +385,6 @@
         }); 
     }
 
-    // Preview dan cek ukuran foto
     const fileInput = document.getElementById('fileInput');
     const imagePreview = document.getElementById('imagePreview');
     const uploadStatus = document.getElementById('uploadStatus');
@@ -409,13 +416,11 @@
         }
     });
 
-    // Kirim data form
     const form = document.getElementById('uploadForm');
     const submitBtn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENGIRIM LAPORAN...';
 
@@ -430,7 +435,7 @@
             fotoMimeType: ""
         };
 
-const sendData = (finalPayload) => {
+        const sendData = (finalPayload) => {
             fetch('/ga/submit', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -438,33 +443,25 @@ const sendData = (finalPayload) => {
             })
             .then(res => res.json())
             .then(data => {
-                // posisi alert
                 const descText = document.querySelector('.card p');
-                
-                // Hapus alert lama kalau ada
                 const existingAlert = document.querySelector('.alert-success');
                 if (existingAlert) existingAlert.remove();
 
-                // Buat elemen alert baru
                 const alertSuccess = document.createElement('div');
                 alertSuccess.className = 'alert-success';
                 alertSuccess.style.marginTop = '15px';
                 alertSuccess.style.marginBottom = '15px';
                 alertSuccess.innerHTML = '<i class="fa-solid fa-circle-check"></i> Laporan pengaduan GA & foto berhasil dikirim!';
                 
-                // Sisipkan di bawah deskripsi
                 descText.parentNode.insertBefore(alertSuccess, descText.nextSibling);
 
-                // Reset form & tampilan foto
                 form.reset();
                 imagePreview.style.display = 'none';
                 uploadStatus.textContent = 'Klik untuk unggah foto bukti (JPG, PNG MAX 5MB)';
 
-                // Kembalikan tombol ke semula
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN GA';
 
-                // Hapus alert otomatis setelah 3 detik
                 setTimeout(() => {
                     alertSuccess.style.transition = 'opacity 0.5s ease';
                     alertSuccess.style.opacity = '0';
@@ -497,7 +494,6 @@ const sendData = (finalPayload) => {
         }
     });
 
-    // Hapus alert 
     window.addEventListener('DOMContentLoaded', () => {
         setTimeout(function() {
             const alertBox = document.querySelector('.alert-success');
