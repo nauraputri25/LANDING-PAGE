@@ -1,9 +1,13 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const PORT = 3000;
 
+// --- KONFIGURASI VIEW ENGINE & FOLDER STATIK (Wajib Path Absolut untuk Vercel) ---
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(express.json({ limit: '50mb' }));
 
@@ -273,7 +277,7 @@ app.post("/it-support/submit", async (req, res) => {
 
     if (dataGAS && (dataGAS.result === "success" || dataGAS.status === "success")) {
       console.log(`[SUKSES IT] Laporan dari ${nama_request} tersimpan!`);
-      cacheDataIT = null; // Reset cache
+      cacheDataIT = null; 
       return res.json({ status: "success", redirectUrl: "/it-support/form?success=true" });
     } else {
       console.error("[GAGAL GAS IT]:", dataGAS);
@@ -380,7 +384,7 @@ app.get("/ga/form", (req, res) => {
   res.render("ga-form", { activePage: "ga" });
 });
 
-// 3. Proses Submit GA (Perbaikan)
+// 3. Proses Submit GA
 app.post("/ga/submit", async (req, res) => {
   const { 
     unit, 
