@@ -26,7 +26,7 @@ const CACHE_DURATION = 60 * 1000;
 function calculateStats(reports) {
   const stats = {
     total: reports.length,
-    menunggu: 0,
+    dalam_antrian: 0,
     diproses: 0,
     pending: 0,
     selesai: 0
@@ -34,7 +34,7 @@ function calculateStats(reports) {
 
   reports.forEach(item => {
     const status = (item.status || '').trim().toLowerCase();
-    if (status.includes('menunggu')) stats.menunggu++;
+    if (status.includes('dalam_antrian')) stats.dalam_antrian++;
     else if (status.includes('diproses')) stats.diproses++;
     else if (status.includes('pending')) stats.pending++;
     else if (status.includes('selesai')) stats.selesai++;
