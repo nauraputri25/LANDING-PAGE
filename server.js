@@ -382,7 +382,6 @@ app.get("/ga/form", (req, res) => {
 
 // 3. Proses Submit GA (Perbaikan)
 app.post("/ga/submit", async (req, res) => {
-  // Ambil kelas ATAU lokasi dari req.body
   const { 
     unit, 
     nama_request, 
@@ -394,7 +393,6 @@ app.post("/ga/submit", async (req, res) => {
     fotoMimeType 
   } = req.body;
 
-  // Tentukan nilai lokasi/kelas agar tidak undefined
   const nilaiLokasi = lokasi || kelas || "-";
 
   try {
@@ -407,8 +405,8 @@ app.post("/ga/submit", async (req, res) => {
         kategori: "GA",
         unit,
         nama_request,
-        kelas: nilaiLokasi,   // Kirimkan kelas
-        lokasi: nilaiLokasi,  // Kirimkan lokasi (supaya GAS baca yang mana aja tetep masuk!)
+        kelas: nilaiLokasi,   
+        lokasi: nilaiLokasi,  
         permasalahan,
         detail_permasalahan,
         fotoBase64,
@@ -422,7 +420,7 @@ app.post("/ga/submit", async (req, res) => {
     
     if (dataGAS && (dataGAS.result === "success" || dataGAS.status === "success")) {
       console.log(`[SUKSES GA] Laporan dari ${nama_request} tersimpan!`);
-      cacheDataGA = null; // Reset cache
+      cacheDataGA = null; 
       return res.json({ status: "success", redirectUrl: "/ga?success=true" });
     } else {
       console.error("[GAGAL GAS GA]:", dataGAS);
