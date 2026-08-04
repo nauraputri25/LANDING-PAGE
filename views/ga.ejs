@@ -606,7 +606,7 @@
         }
     </style>
 </head>
-<body>
+<body id="pageBody" data-reports="<%= typeof reports !== 'undefined' ? JSON.stringify(reports) : '[]' %>">
     <!-- HEADER -->
     <header>
         <div class="logo-container">
@@ -805,8 +805,14 @@
 
     <!-- SCRIPT DATA, CHARTS & ANIMATION -->
     <script>
-        // PARSE DATA DARI SHEET GA
-        const rawReports = <%- typeof reports !== 'undefined' ? JSON.stringify(reports) : '[]' %>;
+        // PARSE DATA SECARA AMAN DARI ATRIBUT DOM HTML TANPA ERROR LINTER
+        const rawReportsAttr = document.getElementById('pageBody').getAttribute('data-reports');
+        let rawReports = [];
+        try {
+            rawReports = JSON.parse(rawReportsAttr);
+        } catch (e) {
+            rawReports = [];
+        }
         
         // Membalik urutan data agar data terbaru muncul paling atas
         const reversedReports = [...rawReports].reverse();
@@ -979,16 +985,8 @@
 
         // 3. DOUGHNUT CHART GA PROBLEM
         const problemPalette = [
-  '#074173', // Navy
-  '#0F5B8E', // Medium Deep Blue
-  '#1679AB', // Ocean Blue
-  '#2095C2', // Sky Blue
-  '#32B8C6', // Teal Blue
-  '#5DEBD7', // Bright Cyan / Mint
-  '#89F2B4', // Soft Mint Green
-  '#C5FF95', // Lime Green
-  '#64748b'  // Slate Gray (untuk 'Tidak Ada Data' / Lainnya)
-];
+            '#074173', '#0F5B8E', '#1679AB', '#2095C2', '#32B8C6', '#5DEBD7', '#89F2B4', '#C5FF95', '#64748b'
+        ];
         const problemLabels = Object.keys(problemCounts).length ? Object.keys(problemCounts) : ['Tidak Ada Data'];
         const problemData = Object.keys(problemCounts).length ? Object.values(problemCounts) : [1];
 
@@ -1074,108 +1072,98 @@
         /* =========================================================
            4. ANIMATED CANVAS HEADER & SCROLL REVEAL LOGIC
         ========================================================= */
-/* ANIMASI GA: ROTATING GEARS & FLOATING PARTICLES */
-const canvas = document.getElementById('ga-animation-canvas');
-const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById('ga-animation-canvas');
+        const ctx = canvas.getContext('2d');
 
-function resizeCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-// Data 3 Roda Gerigi (Gears)
-const gears = [
-    { x: 0.12, y: 0.25, radius: 45, teeth: 8, angle: 0, speed: 0.005, color: 'rgba(93, 235, 215, 0.25)' },
-    { x: 0.88, y: 0.35, radius: 60, teeth: 12, angle: 0, speed: -0.003, color: 'rgba(197, 255, 149, 0.2)' },
-    { x: 0.82, y: 0.70, radius: 35, teeth: 8, angle: 0, speed: 0.006, color: 'rgba(93, 235, 215, 0.2)' }
-];
-
-// Data Partikel Melayang (Floating Particles)
-const particles = [];
-for (let i = 0; i < 20; i++) {
-    particles.push({
-        x: Math.random(),
-        y: Math.random(),
-        size: Math.random() * 3 + 1,
-        speedY: -(Math.random() * 0.4 + 0.1),
-        opacity: Math.random() * 0.5 + 0.2
-    });
-}
-
-// Fungsi Menggambar Gerigi
-function drawGear(cx, cy, radius, teeth, angle, color) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.translate(cx, cy);
-    ctx.rotate(angle);
-    ctx.fillStyle = color;
-    
-    const outerRadius = radius;
-    const innerRadius = radius * 0.75;
-    const holeRadius = radius * 0.3;
-
-    for (let i = 0; i < teeth; i++) {
-        const alpha = (Math.PI * 2 / teeth) * i;
-        const alphaNext = (Math.PI * 2 / teeth) * (i + 0.5);
-        const x1 = Math.cos(alpha) * innerRadius;
-        const y1 = Math.sin(alpha) * innerRadius;
-        const x2 = Math.cos(alpha) * outerRadius;
-        const y2 = Math.sin(alpha) * outerRadius;
-        const x3 = Math.cos(alphaNext) * outerRadius;
-        const y3 = Math.sin(alphaNext) * outerRadius;
-        const x4 = Math.cos(alphaNext) * innerRadius;
-        const y4 = Math.sin(alphaNext) * innerRadius;
-
-        if (i === 0) ctx.moveTo(x1, y1);
-        else ctx.lineTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.lineTo(x3, y3);
-        ctx.lineTo(x4, y4);
-    }
-    ctx.closePath();
-    ctx.fill();
-
-    /* Lubang Tengah Gear */
-    ctx.beginPath();
-    ctx.arc(0, 0, holeRadius, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(7, 65, 115, 0.6)';
-    ctx.fill();
-    ctx.restore();
-}
-
-// Loop Utama Animasi Canvas
-function animateGA() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    /* 1. Gambar & Putar Roda Gerigi (Gears) */
-    gears.forEach(g => {
-        g.angle += g.speed;
-        const posX = g.x * canvas.width;
-        const posY = g.y * canvas.height;
-        drawGear(posX, posY, g.radius, g.teeth, g.angle, g.color);
-    });
-
-    /* 2. Gerakkan Partikel Melayang ke Atas */
-    particles.forEach(p => {
-        p.y += p.speedY / canvas.height;
-        if (p.y < 0) {
-            p.y = 1;
-            p.x = Math.random();
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
         }
-        ctx.fillStyle = `rgba(197, 255, 149, ${p.opacity})`;
-        ctx.beginPath();
-        ctx.arc(p.x * canvas.width, p.y * canvas.height, p.size, 0, Math.PI * 2);
-        ctx.fill();
-    });
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-    requestAnimationFrame(animateGA);
-}
+        const gears = [
+            { x: 0.12, y: 0.25, radius: 45, teeth: 8, angle: 0, speed: 0.005, color: 'rgba(93, 235, 215, 0.25)' },
+            { x: 0.88, y: 0.35, radius: 60, teeth: 12, angle: 0, speed: -0.003, color: 'rgba(197, 255, 149, 0.2)' },
+            { x: 0.82, y: 0.70, radius: 35, teeth: 8, angle: 0, speed: 0.006, color: 'rgba(93, 235, 215, 0.2)' }
+        ];
 
-// Jalankan animasi
-animateGA();
+        const particles = [];
+        for (let i = 0; i < 20; i++) {
+            particles.push({
+                x: Math.random(),
+                y: Math.random(),
+                size: Math.random() * 3 + 1,
+                speedY: -(Math.random() * 0.4 + 0.1),
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
 
+        function drawGear(cx, cy, radius, teeth, angle, color) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle);
+            ctx.fillStyle = color;
+            
+            const outerRadius = radius;
+            const innerRadius = radius * 0.75;
+            const holeRadius = radius * 0.3;
+
+            for (let i = 0; i < teeth; i++) {
+                const alpha = (Math.PI * 2 / teeth) * i;
+                const alphaNext = (Math.PI * 2 / teeth) * (i + 0.5);
+                const x1 = Math.cos(alpha) * innerRadius;
+                const y1 = Math.sin(alpha) * innerRadius;
+                const x2 = Math.cos(alpha) * outerRadius;
+                const y2 = Math.sin(alpha) * outerRadius;
+                const x3 = Math.cos(alphaNext) * outerRadius;
+                const y3 = Math.sin(alphaNext) * outerRadius;
+                const x4 = Math.cos(alphaNext) * innerRadius;
+                const y4 = Math.sin(alphaNext) * innerRadius;
+
+                if (i === 0) ctx.moveTo(x1, y1);
+                else ctx.lineTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineTo(x3, y3);
+                ctx.lineTo(x4, y4);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(0, 0, holeRadius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(7, 65, 115, 0.6)';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animateGA() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            gears.forEach(g => {
+                g.angle += g.speed;
+                const posX = g.x * canvas.width;
+                const posY = g.y * canvas.height;
+                drawGear(posX, posY, g.radius, g.teeth, g.angle, g.color);
+            });
+
+            particles.forEach(p => {
+                p.y += p.speedY / canvas.height;
+                if (p.y < 0) {
+                    p.y = 1;
+                    p.x = Math.random();
+                }
+                ctx.fillStyle = `rgba(197, 255, 149, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x * canvas.width, p.y * canvas.height, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateGA);
+        }
+
+        animateGA();
     </script>
 </body>
 </html>

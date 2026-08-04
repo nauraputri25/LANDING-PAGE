@@ -434,7 +434,11 @@ app.post("/ga/submit", async (req, res) => {
   }
 });
 
-// --- JALANKAN SERVER ---
-app.listen(PORT, () => {
-  console.log(`Server berjalan dengan sukses di http://localhost:${PORT}`);
-});
+// --- JALANKAN SERVER (Kompatibel Vercel & Lokal) ---
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server berjalan dengan sukses di http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
