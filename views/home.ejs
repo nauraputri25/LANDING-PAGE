@@ -30,8 +30,8 @@
       }
       body {
         background-color: var(--bg-main);
-        color: var(--text-main);
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-main);font-family
+        : "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         padding: 0;
         display: flex;
@@ -677,8 +677,8 @@
 
         pageData.forEach(row => {
           let badgeCategory = row.categoryTag === 'IT Support' 
-            ? `<span style="background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">IT Support</span>`
-            : `<span style="background: #fef3c7; color: #b45309; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">GA</span>`;
+            ? `<span style="background: #e0f2fe; color: #1679AB; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">IT Support</span>`
+            : `<span style="background: #e8f9ff; color: #5DEBD7; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">GA</span>`;
 
           let stLower = (row.status || '').toLowerCase();
           let statusBadge = '';

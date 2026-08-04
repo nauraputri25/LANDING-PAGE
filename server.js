@@ -8,7 +8,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 5000
 app.use(express.json({ limit: '50mb' }));
 
 // 🔗 URL WEB APP GOOGLE APPS SCRIPT
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwouUMmf4TJA0-Jbo6iSyPqlaQaE2YgOZNT6qDCLF2Gj_3hIpEGqzGjPcyIsqaqKiUT/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKg60juz5kuHZwxjy7xdicPUducMzIxg21deWLV-B63WeNA11G3hZknYwtBZuaf590/exec";
 
 // --- VARIABEL CACHE IT & GA ---
 let cacheDataIT = null;
@@ -380,17 +380,22 @@ app.get("/ga/form", (req, res) => {
   res.render("ga-form", { activePage: "ga" });
 });
 
-// 3. Proses Submit GA
+// 3. Proses Submit GA (Perbaikan)
 app.post("/ga/submit", async (req, res) => {
+  // Ambil kelas ATAU lokasi dari req.body
   const { 
     unit, 
     nama_request, 
+    kelas,
     lokasi, 
     permasalahan, 
     detail_permasalahan,
     fotoBase64,
     fotoMimeType 
   } = req.body;
+
+  // Tentukan nilai lokasi/kelas agar tidak undefined
+  const nilaiLokasi = lokasi || kelas || "-";
 
   try {
     console.log(`[INFO GA] Mengirim laporan dari ${nama_request}...`);
@@ -402,7 +407,8 @@ app.post("/ga/submit", async (req, res) => {
         kategori: "GA",
         unit,
         nama_request,
-        lokasi,
+        kelas: nilaiLokasi,   // Kirimkan kelas
+        lokasi: nilaiLokasi,  // Kirimkan lokasi (supaya GAS baca yang mana aja tetep masuk!)
         permasalahan,
         detail_permasalahan,
         fotoBase64,
@@ -410,10 +416,10 @@ app.post("/ga/submit", async (req, res) => {
       }),
       redirect: "follow"
     });
-
+    
     const dataGAS = await responseGAS.json();
     console.log("[RESPON GAS GA]:", dataGAS);
-
+    
     if (dataGAS && (dataGAS.result === "success" || dataGAS.status === "success")) {
       console.log(`[SUKSES GA] Laporan dari ${nama_request} tersimpan!`);
       cacheDataGA = null; // Reset cache
@@ -422,7 +428,6 @@ app.post("/ga/submit", async (req, res) => {
       console.error("[GAGAL GAS GA]:", dataGAS);
       return res.json({ status: "error", redirectUrl: "/ga/form?success=false" });
     }
-
   } catch (error) {
     console.error("[ERROR SERVER GA]:", error.message);
     return res.json({ status: "error", redirectUrl: "/ga/form?success=false" });
