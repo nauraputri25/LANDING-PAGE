@@ -978,7 +978,17 @@
         });
 
         // 3. DOUGHNUT CHART GA PROBLEM
-        const problemPalette = ['#074173', '#1679AB', '#5DEBD7', '#C5FF95', '#94a3b8'];
+        const problemPalette = [
+  '#074173', // Navy
+  '#0F5B8E', // Medium Deep Blue
+  '#1679AB', // Ocean Blue
+  '#2095C2', // Sky Blue
+  '#32B8C6', // Teal Blue
+  '#5DEBD7', // Bright Cyan / Mint
+  '#89F2B4', // Soft Mint Green
+  '#C5FF95', // Lime Green
+  '#64748b'  // Slate Gray (untuk 'Tidak Ada Data' / Lainnya)
+];
         const problemLabels = Object.keys(problemCounts).length ? Object.keys(problemCounts) : ['Tidak Ada Data'];
         const problemData = Object.keys(problemCounts).length ? Object.values(problemCounts) : [1];
 
@@ -1018,10 +1028,10 @@
 
         // 4. STATUS BREAKDOWN CHART GA
         const statusColors = {
-            'Menunggu ACC': '#e2e8f0', 
-            'Diproses': '#bae6fd',    
-            'Pending': '#fecaca',      
-            'Selesai': '#bbf7d0'       
+            'Menunggu ACC': '#9AA5B1', 
+            'Diproses': '#ffee70',     
+            'Pending': '#d03a3a',      
+            'Selesai': '#2dae5e'      
         };
         const statusLabels = Object.keys(statusCounts);
         const statusData = Object.values(statusCounts);
