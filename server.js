@@ -407,8 +407,8 @@ app.post("/ga/submit", async (req, res) => {
         kategori: "GA",
         unit,
         nama_request,
-        kelas: nilaiLokasi,   // Kirimkan kelas
-        lokasi: nilaiLokasi,  // Kirimkan lokasi (supaya GAS baca yang mana aja tetep masuk!)
+        kelas: nilaiLokasi,   
+        lokasi: nilaiLokasi, 
         permasalahan,
         detail_permasalahan,
         fotoBase64,
