@@ -12,7 +12,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 5000
 app.use(express.json({ limit: '50mb' }));
 
 // 🔗 URL WEB APP GOOGLE APPS SCRIPT
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKg60juz5kuHZwxjy7xdicPUducMzIxg21deWLV-B63WeNA11G3hZknYwtBZuaf590/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypzp6e4GnzfJ9z-Vi-Ifp40QcQC_C49V8dYAS8N9kRNH_aoZl0MMcN-1bh5Dee9qjM/exec";
 
 // --- VARIABEL CACHE IT & GA ---
 let cacheDataIT = null;
@@ -111,7 +111,7 @@ app.get("/", async (req, res) => {
     permasalahan: row[4] || '-',
     detail: row[5] || '-',
     foto: row[6] || '',
-    status: row[7] || 'Menunggu ACC'
+    status: row[7] || 'Dalam Antrian'
   })).reverse(); 
 
   const reportsGA = rawGA.map((row, index) => ({
@@ -123,7 +123,7 @@ app.get("/", async (req, res) => {
     permasalahan: row[4] || '-',
     detail: row[5] || '-',
     foto: row[6] || '',
-    status: row[7] || 'Menunggu ACC'
+    status: row[7] || 'Dalam  Antrian'
   })).reverse(); 
 
   const statsIT = calculateStats(reportsIT);
@@ -209,7 +209,7 @@ function renderITPage(res, rawReports) {
       permasalahan: row[4] || '-',
       detail: row[5] || '-',
       foto: row[6] || '',
-      status: row[7] || 'Menunggu ACC'
+      status: row[7] || 'Dalam Antrian'
     };
   });
   
@@ -302,7 +302,7 @@ function renderGAPage(res, rawReports, querySuccess) {
       permasalahan: row[4] || '-',
       detail: row[5] || '-',
       foto: row[6] || '',
-      status: row[7] || 'Menunggu ACC'
+      status: row[7] || 'Dalam Antrian'
     };
   });
   
