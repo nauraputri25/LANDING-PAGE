@@ -683,7 +683,6 @@
           let stLower = (row.status || '').toLowerCase();
           let statusBadge = '';
           if (stLower.includes('selesai')) {
-<<<<<<< HEAD
           statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
           } else if (stLower.includes('progress') || stLower.includes('diproses')) {
             statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
@@ -692,15 +691,6 @@
           } else {
             statusBadge = `<span style="background: #eae9eb; color: #9AA5B1; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${row.status || 'Dalam Antrian'}</span>`;
           }
-=======
-            statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
-          } else if (stLower.includes('progress') || stLower.includes('diproses')) {
-            statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
-          } else {
-            statusBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">${row.status || 'Menunggu ACC'}</span>`;
-          }
-
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
           let tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${badgeCategory}</td>
@@ -783,20 +773,12 @@
         new Chart(ctxStatus, {
           type: 'bar',
           data: {
-<<<<<<< HEAD
             labels: ['Dalam Antrian', 'Diproses', 'Pending', 'Selesai'],
-=======
-            labels: ['Menunggu ACC', 'Diproses', 'Pending', 'Selesai'],
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
             datasets: [
               {
                 label: 'IT Support',
                 data: [
-<<<<<<< HEAD
                   <%= statsIT.dalam_antrian %>, 
-=======
-                  <%= statsIT.menunggu %>, 
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
                   <%= statsIT.diproses %>, 
                   <%= statsIT.pending %>, 
                   <%= statsIT.selesai %>
@@ -807,11 +789,7 @@
               {
                 label: 'General Affair (GA)',
                 data: [
-<<<<<<< HEAD
                   <%= statsGA.dalam_antrian %>, 
-=======
-                  <%= statsGA.menunggu %>, 
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
                   <%= statsGA.diproses %>, 
                   <%= statsGA.pending %>, 
                   <%= statsGA.selesai %>
