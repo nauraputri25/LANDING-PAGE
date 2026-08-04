@@ -8,7 +8,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 5000
 app.use(express.json({ limit: '50mb' }));
 
 // 🔗 URL WEB APP GOOGLE APPS SCRIPT
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKg60juz5kuHZwxjy7xdicPUducMzIxg21deWLV-B63WeNA11G3hZknYwtBZuaf590/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6TmU4P0ey1akWkQKOEeTrDT3Jl3YVaTlqTn4-0v2jnGIImewA9mrbHQArUzeiVZ7y/exec";
 
 // --- VARIABEL CACHE IT & GA ---
 let cacheDataIT = null;
