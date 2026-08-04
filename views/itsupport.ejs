@@ -825,11 +825,7 @@
             } else if (st.includes('pending')) {
                 return `<span class="badge-status badge-pending">Pending</span>`;
             } else {
-<<<<<<< HEAD
                 return `<span class="badge-status badge-acc">Dalam Antrian</span>`;
-=======
-                return `<span class="badge-status badge-acc">Menunggu ACC</span>`;
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
             }
         }
 
@@ -856,11 +852,7 @@
                 const nama = row.nama || row[2] || '-';
                 const permasalahan = row.permasalahan || row[4] || '-';
                 const detail = row.detail || row[5] || '-';
-<<<<<<< HEAD
                 const status = row.status || row[7] || ' Dalam Antrian';
-=======
-                const status = row.status || row[7] || 'Menunggu ACC';
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
 
                 tr.innerHTML = `
                     <td>${waktu}</td>
@@ -887,7 +879,6 @@
         // Render awal tabel
         renderTablePage(currentPage);
 
-
         /* =========================================================
            2. DATA PREPARATION UNTUK CHART & LEGEND
         ========================================================= */
@@ -895,11 +886,7 @@
         const dateCounts = {};
         const problemCounts = {};
         const statusCounts = {
-<<<<<<< HEAD
             'Dalam Antrian': 0,
-=======
-            'Menunggu ACC': 0,
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
             'Diproses': 0,
             'Pending': 0,
             'Selesai': 0
@@ -920,19 +907,11 @@
             problemCounts[prob] = (problemCounts[prob] || 0) + 1;
 
             // Status
-<<<<<<< HEAD
             const st = (row.status || row[7] || 'Dalam Antrian').toString().trim();
             if (st.toLowerCase().includes('selesai')) statusCounts['Selesai']++;
             else if (st.toLowerCase().includes('diproses') || st.toLowerCase().includes('proses')) statusCounts['Diproses']++;
             else if (st.toLowerCase().includes('pending')) statusCounts['Pending']++;
             else statusCounts['Dalam Antrian']++;
-=======
-            const st = (row.status || row[7] || 'Menunggu ACC').toString().trim();
-            if (st.toLowerCase().includes('selesai')) statusCounts['Selesai']++;
-            else if (st.toLowerCase().includes('diproses') || st.toLowerCase().includes('proses')) statusCounts['Diproses']++;
-            else if (st.toLowerCase().includes('pending')) statusCounts['Pending']++;
-            else statusCounts['Menunggu ACC']++;
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
         });
 
         /* =========================================================
@@ -1053,11 +1032,7 @@
 
         // 4. STATUS BREAKDOWN CHART 
         const statusColors = {
-<<<<<<< HEAD
             'Dalam Antrian': '#9AA5B1', 
-=======
-            'Menunggu ACC': '#9AA5B1', 
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
             'Diproses': '#ffee70',     
             'Pending': '#d03a3a',      
             'Selesai': '#2dae5e'       
@@ -1084,13 +1059,8 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: { 
-<<<<<<< HEAD
                     legend: { display: false }, 
                     tooltip: { enabled: true }  
-=======
-                    legend: { display: false }, // Legend bawaan off, diganti Legend Kustom
-                    tooltip: { enabled: true }  // Tetap Muncul saat Mouse Hover
->>>>>>> c8a5f6d7de34b9fcef1cf1507a82853493edbe18
                 }
             }
         });
@@ -1191,3 +1161,4 @@
     </script>
 </body>
 </html>
+
