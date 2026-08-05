@@ -1,0 +1,180 @@
+<!-- NAVBAR COMPONENT -->
+<header class="navbar-header">
+  <div class="logo-container">
+    <img src="/images/logo-kcm.png" alt="KCM Logo" class="logo-img" />
+    <div class="logo-divider"></div>
+    <span class="logo-sub">IT SUPPORT & GENERAL AFFAIR</span>
+  </div>
+
+  <!-- Tombol Hamburger (Hanya muncul di HP) -->
+  <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <!-- Navigation Links -->
+  <nav class="nav-links" id="navLinks">
+    <a href="/">Home</a>
+    <a href="/it-support">IT Support</a>
+    <a href="/ga">GA (General Affair)</a>
+    <a href="/about">About Us</a>
+  </nav>
+</header>
+
+<style>
+  /* ── 1. STYLE DESKTOP ── */
+  .navbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 50px;
+    background-color: #074173;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-img {
+    height: 32px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 22px;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .logo-sub {
+    font-size: 16px;
+    color: #5DEBD7;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    position: relative;
+    padding: 4px 0;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #ffffff;
+  }
+
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #5DEBD7;
+    border-radius: 2px;
+  }
+
+  .hamburger-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  /* ── 2. STYLE MOBILE (< 768px) ── */
+  @media (max-width: 768px) {
+    .navbar-header {
+      padding: 12px 14px;
+    }
+
+    .logo-container {
+      gap: 8px;
+    }
+
+    .logo-img {
+      height: 22px;
+    }
+
+    .logo-divider {
+      height: 16px;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .hamburger-btn {
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #074173;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px 24px;
+      gap: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .nav-links a.active::after {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Otomatis deteksi halaman aktif & tambahkan garis bawah (class 'active')
+  document.addEventListener("DOMContentLoaded", function () {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll("#navLinks a");
+
+    navLinks.forEach(link => {
+      // Hapus class active lama jika ada
+      link.classList.remove("active");
+
+      // Cek apakah href link sesuai dengan URL halaman saat ini
+      const href = link.getAttribute("href");
+      if (href === currentPath || (currentPath === "" && href === "/")) {
+        link.classList.add("active");
+      }
+    });
+
+    // Toggle menu mobile
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('active');
+      });
+    }
+  });
+</script>
