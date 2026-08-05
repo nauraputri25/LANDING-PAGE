@@ -1,14 +1,18 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const PORT = 3000;
 
+// --- KONFIGURASI VIEW ENGINE & FOLDER STATIK (Wajib Path Absolut untuk Vercel) ---
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(express.json({ limit: '50mb' }));
 
 // 🔗 URL WEB APP GOOGLE APPS SCRIPT
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6TmU4P0ey1akWkQKOEeTrDT3Jl3YVaTlqTn4-0v2jnGIImewA9mrbHQArUzeiVZ7y/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypzp6e4GnzfJ9z-Vi-Ifp40QcQC_C49V8dYAS8N9kRNH_aoZl0MMcN-1bh5Dee9qjM/exec";
 
 // --- VARIABEL CACHE IT & GA ---
 let cacheDataIT = null;
@@ -22,7 +26,7 @@ const CACHE_DURATION = 60 * 1000;
 function calculateStats(reports) {
   const stats = {
     total: reports.length,
-    menunggu: 0,
+    dalam_antrian: 0,
     diproses: 0,
     pending: 0,
     selesai: 0
@@ -30,7 +34,7 @@ function calculateStats(reports) {
 
   reports.forEach(item => {
     const status = (item.status || '').trim().toLowerCase();
-    if (status.includes('menunggu')) stats.menunggu++;
+    if (status.includes('dalam_antrian')) stats.dalam_antrian++;
     else if (status.includes('diproses')) stats.diproses++;
     else if (status.includes('pending')) stats.pending++;
     else if (status.includes('selesai')) stats.selesai++;
@@ -107,7 +111,7 @@ app.get("/", async (req, res) => {
     permasalahan: row[4] || '-',
     detail: row[5] || '-',
     foto: row[6] || '',
-    status: row[7] || 'Menunggu ACC'
+    status: row[7] || 'Dalam Antrian'
   })).reverse(); 
 
   const reportsGA = rawGA.map((row, index) => ({
@@ -119,7 +123,7 @@ app.get("/", async (req, res) => {
     permasalahan: row[4] || '-',
     detail: row[5] || '-',
     foto: row[6] || '',
-    status: row[7] || 'Menunggu ACC'
+    status: row[7] || 'Dalam  Antrian'
   })).reverse(); 
 
   const statsIT = calculateStats(reportsIT);
@@ -205,7 +209,7 @@ function renderITPage(res, rawReports) {
       permasalahan: row[4] || '-',
       detail: row[5] || '-',
       foto: row[6] || '',
-      status: row[7] || 'Menunggu ACC'
+      status: row[7] || 'Dalam Antrian'
     };
   });
   
@@ -273,7 +277,7 @@ app.post("/it-support/submit", async (req, res) => {
 
     if (dataGAS && (dataGAS.result === "success" || dataGAS.status === "success")) {
       console.log(`[SUKSES IT] Laporan dari ${nama_request} tersimpan!`);
-      cacheDataIT = null; // Reset cache
+      cacheDataIT = null; 
       return res.json({ status: "success", redirectUrl: "/it-support/form?success=true" });
     } else {
       console.error("[GAGAL GAS IT]:", dataGAS);
@@ -298,7 +302,7 @@ function renderGAPage(res, rawReports, querySuccess) {
       permasalahan: row[4] || '-',
       detail: row[5] || '-',
       foto: row[6] || '',
-      status: row[7] || 'Menunggu ACC'
+      status: row[7] || 'Dalam Antrian'
     };
   });
   
@@ -380,9 +384,8 @@ app.get("/ga/form", (req, res) => {
   res.render("ga-form", { activePage: "ga" });
 });
 
-// 3. Proses Submit GA (Perbaikan)
+// 3. Proses Submit GA
 app.post("/ga/submit", async (req, res) => {
-  // Ambil kelas ATAU lokasi dari req.body
   const { 
     unit, 
     nama_request, 
@@ -394,7 +397,6 @@ app.post("/ga/submit", async (req, res) => {
     fotoMimeType 
   } = req.body;
 
-  // Tentukan nilai lokasi/kelas agar tidak undefined
   const nilaiLokasi = lokasi || kelas || "-";
 
   try {
@@ -408,7 +410,7 @@ app.post("/ga/submit", async (req, res) => {
         unit,
         nama_request,
         kelas: nilaiLokasi,   
-        lokasi: nilaiLokasi, 
+        lokasi: nilaiLokasi,  
         permasalahan,
         detail_permasalahan,
         fotoBase64,
@@ -422,7 +424,7 @@ app.post("/ga/submit", async (req, res) => {
     
     if (dataGAS && (dataGAS.result === "success" || dataGAS.status === "success")) {
       console.log(`[SUKSES GA] Laporan dari ${nama_request} tersimpan!`);
-      cacheDataGA = null; // Reset cache
+      cacheDataGA = null; 
       return res.json({ status: "success", redirectUrl: "/ga?success=true" });
     } else {
       console.error("[GAGAL GAS GA]:", dataGAS);
@@ -434,7 +436,11 @@ app.post("/ga/submit", async (req, res) => {
   }
 });
 
-// --- JALANKAN SERVER ---
-app.listen(PORT, () => {
-  console.log(`Server berjalan dengan sukses di http://localhost:${PORT}`);
-});
+// --- JALANKAN SERVER (Kompatibel Vercel & Lokal) ---
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server berjalan dengan sukses di http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
