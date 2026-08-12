@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General Affair & Services - Cendekia Muda</title>
+    <title>General Affair - Cendekia Muda</title>
     <!-- FontAwesome & Chart.js -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,14 +20,16 @@
             --text-main: #074173;
             --text-muted: #64748b;
         }
-        * {
+        *, *::before, *::after {
             box-sizing: border-box;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body, input, select, button, textarea {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
             background-color: var(--bg-light);
             color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -35,7 +37,7 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        /* 🚀 HEADER & NAVIGATION */
+        /* HEADER & NAVIGATION */
         header {
             display: flex;
             justify-content: space-between;
@@ -99,7 +101,7 @@
             background: linear-gradient(90deg, var(--color-cyan-mint), var(--color-lime-green));
             border-radius: 2px;
         }
-        /* 🌌 HERO BANNER */
+        /* HERO BANNER */
         .hero {
             position: relative;
             padding: 130px 20px 170px 20px; 
@@ -226,7 +228,7 @@
             margin-top: 8px; 
             font-weight: 600;
         }
-        /* 📦 MAIN CONTAINER */
+        /* MAIN CONTAINER */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -332,7 +334,7 @@
             border-color: var(--color-ocean-blue);
         }
         
-        /* 📊 DASHBOARD GRID & CHARTS */
+        /* DASHBOARD GRID & CHARTS */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -378,7 +380,6 @@
             letter-spacing: 0.8px;
             margin-top: 3px;
         }
-        /* 🏷️ CHART LEGEND KUSTOM */
         .chart-legend-container {
             display: flex;
             flex-wrap: wrap;
@@ -401,7 +402,8 @@
             height: 10px;
             border-radius: 3px;
         }
-        /* 📋 TABLE STYLING HARMONIS */
+
+        /* TABLE & FILTER CONTAINER */
         .table-box-full {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -410,6 +412,97 @@
             box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
             margin-bottom: 40px;
         }
+        .table-filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            background-color: #f8fafc;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .filter-group {
+            flex: 1 1 180px;
+            min-width: 150px;
+            position: relative;
+        }
+
+        /* CUSTOM DROPDOWN STYLING (MATCHING IT SUPPORT CODE) */
+        .filter-control {
+            width: 100%;
+            padding: 0 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: #ffffff;
+            color: var(--color-dark-blue);
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            box-sizing: border-box;
+            height: 42px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+            user-select: none;
+        }
+        .custom-select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            height: 42px;
+            padding: 0 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-dark-blue);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .custom-select-trigger:hover {
+            border-color: var(--color-ocean-blue);
+        }
+        .custom-select-wrapper.open .custom-select-trigger {
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 0 0 3px rgba(22, 121, 171, 0.15);
+        }
+        .custom-select-options {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0; right: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.15);
+            z-index: 99;
+            max-height: 220px;
+            overflow-y: auto;
+            display: none;
+            padding: 6px 0;
+        }
+        .custom-select-wrapper.open .custom-select-options {
+            display: block;
+            animation: fadeDown 0.2s ease;
+        }
+        .custom-option {
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .custom-option:hover, .custom-option.selected {
+            background-color: rgba(22, 121, 171, 0.08);
+            color: var(--color-ocean-blue);
+        }
+        
         .table-responsive {
             overflow-x: auto;
         }
@@ -439,7 +532,6 @@
         .custom-table tr:hover td {
             background-color: #f8fafc;
         }
-        /* 🎨 STYLED STATUS BADGES HARMONIS */
         .badge-status {
             font-weight: 700;
             font-size: 11px;
@@ -449,22 +541,21 @@
             text-align: center;
         }
         .badge-acc {
-            background-color: #e2e8f0;
+            background-color: #CBD5E1;
             color: #475569;
         }
         .badge-proses {
-            background-color: #bae6fd;
-            color: #0369a1;
+            background-color: #FEF08A;
+            color: #854d0e;
         }
         .badge-pending {
-            background-color: #fecaca;
+            background-color: #FECDD3;
             color: #991b1b;
         }
         .badge-selesai {
-            background-color: #bbf7d0;
+            background-color: #DCFCE7;
             color: #166534;
         }
-        /* 📄 PAGINATION CONTROLS */
         .pagination-bar {
             display: flex;
             justify-content: flex-end;
@@ -506,7 +597,6 @@
             opacity: 0.4;
             cursor: not-allowed;
         }
-        /* 🔥 CALL TO ACTION BUTTON */
         .cta-box {
             text-align: center;
             margin-top: 20px;
@@ -610,7 +700,7 @@
     <!-- HEADER -->
     <%- include('navbar') %>
     
-    <!-- HERO BANNER SECTION WITH ANIMATED CANVAS BACKGROUND -->
+    <!-- HERO BANNER SECTION WITH ANIMATED CANVAS BACKGROUND & GEARS -->
     <div class="hero">
         <canvas id="ga-animation-canvas"></canvas>
         <div class="hero-inner">
@@ -623,7 +713,7 @@
         </div>
     </div>
     
-    <!-- FLOATING STATS BAR (SUMBER DATA DARI SHEET GA) -->
+    <!-- FLOATING STATS BAR -->
     <% 
         let totalLaporan = (typeof reports !== 'undefined' && Array.isArray(reports)) ? reports.length : 0; 
     %>
@@ -691,6 +781,70 @@
             <i class="fa-solid fa-table" style="color: var(--color-ocean-blue);"></i> LAPORAN GA (REAL-TIME GOOGLE SHEET GA)
         </div>
         <div class="table-box-full">
+            <!-- BARIS FILTER CUSTOM DROPDOWN -->
+            <div class="table-filter-bar">
+                <!-- DROPDOWN UNIT SEKOLAH -->
+                <div class="filter-group">
+                    <div class="custom-select-wrapper" id="unitDropdownWrapper">
+                        <div class="custom-select-trigger">
+                            <span>Pilih Unit</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="">Semua Unit</div>
+                            <div class="custom-option" data-value="DAYCARE">DAYCARE</div>
+                            <div class="custom-option" data-value="TK">TK</div>
+                            <div class="custom-option" data-value="SD AREN">SD AREN</div>
+                            <div class="custom-option" data-value="SD PURAY">SD PURAY</div>
+                            <div class="custom-option" data-value="SMP">SMP</div>
+                            <div class="custom-option" data-value="SMA">SMA</div>
+                            <div class="custom-option" data-value="UPPP">UPPP</div>
+                            <div class="custom-option" data-value="CATERING">CATERING</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DROPDOWN STATUS -->
+                <div class="filter-group">
+                    <div class="custom-select-wrapper" id="statusDropdownWrapper">
+                        <div class="custom-select-trigger">
+                            <span>Semua Status</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="">Semua Status</div>
+                            <div class="custom-option" data-value="Dalam Antrian">Dalam Antrian</div>
+                            <div class="custom-option" data-value="Diproses">Diproses</div>
+                            <div class="custom-option" data-value="Pending">Pending</div>
+                            <div class="custom-option" data-value="Selesai">Selesai</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DROPDOWN PERMASALAHAN GA -->
+                <div class="filter-group">
+                    <div class="custom-select-wrapper" id="problemDropdownWrapper">
+                        <div class="custom-select-trigger">
+                            <span>Pilih Permasalahan</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="">Semua Permasalahan</div>
+                            <div class="custom-option" data-value="AC / Pendingin Ruangan">AC / Pendingin Ruangan</div>
+                            <div class="custom-option" data-value="Kelistrikan & Lampu">Kelistrikan & Lampu</div>
+                            <div class="custom-option" data-value="Plumbing & Toilet">Plumbing & Toilet</div>
+                            <div class="custom-option" data-value="Meja, Kursi & Mebel">Meja, Kursi & Mebel</div>
+                            <div class="custom-option" data-value="Pintu, Jendela & Kunci">Pintu, Jendela & Kunci</div>
+                            <div class="custom-option" data-value="Kebersihan & Sanitasi">Kebersihan & Sanitasi</div>
+                            <div class="custom-option" data-value="Bangunan & Cat">Bangunan & Cat</div>
+                            <div class="custom-option" data-value="Lainnya">Lainnya</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- SEARCH KEYWORD -->
+                <div class="filter-group">
+                    <input type="text" id="filterKeyword" class="filter-control" placeholder="Cari Nama / Detail..." oninput="applyFilters()">
+                </div>
+            </div>
+            
             <div class="table-responsive">
                 <table class="custom-table">
                     <thead>
@@ -704,7 +858,6 @@
                         </tr>
                     </thead>
                     <tbody id="tableReportBody">
-                        <!-- Content rendered via Client-Side Script -->
                     </tbody>
                 </table>
             </div>
@@ -756,7 +909,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- LEGEND KETERANGAN WARNA -->
                 <div class="chart-legend-container" id="problemChartLegend"></div>
             </div>
             <!-- 4. STATUS BREAKDOWN CHART -->
@@ -773,7 +925,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- LEGEND KETERANGAN WARNA -->
                 <div class="chart-legend-container" id="statusChartLegend"></div>
             </div>
         </div>
@@ -791,19 +942,96 @@
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
-    <!-- SCRIPT DATA, CHARTS & ANIMATION -->
     <script>
-        // PARSE DATA DARI SHEET GA
         const rawReports = <%- typeof reports !== 'undefined' ? JSON.stringify(reports) : '[]' %>;
         
-        // Membalik urutan data agar data terbaru muncul paling atas
         const reversedReports = [...rawReports].reverse();
+        
+        let selectedUnit = '';
+        let selectedStatus = '';
+        let selectedProblem = '';
 
-        /* =========================================================
-           1. LOGIKA TABEL DENGAN PAGINASI
-        ========================================================= */
+        let filteredReports = [...reversedReports];
         let currentPage = 1;
         const rowsPerPage = 10;
+
+        // INITIALIZE CUSTOM DROPDOWNS
+        function setupCustomDropdown(wrapperId, onSelectCallback) {
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return;
+            const trigger = wrapper.querySelector('.custom-select-trigger');
+            const options = wrapper.querySelectorAll('.custom-option');
+
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                    if (w !== wrapper) w.classList.remove('open');
+                });
+                wrapper.classList.toggle('open');
+            });
+
+            options.forEach(opt => {
+                opt.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    options.forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    trigger.querySelector('span').innerText = opt.innerText;
+                    wrapper.classList.remove('open');
+                    onSelectCallback(opt.getAttribute('data-value'));
+                });
+            });
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+        });
+
+        setupCustomDropdown('unitDropdownWrapper', (val) => {
+            selectedUnit = val;
+            applyFilters();
+        });
+
+        setupCustomDropdown('statusDropdownWrapper', (val) => {
+            selectedStatus = val;
+            applyFilters();
+        });
+
+        setupCustomDropdown('problemDropdownWrapper', (val) => {
+            selectedProblem = val;
+            applyFilters();
+        });
+
+        function applyFilters() {
+            const unitVal = selectedUnit.toLowerCase();
+            const statusVal = selectedStatus.toLowerCase();
+            const problemVal = selectedProblem.toLowerCase();
+            const keywordVal = document.getElementById('filterKeyword').value.toLowerCase();
+
+            filteredReports = reversedReports.filter(row => {
+                const waktu = (row.waktu || row[0] || '').toString().toLowerCase();
+                const unit = (row.unit || row[1] || '').toString().toLowerCase();
+                const nama = (row.nama || row[2] || '').toString().toLowerCase();
+                const permasalahan = (row.permasalahan || row[4] || '').toString().toLowerCase();
+                const detail = (row.detail || row[5] || '').toString().toLowerCase();
+                const status = (row.status || row[7] || '').toString().toLowerCase();
+
+                const matchUnit = !unitVal || unit === unitVal;
+                const matchStatus = !statusVal || status.includes(statusVal);
+                const matchProblem = !problemVal || permasalahan.includes(problemVal);
+                const matchKeyword = !keywordVal || 
+                    waktu.includes(keywordVal) || 
+                    unit.includes(keywordVal) || 
+                    nama.includes(keywordVal) || 
+                    permasalahan.includes(keywordVal) || 
+                    detail.includes(keywordVal) || 
+                    status.includes(keywordVal);
+
+                return matchUnit && matchStatus && matchProblem && matchKeyword;
+            });
+
+            currentPage = 1;
+            renderTablePage(currentPage);
+        }
 
         function getStatusBadgeHTML(statusStr) {
             const st = (statusStr || '').toString().trim().toLowerCase();
@@ -822,7 +1050,7 @@
             const tbody = document.getElementById('tableReportBody');
             tbody.innerHTML = '';
 
-            if (reversedReports.length === 0) {
+            if (filteredReports.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">Belum ada data laporan GA.</td></tr>`;
                 document.getElementById('paginationInfo').innerText = `Showing 0 of 0 reports`;
                 document.getElementById('prevBtn').disabled = true;
@@ -831,8 +1059,8 @@
             }
 
             const start = (page - 1) * rowsPerPage;
-            const end = Math.min(start + rowsPerPage, reversedReports.length);
-            const pageData = reversedReports.slice(start, end);
+            const end = Math.min(start + rowsPerPage, filteredReports.length);
+            const pageData = filteredReports.slice(start, end);
 
             pageData.forEach(row => {
                 const tr = document.createElement('tr');
@@ -854,9 +1082,9 @@
                 tbody.appendChild(tr);
             });
 
-            document.getElementById('paginationInfo').innerText = `Showing ${start + 1}-${end} of ${reversedReports.length} reports`;
+            document.getElementById('paginationInfo').innerText = `Showing ${start + 1}-${end} of ${filteredReports.length} reports`;
             document.getElementById('prevBtn').disabled = (page === 1);
-            document.getElementById('nextBtn').disabled = (end >= reversedReports.length);
+            document.getElementById('nextBtn').disabled = (end >= filteredReports.length);
         }
 
         function changePage(direction) {
@@ -866,9 +1094,6 @@
 
         renderTablePage(currentPage);
 
-        /* =========================================================
-           2. DATA PREPARATION UNTUK CHART & LEGEND
-        ========================================================= */
         const unitCounts = {};
         const dateCounts = {};
         const problemCounts = {};
@@ -897,11 +1122,7 @@
             else statusCounts['Dalam Antrian']++;
         });
 
-        /* =========================================================
-           3. CHARTS GA (SENADA COLOR PALETTE BLUE / CYAN / LIME)
-        ========================================================= */
-        
-        // 1. BAR CHART GA
+        // CHARTS GA
         const ctxBar = document.getElementById('unitBarChart').getContext('2d');
         const barGrad = ctxBar.createLinearGradient(0, 0, 0, 180);
         barGrad.addColorStop(0, '#074173');
@@ -930,7 +1151,6 @@
             }
         });
 
-        // 2. LINE CHART GA
         const ctxLine = document.getElementById('trendLineChart').getContext('2d');
         const lineGrad = ctxLine.createLinearGradient(0, 0, 0, 180);
         lineGrad.addColorStop(0, 'rgba(93, 235, 215, 0.45)');
@@ -965,18 +1185,9 @@
             }
         });
 
-        // 3. DOUGHNUT CHART GA PROBLEM
         const problemPalette = [
-  '#074173', // Navy
-  '#0F5B8E', // Medium Deep Blue
-  '#1679AB', // Ocean Blue
-  '#2095C2', // Sky Blue
-  '#32B8C6', // Teal Blue
-  '#5DEBD7', // Bright Cyan / Mint
-  '#89F2B4', // Soft Mint Green
-  '#C5FF95', // Lime Green
-  '#64748b'  // Slate Gray (untuk 'Tidak Ada Data' / Lainnya)
-];
+            '#074173', '#0F5B8E', '#1679AB', '#2095C2', '#32B8C6', '#5DEBD7', '#89F2B4', '#C5FF95', '#64748b'
+        ];
         const problemLabels = Object.keys(problemCounts).length ? Object.keys(problemCounts) : ['Tidak Ada Data'];
         const problemData = Object.keys(problemCounts).length ? Object.values(problemCounts) : [1];
 
@@ -987,43 +1198,38 @@
                 labels: problemLabels,
                 datasets: [{
                     data: problemData,
-                    backgroundColor: problemPalette,
-                    borderWidth: 0,
-                    hoverOffset: 6
+                    backgroundColor: problemPalette.slice(0, problemLabels.length),
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
                 }]
             },
             options: {
-                cutout: '72%',
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { 
-                    legend: { display: false },
-                    tooltip: { enabled: true }
-                }
+                cutout: '70%',
+                plugins: { legend: { display: false } }
             }
         });
 
         const problemLegendContainer = document.getElementById('problemChartLegend');
         problemLabels.forEach((label, idx) => {
-            const color = problemPalette[idx % problemPalette.length];
-            problemLegendContainer.innerHTML += `
-                <div class="legend-item">
-                    <span class="legend-color-box" style="background-color: ${color};"></span>
-                    <span>${label}</span>
-                </div>
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `
+                <div class="legend-color-box" style="background-color: ${problemPalette[idx % problemPalette.length]}"></div>
+                <span>${label} (${problemData[idx]})</span>
             `;
+            problemLegendContainer.appendChild(item);
         });
 
-        // 4. STATUS BREAKDOWN CHART GA
-        const statusColors = {
-            'Dalam Antrian': '#9AA5B1', 
-            'Diproses': '#ffee70',     
-            'Pending': '#d03a3a',      
-            'Selesai': '#2dae5e'      
-        };
-        const statusLabels = Object.keys(statusCounts);
-        const statusData = Object.values(statusCounts);
-        const statusBgColors = statusLabels.map(lbl => statusColors[lbl]);
+        const statusLabels = ['Dalam Antrian', 'Diproses', 'Pending', 'Selesai'];
+        const statusData = [
+            statusCounts['Dalam Antrian'],
+            statusCounts['Diproses'],
+            statusCounts['Pending'],
+            statusCounts['Selesai']
+        ];
+        const statusPalette = ['#94a3b8', '#0284c7', '#ef4444', '#22c55e'];
 
         const ctxStatus = document.getElementById('statusBreakdownChart').getContext('2d');
         new Chart(ctxStatus, {
@@ -1032,139 +1238,142 @@
                 labels: statusLabels,
                 datasets: [{
                     data: statusData,
-                    backgroundColor: statusBgColors,
-                    borderWidth: 0,
-                    hoverOffset: 6
+                    backgroundColor: statusPalette,
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
                 }]
             },
             options: {
-                cutout: '72%',
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { 
-                    legend: { display: false },
-                    tooltip: { enabled: true }
-                }
+                cutout: '70%',
+                plugins: { legend: { display: false } }
             }
         });
 
         const statusLegendContainer = document.getElementById('statusChartLegend');
-        statusLabels.forEach((label) => {
-            const color = statusColors[label];
-            statusLegendContainer.innerHTML += `
-                <div class="legend-item">
-                    <span class="legend-color-box" style="background-color: ${color};"></span>
-                    <span>${label}</span>
-                </div>
+        statusLabels.forEach((label, idx) => {
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `
+                <div class="legend-color-box" style="background-color: ${statusPalette[idx]}"></div>
+                <span>${label} (${statusData[idx]})</span>
             `;
+            statusLegendContainer.appendChild(item);
         });
 
-        /* =========================================================
-           4. ANIMATED CANVAS HEADER & SCROLL REVEAL LOGIC
-        ========================================================= */
-/* ANIMASI GA: ROTATING GEARS & FLOATING PARTICLES */
-const canvas = document.getElementById('ga-animation-canvas');
-const ctx = canvas.getContext('2d');
+        /* CANVAS ANIMATION HERO (GEARS & FLOATING PARTICLES) */
+        const canvas = document.getElementById('ga-animation-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let gears = [];
 
-function resizeCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
 
-// Data 3 Roda Gerigi (Gears)
-const gears = [
-    { x: 0.12, y: 0.25, radius: 45, teeth: 8, angle: 0, speed: 0.005, color: 'rgba(93, 235, 215, 0.25)' },
-    { x: 0.88, y: 0.35, radius: 60, teeth: 12, angle: 0, speed: -0.003, color: 'rgba(197, 255, 149, 0.2)' },
-    { x: 0.82, y: 0.70, radius: 35, teeth: 8, angle: 0, speed: 0.006, color: 'rgba(93, 235, 215, 0.2)' }
-];
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(93, 235, 215, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
 
-// Data Partikel Melayang (Floating Particles)
-const particles = [];
-for (let i = 0; i < 20; i++) {
-    particles.push({
-        x: Math.random(),
-        y: Math.random(),
-        size: Math.random() * 3 + 1,
-        speedY: -(Math.random() * 0.4 + 0.1),
-        opacity: Math.random() * 0.5 + 0.2
-    });
-}
+            class Gear {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.radius = Math.random() * 18 + 12;
+                    this.teeth = Math.floor(Math.random() * 3) + 6;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.angle = Math.random() * Math.PI * 2;
+                    this.rotSpeed = (Math.random() - 0.5) * 0.02;
+                    this.opacity = Math.random() * 0.25 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.angle += this.rotSpeed;
+                    if (this.x < -40 || this.x > canvas.width + 40 || this.y < -40 || this.y > canvas.height + 40) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    ctx.fillStyle = `rgba(93, 235, 215, ${this.opacity})`;
+                    ctx.strokeStyle = `rgba(197, 255, 149, ${this.opacity})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.beginPath();
 
-// Fungsi Menggambar Gerigi
-function drawGear(cx, cy, radius, teeth, angle, color) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.translate(cx, cy);
-    ctx.rotate(angle);
-    ctx.fillStyle = color;
-    
-    const outerRadius = radius;
-    const innerRadius = radius * 0.75;
-    const holeRadius = radius * 0.3;
+                    const outerR = this.radius;
+                    const innerR = this.radius * 0.75;
+                    const holeR = this.radius * 0.3;
+                    const numTeeth = this.teeth;
 
-    for (let i = 0; i < teeth; i++) {
-        const alpha = (Math.PI * 2 / teeth) * i;
-        const alphaNext = (Math.PI * 2 / teeth) * (i + 0.5);
-        const x1 = Math.cos(alpha) * innerRadius;
-        const y1 = Math.sin(alpha) * innerRadius;
-        const x2 = Math.cos(alpha) * outerRadius;
-        const y2 = Math.sin(alpha) * outerRadius;
-        const x3 = Math.cos(alphaNext) * outerRadius;
-        const y3 = Math.sin(alphaNext) * outerRadius;
-        const x4 = Math.cos(alphaNext) * innerRadius;
-        const y4 = Math.sin(alphaNext) * innerRadius;
+                    for (let i = 0; i < numTeeth; i++) {
+                        const a1 = (i * 2 * Math.PI) / numTeeth;
+                        const a2 = a1 + Math.PI / numTeeth / 2;
+                        const a3 = a1 + Math.PI / numTeeth;
+                        const a4 = a1 + (1.5 * Math.PI) / numTeeth;
 
-        if (i === 0) ctx.moveTo(x1, y1);
-        else ctx.lineTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.lineTo(x3, y3);
-        ctx.lineTo(x4, y4);
-    }
-    ctx.closePath();
-    ctx.fill();
+                        if (i === 0) ctx.moveTo(outerR * Math.cos(a1), outerR * Math.sin(a1));
+                        else ctx.lineTo(outerR * Math.cos(a1), outerR * Math.sin(a1));
 
-    /* Lubang Tengah Gear */
-    ctx.beginPath();
-    ctx.arc(0, 0, holeRadius, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(7, 65, 115, 0.6)';
-    ctx.fill();
-    ctx.restore();
-}
+                        ctx.lineTo(outerR * Math.cos(a2), outerR * Math.sin(a2));
+                        ctx.lineTo(innerR * Math.cos(a3), innerR * Math.sin(a3));
+                        ctx.lineTo(innerR * Math.cos(a4), innerR * Math.sin(a4));
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
 
-// Loop Utama Animasi Canvas
-function animateGA() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    /* 1. Gambar & Putar Roda Gerigi (Gears) */
-    gears.forEach(g => {
-        g.angle += g.speed;
-        const posX = g.x * canvas.width;
-        const posY = g.y * canvas.height;
-        drawGear(posX, posY, g.radius, g.teeth, g.angle, g.color);
-    });
+                    ctx.beginPath();
+                    ctx.arc(0, 0, holeR, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(7, 48, 85, 0.5)';
+                    ctx.fill();
+                    ctx.stroke();
 
-    /* 2. Gerakkan Partikel Melayang ke Atas */
-    particles.forEach(p => {
-        p.y += p.speedY / canvas.height;
-        if (p.y < 0) {
-            p.y = 1;
-            p.x = Math.random();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < 35; i++) particles.push(new Particle());
+            for (let j = 0; j < 12; j++) gears.push(new Gear());
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                gears.forEach(g => { g.update(); g.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
         }
-        ctx.fillStyle = `rgba(197, 255, 149, ${p.opacity})`;
-        ctx.beginPath();
-        ctx.arc(p.x * canvas.width, p.y * canvas.height, p.size, 0, Math.PI * 2);
-        ctx.fill();
-    });
-
-    requestAnimationFrame(animateGA);
-}
-
-// Jalankan animasi
-animateGA();
-
     </script>
 </body>
 </html>
-

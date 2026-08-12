@@ -335,6 +335,50 @@
         border-color: var(--color-ocean-blue);
         box-shadow: 0 15px 30px rgba(22, 121, 171, 0.12);
       }
+      
+      /* ================= FILTER SECTION STYLES (4 FILTER) ================= */
+      .filter-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        background: #ffffff;
+        padding: 18px 20px;
+        border-radius: 14px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 24px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      }
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        text-align: center; /* Judul Filter Rata Tengah */
+      }
+      .filter-group label {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--color-dark-blue);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Label Rata Tengah */
+        gap: 6px;
+      }
+      .filter-group select, .filter-group input {
+        padding: 10px 14px;
+        font-size: 13px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background-color: #f8fafc;
+        color: var(--text-main);
+        outline: none;
+      }
+      .filter-group select:focus, .filter-group input:focus {
+        border-color: var(--color-med-blue);
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(22, 121, 171, 0.15);
+      }
 
       /* ================= STICKY TABLE & PAGINATION ================= */
       .table-container {
@@ -425,8 +469,8 @@
         font-size: 12px;
         color: var(--text-muted);
         border-top: 1px solid var(--border-color);
-            margin-top: auto;
-        }
+        margin-top: auto;
+      }
       @media (max-width: 768px) {
         header { padding: 16px 20px; }
         .hero-banner { padding: 80px 15px 140px 15px; }
@@ -460,7 +504,6 @@
     </style>
   </head>
   <body>
-
     <!-- navbar -->
     <%- include('navbar') %>
     
@@ -493,7 +536,6 @@
         </div>
       </div>
     </div>
-
     <!-- floating stats bar -->
     <div class="hero-stats-wrapper">
       <div class="hero-stats">
@@ -511,13 +553,41 @@
         </div>
       </div>
     </div>
-
     <div class="main-content-area" id="statistik">
       <h2 class="section-title"><i class="fa-solid fa-table-list"></i>MONITORING & DIAGRAM REAL-TIME</h2>
       
       <div class="dashboard-card anim-reveal">
-        
-        <!-- ================= BAGIAN 1: TABEL DATA (DI ATAS) ================= -->
+        <div class="filter-container">
+          <!-- Filter 1: Kategori -->
+          <div class="filter-group">
+            <select id="filterCategory" onchange="applyFilters()">
+              <option value="ALL">Semua Kategori</option>
+              <option value="IT Support">IT Support</option>
+              <option value="GA">General Affair (GA)</option>
+            </select>
+          </div>
+          <!-- Filter 2: Unit -->
+          <div class="filter-group">
+            <select id="filterUnit" onchange="applyFilters()">
+              <option value="ALL">Semua Unit</option>
+            </select>
+          </div>
+          <!-- Filter 3: Status -->
+          <div class="filter-group">
+            <select id="filterStatus" onchange="applyFilters()">
+              <option value="ALL">Semua Status</option>
+              <option value="selesai">Selesai</option>
+              <option value="progress">On Progress / Diproses</option>
+              <option value="pending">Pending</option>
+              <option value="antrian">Dalam Antrian</option>
+            </select>
+          </div>
+          <!-- Filter 4: Kata Kunci -->
+          <div class="filter-group">
+            <input type="text" id="filterSearch" placeholder="Cari nama / kendala..." onkeyup="applyFilters()" />
+          </div>
+        </div>
+
         <h3 style="color: var(--color-nav-bg); font-size: 22px; margin-bottom: 6px; text-align: center; margin-bottom: 24px; margin-top: 24px;">Daftar Riwayat Terbaru (Gabungan IT & GA)</h3>
         
         <div class="table-container" style="margin-bottom: 40px;">
@@ -546,9 +616,7 @@
             <div class="pagination-buttons" id="paginationButtons"></div>
           </div>
         </div>
-
         <hr style="border: 0; border-top: 1px dashed var(--border-color); margin-bottom: 35px;" />
-
         <!-- ================= BAGIAN 2: GRAFIK & STATISTIK (DI BAWAH) ================= -->
         <h3 style="color: var(--color-nav-bg); font-size: 22px; margin-bottom: 6px; text-align: center; margin-bottom: 24px; margin-top: 24px;">Perbandingan & Status Layanan Maintenance</h3>
         <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 24px;">Visualisasi statistik pengajuan IT Support & General Affair</p>
@@ -568,83 +636,139 @@
             <canvas id="statusComparisonChart" style="max-height: 250px;"></canvas>
           </div>
         </div>
-
         <!-- GRID BARIS 2: UNIT TERBANYAK BIKIN LAPORAN -->
         <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-color);">
           <h4 style="color: var(--color-nav-bg); font-size: 18px; margin-bottom: 12px; text-align: center;"><i class="fa-solid fa-building" style="margin-right: 6px;"></i>Top 5 Unit Terbanyak Mengajukan Laporan</h4>
           <canvas id="topUnitChart" style="max-height: 260px;"></canvas>
         </div>
-
       </div>
     </div>
-
     <footer>
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
-
     <script>
       // Dapatkan Data dari Server/EJS
       const rawIT = <%- JSON.stringify(typeof reportsIT !== "undefined" ? reportsIT : []) %>;
       const rawGA = <%- JSON.stringify(typeof reportsGA !== "undefined" ? reportsGA : []) %>;
-
-      // Variable Pagination
+      // Variable Pagination & Filtering
       let currentPage = 1;
       const rowsPerPage = 10;
       let combinedReports = [];
+      let filteredReports = [];
 
       function processAndRenderData() {
         let totalTiket = rawIT.length + rawGA.length;
         let totalSelesai = 0;
         let totalProgress = 0;
-
         let statusStats = {
           IT: { selesai: 0, progress: 0, waiting: 0 },
           GA: { selesai: 0, progress: 0, waiting: 0 }
         };
-
         let unitCounts = {};
-
         // Hitung Data IT
         rawIT.forEach(item => {
           const st = (item.status || '').toLowerCase();
           if (st.includes('selesai')) { statusStats.IT.selesai++; totalSelesai++; }
           else if (st.includes('progress') || st.includes('diproses')) { statusStats.IT.progress++; totalProgress++; }
           else { statusStats.IT.waiting++; }
-
           let unitName = item.unit ? item.unit.trim().toUpperCase() : 'LAINNYA';
           unitCounts[unitName] = (unitCounts[unitName] || 0) + 1;
         });
-
         // Hitung Data GA
         rawGA.forEach(item => {
           const st = (item.status || '').toLowerCase();
           if (st.includes('selesai')) { statusStats.GA.selesai++; totalSelesai++; }
           else if (st.includes('progress') || st.includes('diproses')) { statusStats.GA.progress++; totalProgress++; }
           else { statusStats.GA.waiting++; }
-
           let unitName = item.unit ? item.unit.trim().toUpperCase() : 'LAINNYA';
           unitCounts[unitName] = (unitCounts[unitName] || 0) + 1;
         });
-
         // Update Floating Stats Card
         document.getElementById('statTotal').textContent = totalTiket;
         document.getElementById('statSelesai').textContent = totalSelesai;
         document.getElementById('statProgress').textContent = totalProgress;
-
         // Sorting Unit Terbanyak
         let sortedUnits = Object.keys(unitCounts).map(key => ({
           unit: key,
           count: unitCounts[key]
         })).sort((a, b) => b.count - a.count).slice(0, 5);
-
         // Gabungkan Laporan dan Urutkan Terbaru
         combinedReports = [
           ...rawIT.map(r => ({ ...r, categoryTag: 'IT Support' })),
           ...rawGA.map(r => ({ ...r, categoryTag: 'GA' }))
         ].reverse();
+        
+        // Populate Opsi Dropdown Unit secara Dinamis
+        populateUnitFilterOptions();
 
+        filteredReports = [...combinedReports];
         renderTablePage(currentPage);
         renderCharts(rawIT.length, rawGA.length, statusStats, sortedUnits);
+      }
+
+      // ISI DROPDOWN FILTER UNIT SECARA DINAMIS BERSERTA WARNA/URUTAN
+      function populateUnitFilterOptions() {
+        const unitSelect = document.getElementById('filterUnit');
+        unitSelect.innerHTML = '<option value="ALL">Semua Unit</option>'; // Reset opsi terlebih dahulu
+        
+        const unitsSet = new Set();
+        combinedReports.forEach(r => {
+          if (r.unit && r.unit.trim() !== '' && r.unit.trim() !== '-') {
+            unitsSet.add(r.unit.trim().toUpperCase());
+          }
+        });
+        Array.from(unitsSet).sort().forEach(u => {
+          const opt = document.createElement('option');
+          opt.value = u;
+          opt.textContent = u;
+          unitSelect.appendChild(opt);
+        });
+      }
+
+      // FUNGSI UNTUK MENJALANKAN 4 FILTER REAL-TIME
+      function applyFilters() {
+        const catValue = document.getElementById('filterCategory').value;
+        const unitValue = document.getElementById('filterUnit').value;
+        const statusValue = document.getElementById('filterStatus').value;
+        const searchValue = document.getElementById('filterSearch').value.toLowerCase().trim();
+
+        filteredReports = combinedReports.filter(row => {
+          // 1. Filter Kategori
+          let matchCategory = true;
+          if (catValue !== 'ALL') {
+            matchCategory = row.categoryTag === catValue;
+          }
+
+          // 2. Filter Unit
+          let matchUnit = true;
+          if (unitValue !== 'ALL') {
+            let rowUnit = (row.unit || '').trim().toUpperCase();
+            matchUnit = rowUnit === unitValue;
+          }
+
+          // 3. Filter Status
+          let matchStatus = true;
+          if (statusValue !== 'ALL') {
+            let stLower = (row.status || '').toLowerCase();
+            if (statusValue === 'selesai') matchStatus = stLower.includes('selesai');
+            else if (statusValue === 'progress') matchStatus = stLower.includes('progress') || stLower.includes('diproses');
+            else if (statusValue === 'pending') matchStatus = stLower.includes('pending');
+            else if (statusValue === 'antrian') matchStatus = !stLower.includes('selesai') && !stLower.includes('progress') && !stLower.includes('diproses') && !stLower.includes('pending');
+          }
+
+          // 4. Filter Kata Kunci
+          let matchSearch = true;
+          if (searchValue !== '') {
+            const nama = (row.nama || '').toLowerCase();
+            const kendala = (row.permasalahan || '').toLowerCase();
+            matchSearch = nama.includes(searchValue) || kendala.includes(searchValue);
+          }
+
+          return matchCategory && matchUnit && matchStatus && matchSearch;
+        });
+
+        currentPage = 1;
+        renderTablePage(currentPage);
       }
 
       // FUNSI RENDER PAGINATION TABLE
@@ -652,27 +776,23 @@
         currentPage = page;
         const tableBody = document.getElementById('tableBody');
         tableBody.innerHTML = '';
-
-        if (combinedReports.length === 0) {
-          tableBody.innerHTML = `<tr><td colspan="6" style="padding: 20px; text-align: center; color: var(--text-muted);">Belum ada data pengajuan.</td></tr>`;
+        if (filteredReports.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="6" style="padding: 20px; text-align: center; color: var(--text-muted);">Tidak ada data pengajuan yang cocok.</td></tr>`;
           document.getElementById('paginationInfo').textContent = 'Menampilkan 0 data';
           document.getElementById('paginationButtons').innerHTML = '';
           return;
         }
-
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        const pageData = combinedReports.slice(start, end);
-
+        const pageData = filteredReports.slice(start, end);
         pageData.forEach(row => {
           let badgeCategory = row.categoryTag === 'IT Support' 
             ? `<span style="background: #e0f2fe; color: #1679AB; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">IT Support</span>`
             : `<span style="background: #e8f9ff; color: #5DEBD7; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">GA</span>`;
-
           let stLower = (row.status || '').toLowerCase();
           let statusBadge = '';
           if (stLower.includes('selesai')) {
-          statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
+            statusBadge = `<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">Selesai</span>`;
           } else if (stLower.includes('progress') || stLower.includes('diproses')) {
             statusBadge = `<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;">On Progress</span>`;
           } else if (stLower.includes('pending')) {
@@ -691,24 +811,19 @@
           `;
           tableBody.appendChild(tr);
         });
-
         // Update Info Pagination
-        const totalItems = combinedReports.length;
+        const totalItems = filteredReports.length;
         const startShowing = start + 1;
         const endShowing = Math.min(end, totalItems);
         document.getElementById('paginationInfo').textContent = `Menampilkan ${startShowing}-${endShowing} dari ${totalItems} data`;
-
         // Render Tombol Pagination
         renderPaginationButtons(totalItems);
       }
-
       function renderPaginationButtons(totalItems) {
         const totalPages = Math.ceil(totalItems / rowsPerPage);
         const buttonsContainer = document.getElementById('paginationButtons');
         buttonsContainer.innerHTML = '';
-
         if (totalPages <= 1) return;
-
         // Tombol Prev
         const prevBtn = document.createElement('button');
         prevBtn.className = 'page-btn';
@@ -716,7 +831,6 @@
         prevBtn.disabled = currentPage === 1;
         prevBtn.onclick = () => renderTablePage(currentPage - 1);
         buttonsContainer.appendChild(prevBtn);
-
         // Angka Halaman
         for (let i = 1; i <= totalPages; i++) {
           const pageBtn = document.createElement('button');
@@ -725,7 +839,6 @@
           pageBtn.onclick = () => renderTablePage(i);
           buttonsContainer.appendChild(pageBtn);
         }
-
         // Tombol Next
         const nextBtn = document.createElement('button');
         nextBtn.className = 'page-btn';
@@ -734,7 +847,6 @@
         nextBtn.onclick = () => renderTablePage(currentPage + 1);
         buttonsContainer.appendChild(nextBtn);
       }
-
       function renderCharts(countIT, countGA, statusStats, topUnits) {
         // 1. DOUGHNUT CHART PERBANDINGAN IT VS GA
         const ctxPie = document.getElementById('comparisonPieChart').getContext('2d');
@@ -756,7 +868,6 @@
             }
           }
         });
-
         // 2. GROUPED BAR CHART
         const ctxStatus = document.getElementById('statusComparisonChart').getContext('2d');
         new Chart(ctxStatus, {
@@ -793,7 +904,6 @@
             scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
           }
         });
-
         // 3. BAR CHART TOP 5 UNIT TERBANYAK
         const ctxUnit = document.getElementById('topUnitChart').getContext('2d');
         new Chart(ctxUnit, {
@@ -818,9 +928,7 @@
           }
         });
       }
-
       processAndRenderData();
-
       /* ================= SCROLL REVEAL ================= */
       const revealEls = document.querySelectorAll('.anim-reveal');
       const revealObserver = new IntersectionObserver(entries => {
@@ -832,32 +940,27 @@
         });
       }, { threshold: 0.1 });
       revealEls.forEach(el => revealObserver.observe(el));
-
       /* ================= ANIMASI PARTIKEL JARINGAN ================= */
       const particleCanvas = document.getElementById('heroParticleCanvas');
       const pCtx = particleCanvas.getContext('2d');
       let particles = [];
       const maxLinkDistance = 150;
       let mouse = { x: null, y: null, radius: 130 };
-
       particleCanvas.addEventListener('mousemove', (e) => {
         const rect = particleCanvas.getBoundingClientRect();
         mouse.x = e.clientX - rect.left;
         mouse.y = e.clientY - rect.top;
       });
-
       particleCanvas.addEventListener('mouseleave', () => {
         mouse.x = null;
         mouse.y = null;
       });
-
       function resizeParticleCanvas() {
         if (!particleCanvas) return;
         particleCanvas.width = particleCanvas.parentElement.offsetWidth;
         particleCanvas.height = particleCanvas.parentElement.offsetHeight;
         initParticles();
       }
-
       function initParticles() {
         particles = [];
         const w = particleCanvas.width;
@@ -875,19 +978,15 @@
           });
         }
       }
-
       function drawParticles() {
         const w = particleCanvas.width;
         const h = particleCanvas.height;
         pCtx.clearRect(0, 0, w, h);
-
         particles.forEach(p => {
           p.x += p.vx;
           p.y += p.vy;
-
           if (p.x < 0 || p.x > w) p.vx *= -1;
           if (p.y < 0 || p.y > h) p.vy *= -1;
-
           if (mouse.x !== null && mouse.y !== null) {
             let dx = mouse.x - p.x;
             let dy = mouse.y - p.y;
@@ -898,10 +997,8 @@
               p.y -= (dy / dist) * force * 1.5;
             }
           }
-
           p.pulse += 0.04;
         });
-
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const a = particles[i];
@@ -909,7 +1006,6 @@
             const dx = a.x - b.x;
             const dy = a.y - b.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-
             if (dist < maxLinkDistance) {
               const opacity = (1 - dist / maxLinkDistance) * 0.3;
               pCtx.beginPath();
@@ -920,13 +1016,11 @@
               pCtx.stroke();
             }
           }
-
           if (mouse.x !== null && mouse.y !== null) {
             const a = particles[i];
             const dx = a.x - mouse.x;
             const dy = a.y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-
             if (dist < mouse.radius) {
               const opacity = (1 - dist / mouse.radius) * 0.45;
               pCtx.beginPath();
@@ -938,11 +1032,9 @@
             }
           }
         }
-
         particles.forEach(p => {
           let currentR = p.r + Math.sin(p.pulse) * 0.6;
           if (currentR < 0.5) currentR = 0.5;
-
           pCtx.beginPath();
           pCtx.arc(p.x, p.y, currentR, 0, Math.PI * 2);
           pCtx.fillStyle = `rgba(${p.color}, 0.95)`;
@@ -951,14 +1043,11 @@
           pCtx.fill();
           pCtx.shadowBlur = 0;
         });
-
         requestAnimationFrame(drawParticles);
       }
-
       window.addEventListener('resize', resizeParticleCanvas);
       resizeParticleCanvas();
       drawParticles();
     </script>
   </body>
 </html>
-

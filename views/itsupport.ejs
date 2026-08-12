@@ -371,7 +371,6 @@
             letter-spacing: 0.8px;
             margin-top: 3px;
         }
-
         /* 🏷️ CHART LEGEND KUSTOM DI BAWAH CHART */
         .chart-legend-container {
             display: flex;
@@ -395,8 +394,7 @@
             height: 10px;
             border-radius: 3px;
         }
-
-        /* 📋 TABLE STYLING */
+        /* 📋 TABLE & FILTER STYLING */
         .table-box-full {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -405,6 +403,97 @@
             box-shadow: 0 10px 25px rgba(7, 65, 115, 0.05);
             margin-bottom: 40px;
         }
+        .table-filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            background-color: #f8fafc;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .filter-group {
+            flex: 1 1 180px;
+            min-width: 150px;
+            position: relative;
+        }
+        .filter-control {
+            width: 100%;
+            padding: 0 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: #ffffff;
+            color: var(--color-dark-blue);
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            box-sizing: border-box;
+            height: 42px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Custom Dropdown Styling */
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+            user-select: none;
+        }
+        .custom-select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            height: 42px;
+            padding: 0 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-dark-blue);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .custom-select-trigger:hover {
+            border-color: var(--color-ocean-blue);
+        }
+        .custom-select-wrapper.open .custom-select-trigger {
+            border-color: var(--color-ocean-blue);
+            box-shadow: 0 0 0 3px rgba(22, 121, 171, 0.15);
+        }
+        .custom-select-options {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0; right: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(7, 65, 115, 0.15);
+            z-index: 99;
+            max-height: 220px;
+            overflow-y: auto;
+            display: none;
+            padding: 6px 0;
+        }
+        .custom-select-wrapper.open .custom-select-options {
+            display: block;
+            animation: fadeDown 0.2s ease;
+        }
+        .custom-option {
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .custom-option:hover, .custom-option.selected {
+            background-color: rgba(22, 121, 171, 0.08);
+            color: var(--color-ocean-blue);
+        }
+
         .table-responsive {
             overflow-x: auto;
         }
@@ -434,7 +523,6 @@
         .custom-table tr:hover td {
             background-color: #f8fafc;
         }
-
         /* 🎨 STYLED STATUS BADGES (MATCHING GOOGLE SHEET DROPDOWN) */
         .badge-status {
             font-weight: 700;
@@ -460,7 +548,6 @@
             background-color: #DCFCE7;
             color: #166534;
         }
-
         /* 📄 PAGINATION CONTROLS */
         .pagination-bar {
             display: flex;
@@ -503,7 +590,6 @@
             opacity: 0.4;
             cursor: not-allowed;
         }
-
         /* 🔥 CALL TO ACTION BUTTON */
         .cta-box {
             text-align: center;
@@ -600,10 +686,9 @@
     </style>
 </head>
 <body>
-
     <!-- HEADER -->
     <%- include('navbar') %>
-
+    
     <!-- HERO BANNER SECTION -->
     <div class="hero">
         <canvas id="heroCableCanvas"></canvas>
@@ -640,93 +725,157 @@
         </div>
     </div>
 
-<main class="container">
-    <!-- SECTION TIM IT SUPPORT -->
-    <div class="section-header">
-        <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM LUMINOED
-    </div>
-    <div class="team-grid">
-        
-        <!-- ANGGOTA TIM 1 -->
-        <div class="team-card">
-            <div class="team-body">
-                <div class="avatar-wrapper">
-                    <img src="/images/profile.png" alt="Yogi Satoto">
-                </div>
-                <div class="team-info">
-                    <h3> Yogi Satoto, S.Si.</h3>
-                    <div class="role-badge"> Kepala Departemen Pengembangan Teknologi dan Marketing</div>
-                    <div class="contact-list">
-                        <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 102</span>
-                        <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0812-xxxx-xxxx</span>
+    <main class="container">
+        <!-- SECTION TIM IT SUPPORT -->
+        <div class="section-header">
+            <i class="fa-solid fa-users-gear" style="color: var(--color-ocean-blue);"></i> TIM LUMINOED
+        </div>
+        <div class="team-grid">
+            <!-- ANGGOTA TIM 1 -->
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="/images/profile.png" alt="Yogi Satoto">
+                    </div>
+                    <div class="team-info">
+                        <h3> Yogi Satoto, S.Si.</h3>
+                        <div class="role-badge"> Kepala Departemen Pengembangan Teknologi dan Marketing</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 102</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0812-xxxx-xxxx</span>
+                        </div>
                     </div>
                 </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
             </div>
-            <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
-        </div>
-
-        <!-- ANGGOTA TIM 2 -->
-        <div class="team-card">
-            <div class="team-body">
-                <div class="avatar-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Irvan Dzulfajar">
-                </div>
-                <div class="team-info">
-                    <h3> Irvan Dzulfajar</h3>
-                    <div class="role-badge"> Manager Litbang, Teknologi & IT</div>
-                    <div class="contact-list">
-                        <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 103</span>
-                        <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0813-xxxx-xxxx</span>
+            <!-- ANGGOTA TIM 2 -->
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="/images/profile.png" alt="Irvan Dzulfajar">
+                    </div>
+                    <div class="team-info">
+                        <h3> Irvan Dzulfajar</h3>
+                        <div class="role-badge"> Manager Litbang, Teknologi & IT</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 103</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0813-xxxx-xxxx</span>
+                        </div>
                     </div>
                 </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
             </div>
-            <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
-        </div>
-
-        <!-- ANGGOTA TIM 3 -->
-        <div class="team-card">
-            <div class="team-body">
-                <div class="avatar-wrapper">
-                    <img src="/images/profile.png" alt="Mochamad Khosy">
-                </div>
-                <div class="team-info">
-                    <h3> Mochamad Khosy Nurhayat Firdaus</h3>
-                    <div class="role-badge"> Staff IT</div>
-                    <div class="contact-list">
-                        <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 102</span>
-                        <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0812-xxxx-xxxx</span>
+            <!-- ANGGOTA TIM 3 -->
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="/images/profile.png" alt="Mochamad Khosy">
+                    </div>
+                    <div class="team-info">
+                        <h3> Mochamad Khosy Nurhayat Firdaus</h3>
+                        <div class="role-badge"> Staff IT</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 102</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0812-xxxx-xxxx</span>
+                        </div>
                     </div>
                 </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
             </div>
-            <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
-        </div>
-
-        <!-- ANGGOTA TIM 4 -->
-        <div class="team-card">
-            <div class="team-body">
-                <div class="avatar-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Harisma Permana">
-                </div>
-                <div class="team-info">
-                    <h3>Harisma Permana</h3>
-                    <div class="role-badge"> Staff IT</div>
-                    <div class="contact-list">
-                        <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 103</span>
-                        <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0813-xxxx-xxxx</span>
+            <!-- ANGGOTA TIM 4 -->
+            <div class="team-card">
+                <div class="team-body">
+                    <div class="avatar-wrapper">
+                        <img src="/images/profile.png" alt="Harisma Permana">
+                    </div>
+                    <div class="team-info">
+                        <h3>Harisma Permana</h3>
+                        <div class="role-badge"> Staff IT</div>
+                        <div class="contact-list">
+                            <span><i class="fa-solid fa-phone" style="width: 14px;"></i> Ext: 103</span>
+                            <span><i class="fa-brands fa-whatsapp" style="width: 14px;"></i> WA: 0813-xxxx-xxxx</span>
+                        </div>
                     </div>
                 </div>
+                <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
             </div>
-            <a href="https://wa.me/" target="_blank" class="btn-contact">Hubungi</a>
-        </div>
+        </div> 
 
-    </div> 
-</main>
-
-        <!-- SECTION DATA TABEL DARI GOOGLE SHEET DENGAN PAGINASI -->
+        <!-- SECTION DATA TABEL DARI GOOGLE SHEET DENGAN FILTER & PAGINASI -->
         <div class="section-header">
             <i class="fa-solid fa-table" style="color: var(--color-ocean-blue);"></i> LAPORAN MAINTENANCE (REAL-TIME GOOGLE SHEET)
         </div>
         <div class="table-box-full">
+            <!-- FILTER BAR (UNIT, KATEGORI IT, STATUS, SEARCH) -->
+            <div class="table-filter-bar">
+                <!-- DROPDOWN UNIT SEKOLAH -->
+                <div class="filter-group">
+                    <div class="custom-select-wrapper" id="unitDropdownWrapper">
+                        <div class="custom-select-trigger">
+                            <span>Pilih Unit</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="">Semua Unit</div>
+                            <div class="custom-option" data-value="Daycare">Daycare</div>
+                            <div class="custom-option" data-value="TK">TK</div>
+                            <div class="custom-option" data-value="SD AREN">SD AREN</div>
+                            <div class="custom-option" data-value="SD PURAY">SD PURAY</div>
+                            <div class="custom-option" data-value="SD BILINGUAL">SD BILINGUAL</div>
+                            <div class="custom-option" data-value="SD MAKASSAR">SD MAKASSAR</div>
+                            <div class="custom-option" data-value="SMP">SMP</div>
+                            <div class="custom-option" data-value="SMA">SMA</div>
+                            <div class="custom-option" data-value="UPPP">UPPP</div>
+                            <div class="custom-option" data-value="Catering">Catering</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DROPDOWN KATEGORI IT -->
+                <div class="filter-group">
+                    <div class="custom-select-wrapper" id="problemDropdownWrapper">
+                        <div class="custom-select-trigger">
+                            <span>Pilih Kategori IT</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="">Semua Kategori</div>
+                            <div class="custom-option" data-value="Internet / Wi-Fi">Internet / Wi-Fi</div>
+                            <div class="custom-option" data-value="Komputer / Laptop">Komputer / Laptop</div>
+                            <div class="custom-option" data-value="Printer / Scanner">Printer / Scanner</div>
+                            <div class="custom-option" data-value="Webcam">Webcam</div>
+                            <div class="custom-option" data-value="Microphone / Audio">Microphone / Audio</div>
+                            <div class="custom-option" data-value="TV / Display">TV / Display</div>
+                            <div class="custom-option" data-value="Projector">Projector</div>
+                            <div class="custom-option" data-value="Sistem / Aplikasi">Sistem / Aplikasi</div>
+                            <div class="custom-option" data-value="Lainnya">Lainnya</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DROPDOWN STATUS -->
+                <div class="filter-group">
+                    <div class="custom-select-wrapper" id="statusDropdownWrapper">
+                        <div class="custom-select-trigger">
+                            <span>Semua Status</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="">Semua Status</div>
+                            <div class="custom-option" data-value="Dalam Antrian">Dalam Antrian</div>
+                            <div class="custom-option" data-value="Diproses">Diproses</div>
+                            <div class="custom-option" data-value="Pending">Pending</div>
+                            <div class="custom-option" data-value="Selesai">Selesai</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEARCH KEYWORD -->
+                <div class="filter-group">
+                    <input type="text" id="filterKeyword" class="filter-control" placeholder="Cari Nama / Detail..." oninput="applyFilters()">
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="custom-table">
                     <thead>
@@ -770,7 +919,6 @@
                     <canvas id="unitBarChart"></canvas>
                 </div>
             </div>
-
             <!-- 2. LINE CHART: TREN LAPORAN -->
             <div class="card-box">
                 <div class="section-header" style="font-size: 13px; margin-bottom: 14px;">
@@ -780,7 +928,6 @@
                     <canvas id="trendLineChart"></canvas>
                 </div>
             </div>
-
             <!-- 3. DOUGHNUT CHART: PERMASALAHAN IT -->
             <div class="card-box">
                 <div>
@@ -798,7 +945,6 @@
                 <!-- LEGEND KETERANGAN WARNA -->
                 <div class="chart-legend-container" id="problemChartLegend"></div>
             </div>
-
             <!-- 4. STATUS BREAKDOWN CHART -->
             <div class="card-box">
                 <div>
@@ -831,16 +977,104 @@
         <p>© 2026 PORTAL MAINTENANCE INTERNAL - CENDEKIA MUDA. All rights reserved.</p>
     </footer>
 
-    <!-- SCRIPT DATA & CHARTS -->
+    <!-- SCRIPT DATA, FILTER & CHARTS -->
     <script>
         // PARSE DATA DARI EXPRESS/EJS SEBAGAI ARRAY JAVASCRIPT
         const rawReports = <%- typeof reports !== 'undefined' ? JSON.stringify(reports) : '[]' %>;
         
         // Membalik urutan data agar data terbaru muncul paling atas
         const reversedReports = [...rawReports].reverse();
+        let filteredReports = [...reversedReports];
 
         /* =========================================================
-           1. LOGIKA TABEL DENGAN PAGINASI (MAX 10 PER HALAMAN)
+           1. LOGIKA CUSTOM DROPDOWN & FILTER TABEL
+        ========================================================= */
+        let filterValues = {
+            unit: '',
+            status: '',
+            problem: ''
+        };
+
+        function setupCustomDropdown(wrapperId, onSelectCallback) {
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return;
+            const trigger = wrapper.querySelector('.custom-select-trigger');
+            const optionsContainer = wrapper.querySelector('.custom-select-options');
+
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                    if (w !== wrapper) w.classList.remove('open');
+                });
+                wrapper.classList.toggle('open');
+            });
+
+            optionsContainer.addEventListener('click', (e) => {
+                const opt = e.target.closest('.custom-option');
+                if (!opt) return;
+                
+                optionsContainer.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                
+                const val = opt.getAttribute('data-value');
+                const text = opt.textContent;
+                
+                trigger.querySelector('span').textContent = text;
+                wrapper.classList.remove('open');
+
+                onSelectCallback(val);
+            });
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+        });
+
+        // Initialize Dropdowns
+        setupCustomDropdown('unitDropdownWrapper', (val) => {
+            filterValues.unit = val.toLowerCase().trim();
+            applyFilters();
+        });
+
+        setupCustomDropdown('statusDropdownWrapper', (val) => {
+            filterValues.status = val.toLowerCase().trim();
+            applyFilters();
+        });
+
+        setupCustomDropdown('problemDropdownWrapper', (val) => {
+            filterValues.problem = val.toLowerCase().trim();
+            applyFilters();
+        });
+
+        function applyFilters() {
+            const keyword = document.getElementById('filterKeyword').value.toLowerCase().trim();
+            
+            filteredReports = reversedReports.filter(row => {
+                const unit = (row.unit || row[1] || '').toString().toLowerCase();
+                const statusRaw = (row.status || row[7] || 'Dalam Antrian').toString().toLowerCase();
+                const problem = (row.permasalahan || row[4] || '').toString().toLowerCase();
+                const nama = (row.nama || row[2] || '').toString().toLowerCase();
+                const detail = (row.detail || row[5] || '').toString().toLowerCase();
+                
+                let statusGroup = 'dalam antrian';
+                if (statusRaw.includes('selesai')) statusGroup = 'selesai';
+                else if (statusRaw.includes('diproses') || statusRaw.includes('proses')) statusGroup = 'diproses';
+                else if (statusRaw.includes('pending')) statusGroup = 'pending';
+
+                const matchUnit = !filterValues.unit || unit.includes(filterValues.unit);
+                const matchStatus = !filterValues.status || statusGroup === filterValues.status;
+                const matchProblem = !filterValues.problem || problem.includes(filterValues.problem);
+                const matchKeyword = !keyword || nama.includes(keyword) || detail.includes(keyword) || problem.includes(keyword);
+
+                return matchUnit && matchStatus && matchProblem && matchKeyword;
+            });
+
+            currentPage = 1;
+            renderTablePage(currentPage);
+        }
+
+        /* =========================================================
+           2. LOGIKA TABEL DENGAN PAGINASI (MAX 10 PER HALAMAN)
         ========================================================= */
         let currentPage = 1;
         const rowsPerPage = 10;
@@ -861,18 +1095,16 @@
         function renderTablePage(page) {
             const tbody = document.getElementById('tableReportBody');
             tbody.innerHTML = '';
-
-            if (reversedReports.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">Belum ada data laporan.</td></tr>`;
+            if (filteredReports.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">Belum ada data laporan yang sesuai.</td></tr>`;
                 document.getElementById('paginationInfo').innerText = `Showing 0 of 0 reports`;
                 document.getElementById('prevBtn').disabled = true;
                 document.getElementById('nextBtn').disabled = true;
                 return;
             }
-
             const start = (page - 1) * rowsPerPage;
-            const end = Math.min(start + rowsPerPage, reversedReports.length);
-            const pageData = reversedReports.slice(start, end);
+            const end = Math.min(start + rowsPerPage, filteredReports.length);
+            const pageData = filteredReports.slice(start, end);
 
             pageData.forEach(row => {
                 const tr = document.createElement('tr');
@@ -881,8 +1113,7 @@
                 const nama = row.nama || row[2] || '-';
                 const permasalahan = row.permasalahan || row[4] || '-';
                 const detail = row.detail || row[5] || '-';
-                const status = row.status || row[7] || ' Dalam Antrian';
-
+                const status = row.status || row[7] || 'Dalam Antrian';
                 tr.innerHTML = `
                     <td>${waktu}</td>
                     <td><b>${unit}</b></td>
@@ -894,10 +1125,9 @@
                 tbody.appendChild(tr);
             });
 
-            // Update keterangan pagination
-            document.getElementById('paginationInfo').innerText = `Showing ${start + 1}-${end} of ${reversedReports.length} reports`;
+            document.getElementById('paginationInfo').innerText = `Showing ${start + 1}-${end} of ${filteredReports.length} reports`;
             document.getElementById('prevBtn').disabled = (page === 1);
-            document.getElementById('nextBtn').disabled = (end >= reversedReports.length);
+            document.getElementById('nextBtn').disabled = (end >= filteredReports.length);
         }
 
         function changePage(direction) {
@@ -909,7 +1139,7 @@
         renderTablePage(currentPage);
 
         /* =========================================================
-           2. DATA PREPARATION UNTUK CHART & LEGEND
+           3. DATA PREPARATION UNTUK CHART & LEGEND
         ========================================================= */
         const unitCounts = {};
         const dateCounts = {};
@@ -920,22 +1150,17 @@
             'Pending': 0,
             'Selesai': 0
         };
-
         rawReports.forEach(row => {
-            // Unit
             const u = row.unit || row[1] || 'Lainnya';
             unitCounts[u] = (unitCounts[u] || 0) + 1;
 
-            // Date
             const dt = row.waktu || row[0] || 'Unknown';
             const cleanDate = dt.split(',')[0].split(' ')[0] || dt;
             dateCounts[cleanDate] = (dateCounts[cleanDate] || 0) + 1;
 
-            // Problem
             const prob = row.permasalahan || row[4] || 'Lainnya';
             problemCounts[prob] = (problemCounts[prob] || 0) + 1;
 
-            // Status
             const st = (row.status || row[7] || 'Dalam Antrian').toString().trim();
             if (st.toLowerCase().includes('selesai')) statusCounts['Selesai']++;
             else if (st.toLowerCase().includes('diproses') || st.toLowerCase().includes('proses')) statusCounts['Diproses']++;
@@ -944,9 +1169,8 @@
         });
 
         /* =========================================================
-           3. INVENTARISIR CHARTS (CHART.JS)
+           4. INVENTARISIR CHARTS (CHART.JS)
         ========================================================= */
-        
         // 1. BAR CHART: LAPORAN PER UNIT
         const ctxBar = document.getElementById('unitBarChart').getContext('2d');
         const barGrad = ctxBar.createLinearGradient(0, 0, 0, 180);
@@ -1009,21 +1233,12 @@
             }
         });
 
-        // 3. DOUGHNUT CHART: KATEGORI PROBLEM IT (COLOR PALETTE SESUAI REQUEST)
+        // 3. DOUGHNUT CHART: KATEGORI PROBLEM IT
         const problemPalette = [
-  '#074173', // Navy
-  '#0F5B8E', // Medium Deep Blue
-  '#1679AB', // Ocean Blue
-  '#2095C2', // Sky Blue
-  '#32B8C6', // Teal Blue
-  '#5DEBD7', // Bright Cyan / Mint
-  '#89F2B4', // Soft Mint Green
-  '#C5FF95', // Lime Green
-  '#64748b'  // Slate Gray (untuk 'Tidak Ada Data' / Lainnya)
-];
+            '#074173', '#0F5B8E', '#1679AB', '#2095C2', '#32B8C6', '#5DEBD7', '#89F2B4', '#C5FF95', '#64748b'
+        ];
         const problemLabels = Object.keys(problemCounts).length ? Object.keys(problemCounts) : ['Tidak Ada Data'];
         const problemData = Object.keys(problemCounts).length ? Object.values(problemCounts) : [1];
-
         const ctxProblem = document.getElementById('problemCategoryChart').getContext('2d');
         new Chart(ctxProblem, {
             type: 'doughnut',
@@ -1041,13 +1256,12 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: { 
-                    legend: { display: false }, // Legend bawaan off, diganti Legend Kustom
-                    tooltip: { enabled: true }  // Tetap Muncul saat Mouse Hover
+                    legend: { display: false }, 
+                    tooltip: { enabled: true }  
                 }
             }
         });
 
-        // Generasi Keterangan Warna (Legend) Problem
         const problemLegendContainer = document.getElementById('problemChartLegend');
         problemLabels.forEach((label, idx) => {
             const color = problemPalette[idx % problemPalette.length];
@@ -1066,11 +1280,9 @@
             'Pending': '#d03a3a',      
             'Selesai': '#2dae5e'       
         };
-
         const statusLabels = Object.keys(statusCounts);
         const statusData = Object.values(statusCounts);
         const statusBgColors = statusLabels.map(lbl => statusColors[lbl]);
-
         const ctxStatus = document.getElementById('statusBreakdownChart').getContext('2d');
         new Chart(ctxStatus, {
             type: 'doughnut',
@@ -1094,7 +1306,6 @@
             }
         });
 
-        // Generasi Keterangan Warna (Legend) Status
         const statusLegendContainer = document.getElementById('statusChartLegend');
         statusLabels.forEach((label) => {
             const color = statusColors[label];
@@ -1107,7 +1318,7 @@
         });
 
         /* =========================================================
-           4. ANIMATION & CABLE CANVAS LOGIC
+           5. ANIMATION & CABLE CANVAS LOGIC
         ========================================================= */
         const revealEls = document.querySelectorAll('.team-card, .card-box, .table-box-full, .cta-box');
         revealEls.forEach(el => el.classList.add('anim-reveal'));
@@ -1125,12 +1336,14 @@
         const cableCanvas = document.getElementById('heroCableCanvas');
         const cCtx = cableCanvas.getContext('2d');
         let lanCables = [];
+
         function resizeCableCanvas() {
             if(!cableCanvas) return;
             cableCanvas.width = cableCanvas.parentElement.offsetWidth;
             cableCanvas.height = cableCanvas.parentElement.offsetHeight;
             initCables();
         }
+
         function initCables() {
             lanCables = [];
             const cableCount = 12;
@@ -1153,6 +1366,7 @@
                 });
             }
         }
+
         function getBezierPoint(t, p0, p1, p2, p3) {
             const cx = 3 * (p1 - p0);
             const bx = 3 * (p2 - p1) - cx;
@@ -1161,6 +1375,7 @@
             const square = t * t;
             return (ax * cube) + (bx * square) + (cx * t) + p0;
         }
+
         function drawLanCables() {
             cCtx.clearRect(0, 0, cableCanvas.width, cableCanvas.height);
             lanCables.forEach(c => {
@@ -1170,10 +1385,13 @@
                 cCtx.strokeStyle = `rgba(${c.color}, 0.15)`;
                 cCtx.lineWidth = c.width;
                 cCtx.stroke();
+                
                 c.progress += c.speed;
                 if (c.progress > 1) c.progress = 0;
+                
                 const currX = getBezierPoint(c.progress, c.startX, c.cp1X, c.cp2X, c.endX);
                 const currY = getBezierPoint(c.progress, c.startY, c.cp1Y, c.cp2Y, c.endY);
+                
                 cCtx.beginPath();
                 cCtx.arc(currX, currY, c.width * 2, 0, Math.PI * 2);
                 cCtx.fillStyle = `rgba(${c.color}, 0.9)`;
@@ -1184,10 +1402,10 @@
             });
             requestAnimationFrame(drawLanCables);
         }
+
         window.addEventListener('resize', resizeCableCanvas);
         resizeCableCanvas();
         drawLanCables();
     </script>
 </body>
 </html>
-
