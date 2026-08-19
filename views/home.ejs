@@ -566,12 +566,24 @@
               <option value="GA">General Affair (GA)</option>
             </select>
           </div>
-          <!-- Filter 2: Unit -->
+          
+          <!-- Filter 2: Dropdown Unit -->
           <div class="filter-group">
             <select id="filterUnit" onchange="applyFilters()">
               <option value="ALL">Semua Unit</option>
+              <option value="Daycare">Daycare</option>
+              <option value="TK">TK</option>
+              <option value="SD AREN">SD AREN</option>
+              <option value="SD PURAY">SD PURAY</option>
+              <option value="SD BILINGUAL">SD BILINGUAL</option>
+              <option value="SD MAKASSAR">SD MAKASSAR</option>
+              <option value="SMP">SMP</option>
+              <option value="SMA">SMA</option>
+              <option value="UPPP">UPPP</option>
+              <option value="Catering">Catering</option>
             </select>
           </div>
+
           <!-- Filter 3: Status -->
           <div class="filter-group">
             <select id="filterStatus" onchange="applyFilters()">
@@ -699,7 +711,7 @@
         ].reverse();
         
         // Populate Opsi Dropdown Unit secara Dinamis
-        populateUnitFilterOptions();
+        // populateUnitFilterOptions();
 
         filteredReports = [...combinedReports];
         renderTablePage(currentPage);
