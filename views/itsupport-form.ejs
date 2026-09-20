@@ -333,6 +333,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Tanggal Kejadian <span class="required">*</span></label>
+                        <input type="date" id="tanggal_kejadian" name="tanggal_kejadian" required>
+                    </div>
+
+                    <div class="form-group">
                         <label>Unggah Foto Kendala <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
                         <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -426,6 +431,13 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        const tanggalKejadian = document.getElementById('tanggal_kejadian').value;
+        if (!tanggalKejadian) {
+            alert('Pilih tanggal kejadian terlebih dahulu.');
+            return;
+        }
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENGIRIM LAPORAN...';
 
@@ -436,6 +448,7 @@
             kelas: document.getElementById('kelas').value,
             permasalahan: document.getElementById('permasalahan').value,
             detail_permasalahan: document.getElementById('detail_permasalahan').value,
+            tanggal_kejadian: tanggalKejadian,
             fotoBase64: "",
             fotoMimeType: ""
         };

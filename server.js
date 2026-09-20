@@ -249,6 +249,7 @@ app.post("/it-support/submit", async (req, res) => {
     kelas, 
     permasalahan, 
     detail_permasalahan,
+    tanggal_kejadian,
     fotoBase64,
     fotoMimeType 
   } = req.body;
@@ -266,6 +267,7 @@ app.post("/it-support/submit", async (req, res) => {
         kelas,
         permasalahan,
         detail_permasalahan,
+        tanggal_kejadian,
         fotoBase64,
         fotoMimeType
       }),
