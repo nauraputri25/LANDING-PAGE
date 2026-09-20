@@ -236,6 +236,19 @@
             box-shadow: none; 
         }
 
+        .live-streaming-section {
+            display: none;
+            background-color: rgba(93, 235, 215, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--color-cyan-mint);
+        }
+
+        .live-streaming-section.show {
+            display: block;
+        }
+
         footer { 
             background-color: #ffffff; 
             padding: 24px; 
@@ -311,8 +324,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Kategori Kendala IT <span class="required">*</span></label>
-                            <select id="permasalahan" name="permasalahan" required>
+                            <label>Kategori Kendala dan Permintaan IT <span class="required">*</span></label>
+                            <select id="permasalahan" name="permasalahan" required onchange="updateLiveStreamingSection()">
                                 <option value="" disabled selected>Pilih Kategori IT</option>
                                 <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
                                 <option value="Komputer / Laptop">Komputer / Laptop</option>
@@ -322,22 +335,33 @@
                                 <option value="TV / Display">TV / Display</option>
                                 <option value="Projector">Projector</option>
                                 <option value="Sistem / Aplikasi">Sistem / Aplikasi</option>
+                                <option value="Live Streaming">Live Streaming</option>
                                 <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="live-streaming-section" id="liveStreamingSection">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Judul Kegiatan Live Streaming <span class="required">*</span></label>
+                                <input type="text" id="judul_live_streaming" name="judul_live_streaming" placeholder="Masukkan judul kegiatan live streaming">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tanggal Live Streaming <span class="required">*</span></label>
+                                <input type="date" id="tanggal_live_streaming" name="tanggal_live_streaming">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="detailPermasalahanGroup">
                         <label>Detail Permasalahan IT <span class="required">*</span></label>
                         <textarea id="detail_permasalahan" name="detail_permasalahan" rows="4" required placeholder="Jelaskan secara detail kendala perangkat atau jaringan..."></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label>Tanggal Kejadian <span class="required">*</span></label>
-                        <input type="date" id="tanggal_kejadian" name="tanggal_kejadian" required>
-                    </div>
-
-                    <div class="form-group">
+                    <div class="form-group" id="uploadPhotoGroup">
                         <label>Unggah Foto Kendala <span style="color: var(--text-muted); font-weight: normal;">(Opsional, JPG/PNG Max 5MB)</span></label>
                         <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -386,13 +410,47 @@
             options = ["AREA KANTOR / STAF", "LAINNYA"];
         }
 
-
         options.forEach(opt => { 
             const el = document.createElement("option"); 
             el.value = opt; 
             el.textContent = opt; 
             kelasSelect.appendChild(el); 
         }); 
+    }
+
+    function updateLiveStreamingSection() {
+        const permasalahan = document.getElementById("permasalahan").value;
+        const liveStreamingSection = document.getElementById("liveStreamingSection");
+        const detailPermasalahanGroup = document.getElementById("detailPermasalahanGroup");
+        const uploadPhotoGroup = document.getElementById("uploadPhotoGroup");
+        const detailPermasalahanTextarea = document.getElementById("detail_permasalahan");
+        const judulLiveStreaming = document.getElementById("judul_live_streaming");
+        const tanggalLiveStreaming = document.getElementById("tanggal_live_streaming");
+
+        if (permasalahan === "Live Streaming") {
+            liveStreamingSection.classList.add("show");
+            detailPermasalahanGroup.style.display = "none";
+            uploadPhotoGroup.style.display = "none";
+            detailPermasalahanTextarea.removeAttribute("required");
+            judulLiveStreaming.setAttribute("required", "required");
+            tanggalLiveStreaming.setAttribute("required", "required");
+            
+            // Set tanggal otomatis ke hari ini
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            tanggalLiveStreaming.value = `${yyyy}-${mm}-${dd}`;
+        } else {
+            liveStreamingSection.classList.remove("show");
+            detailPermasalahanGroup.style.display = "block";
+            uploadPhotoGroup.style.display = "block";
+            detailPermasalahanTextarea.setAttribute("required", "required");
+            judulLiveStreaming.removeAttribute("required");
+            tanggalLiveStreaming.removeAttribute("required");
+            judulLiveStreaming.value = "";
+            tanggalLiveStreaming.value = "";
+        }
     }
 
     const fileInput = document.getElementById('fileInput');
@@ -431,24 +489,19 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-
-        const tanggalKejadian = document.getElementById('tanggal_kejadian').value;
-        if (!tanggalKejadian) {
-            alert('Pilih tanggal kejadian terlebih dahulu.');
-            return;
-        }
-
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENGIRIM LAPORAN...';
 
         const file = fileInput.files[0];
+        const permasalahan = document.getElementById('permasalahan').value;
         const payload = {
             unit: document.getElementById('unit').value,
             nama_request: document.getElementById('nama_request').value,
             kelas: document.getElementById('kelas').value,
-            permasalahan: document.getElementById('permasalahan').value,
-            detail_permasalahan: document.getElementById('detail_permasalahan').value,
-            tanggal_kejadian: tanggalKejadian,
+            permasalahan: permasalahan,
+            detail_permasalahan: permasalahan === "Live Streaming" ? "" : document.getElementById('detail_permasalahan').value,
+            judul_live_streaming: permasalahan === "Live Streaming" ? document.getElementById('judul_live_streaming').value : "",
+            tanggal_live_streaming: permasalahan === "Live Streaming" ? document.getElementById('tanggal_live_streaming').value : "",
             fotoBase64: "",
             fotoMimeType: ""
         };
@@ -477,7 +530,7 @@
             });
         };
 
-        if (file) {
+        if (file && permasalahan !== "Live Streaming") {
             const reader = new FileReader();
             reader.onload = function(event) {
                 const rawBase64 = event.target.result;
