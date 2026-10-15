@@ -249,6 +249,8 @@ app.post("/it-support/submit", async (req, res) => {
     kelas, 
     permasalahan, 
     detail_permasalahan,
+    judul_live_streaming,
+    tanggal_live_streaming,
     tanggal_kejadian,
     fotoBase64,
     fotoMimeType 
@@ -267,6 +269,8 @@ app.post("/it-support/submit", async (req, res) => {
         kelas,
         permasalahan,
         detail_permasalahan,
+        judul_live_streaming,
+        tanggal_live_streaming,
         tanggal_kejadian,
         fotoBase64,
         fotoMimeType
